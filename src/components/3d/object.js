@@ -44,5 +44,5 @@ ThreeObject.propTypes = {
 };
 
 ThreeObject.defaultProps = {
-  url: '/teapot.obj',
+  url: '/3d/teapot.obj',
 };
