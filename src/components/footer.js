@@ -4,35 +4,55 @@ import React from 'react';
 import styled from 'styled-components';
 import { colors } from '../constants';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import * as faRegularIcons from '@fortawesome/pro-regular-svg-icons';
+import * as faBrandIcons from '@fortawesome/free-brands-svg-icons';
+
+const faComplete = {
+  ...faBrandIcons,
+  ...faRegularIcons,
+};
+
 const FooterWrapper = styled.footer`
-  height: 300px;
+  min-height: 400px;
   background-color: ${colors.TEXT};
   color: ${colors.BACKGROUND};
   font-size: 30px;
-  padding: 15px;
+  padding: 50px 15px 15px 15px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: -1;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 `;
 
-const NavList = styled.ul`
+const Content = styled.div`
   display: flex;
+}
+`;
+
+const Ul = styled.ul`
+  list-style: none;
   margin-left: 0;
 `;
 
-const NavItem = styled.li`
-  list-style: none;
-  padding: 15px;
-
-  &:first-of-type {
-    padding-left: 0;
-  }
+const Li = styled.li`
+  display: flex;
+  align-items: center;
 `;
 
 const Footer = () => {
   const data = useStaticQuery(graphql`
     query {
-      pages: allFile(filter: { relativePath: { regex: "/pages/" } }) {
+      contacts: allContactJson {
         nodes {
-          id
+          faIcon
+          link
           name
+          id
         }
       }
     }
@@ -40,14 +60,45 @@ const Footer = () => {
 
   return (
     <FooterWrapper>
-      {`© ${new Date().getFullYear()} `}
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.github.com/florianporada"
+      <Content>
+        <Ul>
+          {data.contacts.nodes.map((detail) => {
+            return (
+              <Li key={detail.id}>
+                <FontAwesomeIcon
+                  style={{ marginRight: 10 }}
+                  icon={faComplete[detail.faIcon]}
+                />
+                <h3>
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={detail.link}
+                  >
+                    {detail.name}
+                  </a>
+                </h3>
+              </Li>
+            );
+          })}
+        </Ul>
+      </Content>
+      <div
+        style={{
+          alignSelf: 'flex-end',
+          fontFamily: 'Suprapower',
+          textDecoration: 'none',
+        }}
       >
-        florianporada
-      </a>
+        {`© ${new Date().getFullYear()} `}
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://twitter.com/flooopooo"
+        >
+          florianporada
+        </a>
+      </div>
     </FooterWrapper>
   );
 };
