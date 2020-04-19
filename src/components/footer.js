@@ -9,7 +9,7 @@ const FooterWrapper = styled.footer`
   background-color: ${colors.TEXT};
   color: ${colors.BACKGROUND};
   font-size: 30px;
-  font-family
+  padding: 15px;
 `;
 
 const NavList = styled.ul`
@@ -40,7 +40,7 @@ const Footer = () => {
 
   return (
     <FooterWrapper>
-      © {new Date().getFullYear()}, Built by
+      {`© ${new Date().getFullYear()} `}
       <a
         target="_blank"
         rel="noopener noreferrer"

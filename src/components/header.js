@@ -4,9 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { colors } from '../constants';
 
-const Nav = styled.nav`
-  font-family: 'Helvetica Neue';
-`;
+const Nav = styled.nav``;
 
 const NavList = styled.ul`
   display: flex;
