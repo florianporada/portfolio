@@ -29,8 +29,6 @@ const Content = styled.div`
 `;
 
 const Hero = ({ title, text, hide }) => {
-  console.log(title, text);
-
   return (
     <Wrapper>
       {(title || text) && (
@@ -51,7 +49,7 @@ const Hero = ({ title, text, hide }) => {
             url={`/3d/Flamingo.glb`}
           /> */}
           <DDDHead
-            url="/Scan.obj"
+            url="/3d/Scan.obj"
             position={[0, 0, -50]}
             onClick={(e) => console.log('click')}
           />
