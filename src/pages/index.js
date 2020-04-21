@@ -59,7 +59,17 @@ const Title = styled.h1`
   }
 `;
 
-const Card = styled.div``;
+const Card = styled.div`
+  margin: 15px;
+  padding: 15px;
+`;
+
+const Content = styled.div`
+  margin: 15px;
+  padding: 15px;
+  color: ${colors.TEXT};
+  background-color: ${colors.BACKGROUND};
+`;
 
 const IndexPage = ({ data }) => {
   return (
@@ -75,9 +85,9 @@ const IndexPage = ({ data }) => {
         {data.work.nodes.map((item) => {
           return (
             <Card key={item.id}>
-              <h2>{item.title}</h2>
-              <p>{item.title}</p>
-              <p>{item.title}</p>
+              <h2>{item.frontmatter.title}</h2>
+              <p>{item.frontmatter.date}</p>
+              <Content dangerouslySetInnerHTML={{ __html: item.html }} />
             </Card>
           );
         })}
@@ -109,14 +119,17 @@ export const query = graphql`
         short
       }
     }
-    work: allWorkJson {
+    work: allMarkdownRemark(
+      filter: { fileAbsolutePath: { regex: "/work/" } }
+      sort: { order: DESC, fields: [frontmatter___date] }
+    ) {
       nodes {
-        date
-        description
-        excerpt
         id
-        link
-        title
+        frontmatter {
+          title
+          date
+        }
+        html
       }
     }
     pages: allFile(filter: { relativePath: { regex: "/pages/" } }) {

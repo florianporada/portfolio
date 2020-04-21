@@ -21,6 +21,7 @@
     "gatsby-plugin-web-font-loader": "^1.0.4",
     "gatsby-source-filesystem": "^2.2.2",
     "gatsby-transformer-json": "^2.3.1",
+    "gatsby-transformer-remark": "^2.7.3",
     "gatsby-transformer-sharp": "^2.4.3",
     "node-sass": "^4.13.1",
     "prop-types": "^15.7.2",
@@ -28,6 +29,7 @@
     "react-dom": "^16.12.0",
     "react-helmet": "^6.0.0",
     "react-three-fiber": "^4.0.28",
+    "scroll-data-hook": "^1.0.1",
     "styled-components": "^5.1.0",
     "three": "^0.115.0"
   },
@@ -41,6 +43,8 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
+    "docker:build": "docker build . -t florianporada/portfolio --build-arg APP_VERSION=$(node -p \"require('./package.json').version\") --build-arg RELEASE_DATE=$(date +\"%Y/%m/%d\")",
+    "docker:run": "docker run -p 80:80 florianporada/portfolio:latest",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
