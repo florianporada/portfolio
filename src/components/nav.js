@@ -71,7 +71,7 @@ function Navigation({ items }) {
                       onClick={() => {
                         setVisible((prev) => !prev);
                       }}
-                      to={item.name === 'index' ? '/' : item.name}
+                      to={item.name === 'index' ? '/' : `/${item.name}`}
                       style={{
                         color: `white`,
                         textDecoration: `none`,
