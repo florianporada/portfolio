@@ -1,17 +1,11 @@
 import { Link, graphql, useStaticQuery } from 'gatsby';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css } from 'styled-components';
 import { useScrollData } from 'scroll-data-hook';
 
 import { colors } from '../constants';
 import Nav from './nav';
-
-const fadeOutIn = keyframes`
-  0% { opacity: 1 }
-  80% { opacity: 0 }
-  100% { opacity: 1 }
-`;
 
 const HeaderWrapper = styled.header`
   background: transparent;
@@ -37,7 +31,7 @@ const HeaderWrapper = styled.header`
     background: ${colors.TEXT};
     position: absolute;
     z-index: 2;
-    transition: width 0.5s ease-out 0.2s;
+    transition: width 0.5s ease-out 0.25s;
   }
 
   a {
@@ -56,13 +50,31 @@ const Title = styled.h1`
   transform: translateX(50%);
   font-size: 2.25rem;
   margin-left: 0;
-  transition: font-size 0.5s ease-out 0.5s, transform 0.5s ease 0.5s,
-    margin-left 0.5s ease-out 0.5s;
+  transition: font-size 0.1s ease, transform 0.5s ease 0.25s,
+    margin-left 0.25s ease 0.25s;
 
   a {
     display: inline-block;
+    position: relative;
+    width: 325px;
+    height: 40px;
     transform: translateX(-50%);
-    transition: transform 0.5s ease 0.5s;
+    transition: transform 0.5s ease 0.25s, width 0.5s ease,
+      height 0.5s ease 0.5s;
+  }
+
+  span {
+    position: absolute;
+    transition: all 0.5s ease;
+
+    &:first-of-type {
+      left: 0;
+    }
+
+    &:last-of-type {
+      left: 160px;
+      top: 0;
+    }
   }
 
   ${(props) =>
@@ -72,20 +84,28 @@ const Title = styled.h1`
       font-size: 1rem;
       transition-delay: 0;
       margin-left: -30px;
-      // animation: ${fadeOutIn} 0.5s ease 1 0.5s;
 
       a {
         transform: translateX(0);
-        flex-direction: column;
-        display: ${(props) =>
-          props.textLayout === 'row' ? 'inline-block' : 'flex'}
+        width: 75px;
+        height: 40px;
+      }
+
+      span {
+        &:first-of-type {
+          top: 0;
+        }
+
+        &:last-of-type {
+          top: 22px;
+          left: 0;
+        }
       }
     `}
 `;
 
 const Header = ({ siteTitle }) => {
   const { position } = useScrollData();
-  const [textLayout, setTextLayout] = useState('row');
   const minimize = position.y > 30;
   const data = useStaticQuery(graphql`
     query {
@@ -98,23 +118,9 @@ const Header = ({ siteTitle }) => {
     }
   `);
 
-  useEffect(() => {
-    let timer;
-
-    if (minimize) {
-      timer = setTimeout(() => {
-        setTextLayout('column');
-      }, 1000);
-    } else {
-      setTextLayout('row');
-    }
-
-    return () => clearTimeout(timer);
-  }, [minimize]);
-
   return (
     <HeaderWrapper minimize={minimize}>
-      <Title minimize={minimize} textLayout={textLayout}>
+      <Title minimize={minimize}>
         <Link to="/">
           {siteTitle.split(' ').map((part, idx) => (
             <span key={`${part}${idx}`}>{part}</span>

@@ -23,7 +23,7 @@ const ButtonWrapper = styled.div`
       height: ${(props) => {
         return props.minimize ? '0' : '31px';
       }};
-      transition: height 0.2s ease-out, margin-top 0.2s ease-out;
+      transition: height 0.2s ease, margin-top 0.2s ease;
       transition-delay: ${(props) => {
         return props.minimize ? '0' : '0.5s';
       }};
@@ -37,7 +37,7 @@ const ButtonWrapper = styled.div`
       left: ${(props) => {
         return props.minimize ? '0' : '-60px';
       }};
-      transition: left 0.2s ease-out 0.4s;
+      transition: left 0.2s ease 0.4s;
     `}
 
   &:hover {
