@@ -44,8 +44,8 @@ module.exports = {
         name: `Florian Porada's Portfolio`,
         short_name: `portfolio`,
         start_url: `/`,
-        background_color: `#ff8`,
-        theme_color: `#ff8`,
+        background_color: `#494949`,
+        theme_color: `#f6d137`,
         display: `minimal-ui`,
         icon: `src/assets/img/gatsby-icon.png`, // This path is relative to the root of the site.
       },

@@ -76,8 +76,8 @@ const IndexPage = ({ data }) => {
     <Layout>
       <SEO title="Home" />
       <Hero
-        title={data.contentJson.about.name}
-        text={data.contentJson.about.short}
+        title={data.about.frontmatter.name}
+        text={data.about.frontmatter.short}
         hide
       />
       <section>
@@ -112,11 +112,13 @@ IndexPage.defaultProps = {};
 
 export const query = graphql`
   query {
-    contentJson(about: { name: { eq: "Florian" } }) {
+    about: markdownRemark(fileAbsolutePath: { regex: "/content/about/" }) {
       id
-      about {
-        name
+      frontmatter {
         short
+        name
+        date
+        featuredImage
       }
     }
     work: allMarkdownRemark(
