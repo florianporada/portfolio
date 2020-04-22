@@ -2,8 +2,11 @@ import { Link } from 'gatsby';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/pro-regular-svg-icons';
 
 import { colors } from '../constants';
+import NavButton from './navbutton';
 
 const NavWrapper = styled.div`
   width: 100%;
@@ -16,8 +19,8 @@ const NavWrapper = styled.div`
   align-items: center;
   justify-content: center;
   background-color: ${colors.PRIMARY}e6;
-  z-index: 1;
-  transition: opacity 500ms ease-in 600ms;
+  z-index: 9;
+  transition: opacity 0.5s ease-in 0.6s;
 
   &.visible {
     opacity: 1;
@@ -46,19 +49,30 @@ const NavItem = styled.li`
   }
 `;
 
-function Navigation({ items }) {
+function Navigation({ items, minimize }) {
   const [visible, setVisible] = useState(false);
 
   return (
     <>
-      <a
-        href="#a"
-        onClick={() => {
+      <NavButton
+        position={'left'}
+        bars={2}
+        minimize={minimize}
+        onClick={(e) => {
+          e.preventDefault();
           setVisible((prev) => !prev);
         }}
       >
-        clock
-      </a>
+        <FontAwesomeIcon style={{ marginRight: 10 }} icon={faBars} />
+      </NavButton>
+      <NavButton
+        bars={3}
+        minimize={minimize}
+        onClick={(e) => {
+          e.preventDefault();
+          setVisible((prev) => !prev);
+        }}
+      />
       <NavWrapper className={visible ? 'visible' : ''}>
         <Nav>
           <NavList>
@@ -92,6 +106,7 @@ function Navigation({ items }) {
 Navigation.propTypes = {
   siteTitle: PropTypes.string,
   items: PropTypes.arrayOf(PropTypes.object),
+  minimize: PropTypes.bool,
 };
 
 Navigation.defaultProps = {

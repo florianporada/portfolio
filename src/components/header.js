@@ -1,11 +1,17 @@
 import { Link, graphql, useStaticQuery } from 'gatsby';
 import PropTypes from 'prop-types';
-import React from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
+import styled, { css, keyframes } from 'styled-components';
 import { useScrollData } from 'scroll-data-hook';
 
 import { colors } from '../constants';
 import Nav from './nav';
+
+const fadeOutIn = keyframes`
+  0% { opacity: 1 }
+  80% { opacity: 0 }
+  100% { opacity: 1 }
+`;
 
 const HeaderWrapper = styled.header`
   background: transparent;
@@ -14,21 +20,24 @@ const HeaderWrapper = styled.header`
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  height: 104px;
 
   &::after {
     content: '';
     display: block;
-    height: 2px;
+    height: 3px;
     width: ${(props) => {
-      return props.minimize ? '0' : '100%';
+      return props.minimize ? '60px' : '100%';
     }};
     bottom: 0;
     left: 0;
     background: ${colors.TEXT};
     position: absolute;
     z-index: 2;
-    transition: width 500ms ease-out;
+    transition: width 0.5s ease-out 0.2s;
   }
 
   a {
@@ -43,16 +52,41 @@ const HeaderWrapper = styled.header`
 
 const Title = styled.h1`
   margin: 0;
-  text-align: ${(props) => {
-    return props.minimize ? 'left' : 'center';
-  }};
-  font-size: ${(props) => {
-    return props.minimize ? '1rem' : '2.25rem';
-  }};
-  transition: font-size 0.5s ease-out, text-align 0.5s ease;
+  display: block;
+  transform: translateX(50%);
+  font-size: 2.25rem;
+  margin-left: 0;
+  transition: font-size 0.5s ease-out 0.5s, transform 0.5s ease 0.5s,
+    margin-left 0.5s ease-out 0.5s;
+
+  a {
+    display: inline-block;
+    transform: translateX(-50%);
+    transition: transform 0.5s ease 0.5s;
+  }
+
+  ${(props) =>
+    props.minimize &&
+    css`
+      transform: translateX(0);
+      font-size: 1rem;
+      transition-delay: 0;
+      margin-left: -30px;
+      // animation: ${fadeOutIn} 0.5s ease 1 0.5s;
+
+      a {
+        transform: translateX(0);
+        flex-direction: column;
+        display: ${(props) =>
+          props.textLayout === 'row' ? 'inline-block' : 'flex'}
+      }
+    `}
 `;
 
 const Header = ({ siteTitle }) => {
+  const { position } = useScrollData();
+  const [textLayout, setTextLayout] = useState('row');
+  const minimize = position.y > 30;
   const data = useStaticQuery(graphql`
     query {
       pages: allFile(filter: { relativePath: { regex: "/pages/" } }) {
@@ -63,15 +97,31 @@ const Header = ({ siteTitle }) => {
       }
     }
   `);
-  const { position } = useScrollData();
-  const minimize = position.y > 30;
+
+  useEffect(() => {
+    let timer;
+
+    if (minimize) {
+      timer = setTimeout(() => {
+        setTextLayout('column');
+      }, 1000);
+    } else {
+      setTextLayout('row');
+    }
+
+    return () => clearTimeout(timer);
+  }, [minimize]);
 
   return (
     <HeaderWrapper minimize={minimize}>
-      <Title minimize={minimize}>
-        <Link to="/">{siteTitle}</Link>
+      <Title minimize={minimize} textLayout={textLayout}>
+        <Link to="/">
+          {siteTitle.split(' ').map((part, idx) => (
+            <span key={`${part}${idx}`}>{part}</span>
+          ))}
+        </Link>
       </Title>
-      <Nav items={data.pages.nodes} />
+      <Nav items={data.pages.nodes} minimize={minimize} />
     </HeaderWrapper>
   );
 };

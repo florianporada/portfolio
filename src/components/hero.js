@@ -18,7 +18,7 @@ const Wrapper = styled.div`
 
 const Content = styled.div`
   position: absolute;
-  z-index: 0;
+  z-index: 1;
   padding-top: 360px;
   left: 15%;
   color: ${colors.TEXT};
@@ -28,10 +28,10 @@ const Content = styled.div`
   }
 `;
 
-const Hero = ({ title, text, hide }) => {
+const Hero = ({ title, text, hideContent }) => {
   return (
     <Wrapper>
-      {(title || text) && (
+      {(title || text) && !hideContent && (
         <Content>
           {title && <h1>{title}</h1>}
           {text && <p>{text}</p>}
@@ -62,7 +62,7 @@ const Hero = ({ title, text, hide }) => {
 Hero.propTypes = {
   title: PropTypes.string,
   text: PropTypes.string,
-  hide: PropTypes.bool,
+  hideContent: PropTypes.bool,
 };
 
 Hero.defaultProps = {};
