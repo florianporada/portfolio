@@ -11,20 +11,19 @@ import NavButton from './navbutton';
 const NavWrapper = styled.div`
   width: 100%;
   height: 100vh;
-  position: absolute;
+  position: fixed;
   left: 0;
-  top: 0;
-  display: none;
-  opacity: 0;
+  display: flex;
+  top: -100vh;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
   background-color: ${colors.PRIMARY}e6;
   z-index: 9;
-  transition: opacity 0.5s ease-in 0.6s;
+  transition: top 0.2s ease 0.6s;
 
   &.visible {
-    opacity: 1;
-    display: flex;
+    top: 0;
   }
 `;
 
