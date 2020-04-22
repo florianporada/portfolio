@@ -1,7 +1,7 @@
 import { Link } from 'gatsby';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/pro-regular-svg-icons';
 
@@ -10,21 +10,26 @@ import NavButton from './navbutton';
 
 const NavWrapper = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 4px;
   position: fixed;
-  left: 0;
+  left: -100vw;
   display: flex;
-  top: -100vh;
+  top: 101px;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   background-color: ${colors.PRIMARY}e6;
   z-index: 9;
-  transition: top 0.2s ease 0.6s;
+  transition: left 0.5s ease, top 0.5s ease 0.75s, height 0.5s ease 0.75s;
 
-  &.visible {
-    top: 0;
-  }
+  ${(props) =>
+    props.visible &&
+    css`
+      left: 0;
+      height: 100vh;
+      top 0;
+      // transition: top 0.5s ease, height 0.5s ease, left 0.2s ease 0.7s;
+    `}
 `;
 
 const Nav = styled.nav``;
@@ -72,7 +77,7 @@ function Navigation({ items, minimize }) {
           setVisible((prev) => !prev);
         }}
       />
-      <NavWrapper className={visible ? 'visible' : ''}>
+      <NavWrapper visible={visible}>
         <Nav>
           <NavList>
             {items
