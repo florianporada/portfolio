@@ -1,8 +1,8 @@
 ---
-date: '2019-05-04'
+date: '2017-05-04'
 title: 'printerprinter'
 description: 'Sollicitudin mattis malesuada nisi himenaeos mauris eu'
-featuredImage: ''
+featuredimage: printr_v1.jpg
 ---
 
 ## About
