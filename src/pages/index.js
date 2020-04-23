@@ -1,11 +1,14 @@
 import React, { Suspense, useRef, useState, useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
+import Img from 'gatsby-image';
+
 import styled from 'styled-components';
 
 import Layout from '../components/layout';
 import Image from '../components/image';
 import Hero from '../components/hero';
+import Work from '../components/work';
 import SEO from '../components/seo';
 
 import { colors } from '../constants';
@@ -59,41 +62,24 @@ const Title = styled.h1`
   }
 `;
 
-const Card = styled.div`
-  margin: 15px;
-  padding: 15px;
-`;
-
-const Content = styled.div`
-  margin: 15px;
-  padding: 15px;
-  color: ${colors.TEXT};
-  background-color: ${colors.BACKGROUND};
-`;
-
 const IndexPage = ({ data }) => {
   return (
     <Layout>
       <SEO title="Home" />
-      <Hero
+      {/* <Hero
         title={data.about.frontmatter.name}
         text={data.about.frontmatter.short}
         hide
-      />
+      /> */}
       <section>
         <Title>Selected Work</Title>
-        {data.work.nodes.map((item) => {
-          return (
-            <Card key={item.id}>
-              <h2>{item.frontmatter.title}</h2>
-              <p>{item.frontmatter.date}</p>
-              <Content dangerouslySetInnerHTML={{ __html: item.html }} />
-            </Card>
-          );
-        })}
+        <Work items={data.work.nodes} />
       </section>
       <section>
-        <Title>Bio</Title>
+        <Title>About</Title>
+        <Img
+          fluid={data.about.frontmatter.featuredimage.childImageSharp.fluid}
+        />
       </section>
       <section>
         <Title>Skill</Title>
@@ -118,11 +104,17 @@ export const query = graphql`
         short
         name
         date
-        featuredImage
+        featuredimage {
+          childImageSharp {
+            fluid(maxWidth: 800) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
       }
     }
     work: allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: "/work/" } }
+      filter: { fileAbsolutePath: { regex: "/content/work/" } }
       sort: { order: DESC, fields: [frontmatter___date] }
     ) {
       nodes {
@@ -130,6 +122,13 @@ export const query = graphql`
         frontmatter {
           title
           date
+          featuredimage {
+            childImageSharp {
+              fluid(maxWidth: 800) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
         }
         html
       }
