@@ -1,4 +1,4 @@
-name: Build/Push/Publish project
+name: Build -> Push -> Publish project
 on: [push]
 
 jobs:
@@ -34,9 +34,9 @@ jobs:
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
       - name: Update DigitalOcean drop
-          run: |
-            cd /www/docker/server_infrastructure/
-            doctl docker-compose stop
-            docker-compose rm -f
-            docker-compose pull
-            docker-compose up -d
+        run: |
+          cd /www/docker/server_infrastructure/
+          doctl docker-compose stop
+          docker-compose rm -f
+          docker-compose pull
+          docker-compose up -d
