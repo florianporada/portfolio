@@ -7,6 +7,7 @@ import { faBars } from '@fortawesome/pro-regular-svg-icons';
 
 import { colors } from '../constants';
 import NavButton from './navbutton';
+import { useFrame } from 'react-three-fiber';
 
 const NavWrapper = styled.div`
   width: 100%;
@@ -19,7 +20,7 @@ const NavWrapper = styled.div`
   justify-content: center;
   overflow: hidden;
   background-color: ${colors.PRIMARY}e6;
-  z-index: 9;
+  z-index: 9999;
   transition: left 0.5s ease, top 0.5s ease 0.75s, height 0.5s ease 0.75s;
 
   ${(props) =>

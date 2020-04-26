@@ -27,6 +27,11 @@ const ButtonWrapper = styled.div`
       transition-delay: ${(props) => {
         return props.minimize ? '0' : '0.5s';
       }};
+
+      &:hover {
+        height: 39px;
+        transition-delay: 0;
+      }
     `}
 
   ${(props) =>
@@ -34,10 +39,15 @@ const ButtonWrapper = styled.div`
     css`
       bottom: 0;
       padding-bottom: 14px;
+      width: 75px;
       left: ${(props) => {
-        return props.minimize ? '0' : '-60px';
+        return props.minimize ? '-15px' : '-75px';
       }};
       transition: left 0.2s ease 0.4s;
+
+      &:hover {
+        left: 0;
+      }
     `}
 
   &:hover {

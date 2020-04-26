@@ -1,6 +1,6 @@
 import { graphql, useStaticQuery } from 'gatsby';
 import PropTypes from 'prop-types';
-import React, { Suspense } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Canvas, useFrame, useCamera, useThree } from 'react-three-fiber';
 import * as THREE from 'three';
@@ -11,6 +11,7 @@ import DDDBox from '../components/3d/box';
 import DDDObject from '../components/3d/object';
 import DDDBird from '../components/3d/bird';
 import DDDHead from '../components/3d/head';
+import DDDLightSource from '../components/3d/lightsource';
 
 const Wrapper = styled.div`
   background-color: ${colors.BACKGROUND};
@@ -29,6 +30,9 @@ const Content = styled.div`
 `;
 
 const Hero = ({ title, text, hideContent }) => {
+  const [start, setStart] = useState({ x: 0, y: 0 });
+  const [delta, setDelta] = useState({ x: 0, y: 0 });
+
   return (
     <Wrapper>
       {(title || text) && !hideContent && (
@@ -37,10 +41,29 @@ const Hero = ({ title, text, hideContent }) => {
           {text && <p>{text}</p>}
         </Content>
       )}
-      <Canvas style={{ background: colors.BACKGROUND, height: '60vh' }}>
+      <Canvas
+        onPointerUp={(e) => {
+          e.persist();
+
+          setDelta(() => ({
+            x: start.x > e.pageX ? -(start.x - e.pageX) : e.pageX - start.x,
+            y: start.y > e.pageY ? start.y - e.pageY : -(e.pageY - start.y),
+          }));
+        }}
+        onPointerDown={(e) => {
+          e.persist();
+
+          setStart(() => ({
+            x: e.pageX,
+            y: e.pageY,
+          }));
+        }}
+        style={{ background: colors.BACKGROUND, height: '75vh' }}
+      >
         <ambientLight />
-        <pointLight position={[10, 10, 10]} />
+        <DDDLightSource />
         <Suspense fallback={<DDDBox />}>
+          {/* <DDDBox /> */}
           {/* <DDDBird
             position={[0, 0, 0]}
             rotation={[0, Math.PI, 0]}
@@ -48,11 +71,7 @@ const Hero = ({ title, text, hideContent }) => {
             factor={1}
             url={`/3d/Flamingo.glb`}
           /> */}
-          <DDDHead
-            url="/3d/Scan.obj"
-            position={[0, 0, -50]}
-            onClick={(e) => console.log('click')}
-          />
+          <DDDHead delta={delta} url="/3d/me.obj" position={[0, -20, -60]} />
         </Suspense>
       </Canvas>
     </Wrapper>

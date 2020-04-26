@@ -14,7 +14,7 @@ const HeaderWrapper = styled.header`
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 2;
+  z-index: 10;
   display: flex;
   flex-direction: column;
   height: 104px;
