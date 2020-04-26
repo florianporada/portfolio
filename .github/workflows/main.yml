@@ -16,7 +16,7 @@ jobs:
         run: echo '@fortawesome:registry=https://npm.fontawesome.com/\n//npm.fontawesome.com/:_authToken='${FA_NPM_PACKAGE_TOKEN} > ${GITHUB_WORKSPACE}/.npmrc
       - name: List content
         id: list_content
-        run: ls -la && ls $GITHUB_WORKSPACE -la
+        run: ls -la && ls $GITHUB_WORKSPACE -la && cat .npmrc
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@master
         env:
