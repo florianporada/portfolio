@@ -20,6 +20,8 @@ const ContentWrapper = styled.div`
 const Excerpt = styled.div`
   width: 500px;
   position: relative;
+  left: ${(props) => props.position.left}px;
+  transition: left 0.5s ease;
 
   &:hover {
     cursor: pointer;
@@ -28,27 +30,6 @@ const Excerpt = styled.div`
       &::after {
         width: 100vw;
       }
-    }
-  }
-
-  h2 {
-    color: ${colors.TEXT};
-    position: absolute;
-    top: 200px;
-    right: -80px;
-    font-size: 3.25em;
-
-    &::after {
-      content: '';
-      display: block;
-      height: 5px;
-      width: 0;
-      background: ${colors.TEXT};
-      position: absolute;
-      margin-left: 120px;
-      bottom: 8px;
-      z-index: 2;
-      transition: width 250ms ease-out;
     }
   }
 `;
@@ -76,6 +57,7 @@ const Content = styled.div`
   padding: 0;
   z-index: 9;
   width: 100vw;
+  overflow-y: scroll;
   transition: left 0.5s ease, height 0.5s ease 1s, padding 0.5s ease 1s,
     top 0.5s ease 1s;
 
@@ -98,9 +80,35 @@ const Content = styled.div`
     `}
 `;
 
+const Excerptcontent = styled.div`
+  color: ${colors.TEXT};
+  position: absolute;
+  top: 200px;
+  right: -80px;
+
+  h2 {
+    font-size: 3.25em;
+    margin-bottom: 0;
+    text-align: right;
+
+    &::after {
+      content: '';
+      display: block;
+      height: 5px;
+      width: 0;
+      background: ${colors.TEXT};
+      position: absolute;
+      margin-left: 120px;
+      top: 51px;
+      z-index: 2;
+      transition: width 250ms ease-out;
+    }
+  }
+`;
+
 const calcPosition = (a) => {
-  console.log('asfd', a);
-  console.log(window.innerWidth);
+  // const maxLeft = window.innerWidth - 595;
+  // const left = Math.floor(Math.random() * Math.floor(maxLeft));
 
   return {
     left: 0,
@@ -113,6 +121,7 @@ const calcPosition = (a) => {
 const Work = ({ items }) => {
   const [visibleId, setVisibleId] = useState(undefined);
   const [offsetTop, setOffsetTop] = useState(0);
+  const [positions] = useState(items.map(() => calcPosition()));
   const contentRefs = items.map(() => React.createRef());
 
   const animate = (id, index) => {
@@ -129,7 +138,6 @@ const Work = ({ items }) => {
       return isActive;
     });
   };
-  console.log(window);
 
   return (
     <Wrapper>
@@ -139,7 +147,7 @@ const Work = ({ items }) => {
         return (
           <ContentWrapper key={item.id}>
             <Excerpt
-              position={() => calcPosition(this)}
+              position={positions[i]}
               ref={(contentRef) => {
                 contentRefs[i].current = contentRef;
               }}
@@ -148,9 +156,12 @@ const Work = ({ items }) => {
               }}
             >
               <Img
-                fluid={item.frontmatter.featuredimage.childImageSharp.fluid}
+                fixed={item.frontmatter.featuredimage.childImageSharp.fixed}
               />
-              <h2>{item.frontmatter.title}</h2>
+              <Excerptcontent>
+                <h2>{item.frontmatter.title}</h2>
+                <p>{item.frontmatter.description}</p>
+              </Excerptcontent>
             </Excerpt>
             <Content offsetTop={offsetTop} visible={visibleId === item.id}>
               <span

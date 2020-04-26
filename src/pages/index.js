@@ -62,25 +62,46 @@ const Title = styled.h1`
   }
 `;
 
+const StyledImg = styled(Img)`
+  width: 400px;
+`;
+
+const About = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+`;
+
+const TitleSmall = styled.h3`
+  position: absolute;
+  top: 150px;
+  left: 250px;
+  max-width: 370px;
+  color: ${colors.TEXT};
+`;
+
 const IndexPage = ({ data }) => {
   return (
     <Layout>
       <SEO title="Home" />
-      {/* <Hero
+      <Hero
         title={data.about.frontmatter.name}
         text={data.about.frontmatter.short}
-        hide
-      /> */}
+        hideContent
+      />
+      <section style={{ paddingTop: 300 }}>
+        <About>
+          <StyledImg
+            fluid={data.about.frontmatter.featuredimage.childImageSharp.fluid}
+          />
+          <TitleSmall>{data.about.frontmatter.short}</TitleSmall>
+        </About>
+      </section>
       <section>
         <Title>Selected Work</Title>
         <Work items={data.work.nodes} />
       </section>
-      <section>
-        <Title>About</Title>
-        <Img
-          fluid={data.about.frontmatter.featuredimage.childImageSharp.fluid}
-        />
-      </section>
+
       <section>
         <Title>Skill</Title>
       </section>
@@ -122,10 +143,16 @@ export const query = graphql`
         frontmatter {
           title
           date
+          description
           featuredimage {
             childImageSharp {
-              fluid(maxWidth: 800) {
-                ...GatsbyImageSharpFluid
+              fixed(
+                width: 400
+                height: 400
+                cropFocus: CENTER
+                grayscale: true
+              ) {
+                ...GatsbyImageSharpFixed
               }
             }
           }
