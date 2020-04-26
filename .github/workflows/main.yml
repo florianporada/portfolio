@@ -20,5 +20,5 @@ jobs:
           name: florianporada/portfolio
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          buildargs: APP_VERSION=${{ env.RELEASE_VERSION }},RELEASE_DATE=$(date +\"%Y/%m/%d\")
+          # buildargs: APP_VERSION=${{ env.RELEASE_VERSION }},RELEASE_DATE=$(date +\"%Y/%m/%d\")
           tags: 'latest,${{ env.RELEASE_VERSION }}'
