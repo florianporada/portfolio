@@ -1,95 +1,55 @@
-import { graphql, useStaticQuery } from 'gatsby';
 import PropTypes from 'prop-types';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useLayoutEffect } from 'react';
 import styled, { css } from 'styled-components';
 import Img from 'gatsby-image';
 
 import { colors } from '../constants';
-import { useEffect } from 'react';
 
 const Wrapper = styled.div`
   padding: 15px;
-  overflow: hidden;
+  overflow-x: auto;
+  display: flex;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 const ContentWrapper = styled.div`
   position: relative;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin: 30px 8vw;
+
+  &:first-of-type {
+    margin-left: 0;
+  }
 `;
 
 const Excerpt = styled.div`
-  width: 500px;
+  color: ${colors.TEXT};
+  width: 65vw;
   position: relative;
-  left: ${(props) => props.position.left}px;
   transition: left 0.5s ease;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   &:hover {
     cursor: pointer;
 
     h2 {
       &::after {
-        width: 100vw;
+        width: 100%;
+        margin-left: 0;
       }
     }
   }
-`;
-
-// const Overlay = styled.div`
-//   position: fixed;
-//   display: ${(props) => (props.visible ? 'block' : 'none')};
-//   top: 0;
-//   left: 0;
-//   height: 100%;
-//   width: 100%;
-//   z-index: 99999999;
-//   overflow: hidden;
-//   bottom: 0;
-//   right: 0;
-//   background: #ff8887cc;
-// `;
-
-const Content = styled.div`
-  position: absolute;
-  left: 100vw;
-  top: 251px;
-  height: 5px;
-  background: ${colors.TEXT};
-  padding: 0;
-  z-index: 9;
-  width: 100vw;
-  overflow-y: scroll;
-  transition: left 0.5s ease, height 0.5s ease 1s, padding 0.5s ease 1s,
-    top 0.5s ease 1s;
-
-  * {
-    opacity: 0;
-    transition: opacity 0.5s ease 1s;
-  }
-
-  ${(props) =>
-    props.visible &&
-    css`
-      padding: 15px;
-      left: 60px;
-      height: 100vh;
-      top: ${props.offsetTop}px;
-
-      * {
-        opacity: 1;
-      }
-    `}
-`;
-
-const Excerptcontent = styled.div`
-  color: ${colors.TEXT};
-  position: absolute;
-  top: 200px;
-  right: -80px;
 
   h2 {
+    width: 100%;
     font-size: 3.25em;
     margin-bottom: 0;
-    text-align: right;
+    text-align: center;
+    position: relative;
 
     &::after {
       content: '';
@@ -101,15 +61,44 @@ const Excerptcontent = styled.div`
       margin-left: 120px;
       top: 51px;
       z-index: 2;
-      transition: width 250ms ease-out;
+      transition: width 0.25s ease, margin-left 0.25s ease;
     }
   }
 `;
 
-const calcPosition = (a) => {
-  // const maxLeft = window.innerWidth - 595;
-  // const left = Math.floor(Math.random() * Math.floor(maxLeft));
+const Details = styled.div`
+  position: absolute;
+  top: calc(40vw + 3.25em - 8px);
+  right: 0;
+  width: 40vw;
+  height: 5px;
+  background: ${colors.TEXT};
+  color: ${colors.BACKGROUND};
+  z-index: 9;
+  padding: 0;
+  overflow: hidden;
+  transition: left 0.5s ease, height 0.5s ease 1s, padding 0.5s ease 1s,
+    top 0.5s ease 1s;
 
+  * {
+    opacity: 0;
+    transition: opacity 0.5s ease 1s;
+  }
+
+  ${(props) =>
+    props.visible &&
+    css`
+      height: calc(40vw + 3.25em - 3px);
+      top: 0;
+      padding: 15px;
+
+      * {
+        opacity: 1;
+      }
+    `}
+`;
+
+const calcPosition = (a) => {
   return {
     left: 0,
     right: 0,
@@ -121,6 +110,8 @@ const calcPosition = (a) => {
 const Work = ({ items }) => {
   const [visibleId, setVisibleId] = useState(undefined);
   const [offsetTop, setOffsetTop] = useState(0);
+  const [horizontalScroll, setHorizontalScroll] = useState(false);
+  const wrapperRef = useRef();
   const [positions] = useState(items.map(() => calcPosition()));
   const contentRefs = items.map(() => React.createRef());
 
@@ -139,10 +130,42 @@ const Work = ({ items }) => {
     });
   };
 
-  return (
-    <Wrapper>
-      {/* <Overlay visible={visibleId !== undefined} /> */}
+  const handleHorizontalScroll = (e) => {
+    if (
+      e.deltaY > 0 &&
+      wrapperRef.current.scrollLeft >=
+        wrapperRef.current.scrollWidth - wrapperRef.current.clientWidth - 5
+    ) {
+      setHorizontalScroll(false);
+    } else if (e.deltaY < 0 && wrapperRef.current.scrollLeft === 0) {
+      setHorizontalScroll(false);
+    } else {
+      setHorizontalScroll(true);
 
+      if (horizontalScroll) {
+        wrapperRef.current.scrollLeft += e.deltaY !== 0 ? e.deltaY : e.deltaX;
+      }
+    }
+  };
+
+  // fix passive eventlistener bug
+  useLayoutEffect(() => {
+    const ref = wrapperRef.current;
+    const cancelWheel = (event) => event.preventDefault();
+
+    if (horizontalScroll) {
+      ref.addEventListener('wheel', cancelWheel, { passive: false });
+    } else {
+      ref.removeEventListener('wheel', cancelWheel);
+    }
+
+    return () => {
+      ref.removeEventListener('wheel', cancelWheel);
+    };
+  }, [horizontalScroll]);
+
+  return (
+    <Wrapper ref={wrapperRef} onWheel={handleHorizontalScroll}>
       {items.map((item, i) => {
         return (
           <ContentWrapper key={item.id}>
@@ -156,14 +179,12 @@ const Work = ({ items }) => {
               }}
             >
               <Img
+                style={{ width: '40vw', height: '40vw' }}
                 fixed={item.frontmatter.featuredimage.childImageSharp.fixed}
               />
-              <Excerptcontent>
-                <h2>{item.frontmatter.title}</h2>
-                <p>{item.frontmatter.description}</p>
-              </Excerptcontent>
+              <h2>{item.frontmatter.title}</h2>
             </Excerpt>
-            <Content offsetTop={offsetTop} visible={visibleId === item.id}>
+            <Details visible={visibleId === item.id}>
               <span
                 onClick={() => {
                   setVisibleId(undefined);
@@ -172,8 +193,9 @@ const Work = ({ items }) => {
                 close
               </span>
               <span>{item.frontmatter.date}</span>
+              <p>{item.frontmatter.description}</p>
               <div dangerouslySetInnerHTML={{ __html: item.html }} />
-            </Content>
+            </Details>
           </ContentWrapper>
         );
       })}
