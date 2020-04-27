@@ -15,10 +15,11 @@ jobs:
         id: create_npmrc
         env:
           FA_NPM_PACKAGE_TOKEN: ${{ secrets.FA_NPM_PACKAGE_TOKEN }}
+        shell: bash
         run: |
           echo '@fortawesome:registry=https://npm.fontawesome.com/' > ${GITHUB_WORKSPACE}/.npmrc
           echo //npm.fontawesome.com/:_authToken=${FA_NPM_PACKAGE_TOKEN} >> ${GITHUB_WORKSPACE}/.npmrc
-      - name: Publish to Registry
+      - name: Build and publish to registry
         uses: elgohr/Publish-Docker-Github-Action@master
         env:
           APP_VERSION: ${{ env.RELEASE_VERSION }}
@@ -38,11 +39,27 @@ jobs:
         uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-      - name: Update DigitalOcean drop
+      - name: Create ssh key
         env:
-          GH_DO_SSH_KEY: ${{ env.GH_DO_SSH_KEY }}
+          GH_DO_SSH_KEY: ${{ secrets.GH_DO_SSH_KEY }}
+        shell: bash
         run: |
           mkdir /home/runner/.ssh
           echo "$GH_DO_SSH_KEY" > /home/runner/.ssh/id_rsa
           chmod 600 /home/runner/.ssh/id_rsa
-          doctl compute ssh drop001 --ssh-command /www/docker/server_infrastructure/update.sh
+          ls /home/runner/.ssh -la
+          cat /home/runner/.ssh/id_rsa
+      # - name: Update DigitalOcean drop via SSH
+      #   env:
+      #     DO_DROP_HOST: ${{ secrets.DO_DROP_HOST }}
+      #   shell: bash
+      #   run: |
+      #     ssh -i /home/runner/.ssh/id_rsa root@${DO_DROP_HOST}
+      #     /www/docker/server_infrastructure/update.sh
+      #     logout
+      - name: Update DigitalOcean drop via doctl
+        shell: bash
+        run: |
+          doctl compute ssh drop001 \
+            --ssh-command /www/docker/server_infrastructure/update.sh \
+            --ssh-key-path /home/runner/.ssh/id_rsa
