@@ -30,6 +30,7 @@ jobs:
           buildargs: APP_VERSION,RELEASE_DATE
           tags: 'latest,${{ env.RELEASE_VERSION }}'
   update_droplet:
+    needs: [build_container]
     runs-on: ubuntu-latest
     name: Update DigitalOcean droplet
     steps:
@@ -42,6 +43,6 @@ jobs:
           GH_DO_SSH_KEY: ${{ env.GH_DO_SSH_KEY }}
         run: |
           mkdir /home/runner/.ssh
-          ${GH_DO_SSH_KEY} > /home/runner/.ssh/id_rsa
+          echo "$GH_DO_SSH_KEY" > /home/runner/.ssh/id_rsa
           chmod 600 /home/runner/.ssh/id_rsa
           doctl compute ssh drop001 --ssh-command /www/docker/server_infrastructure/update.sh
