@@ -32,6 +32,7 @@ const Content = styled.div`
 const Hero = ({ title, text, hideContent }) => {
   const [start, setStart] = useState({ x: 0, y: 0 });
   const [delta, setDelta] = useState({ x: 0, y: 0 });
+  const [lastTouch, setLastTouch] = useState(undefined);
 
   const handleStartInput = (e) => {
     e.persist();
@@ -54,21 +55,30 @@ const Hero = ({ title, text, hideContent }) => {
   };
 
   const handleEndInput = (e) => {
+    e.persist();
+
     let pageX = 0;
     let pageY = 0;
 
     if (e.type === 'pointerup') {
       pageX = e.pageX;
       pageY = e.pageY;
-    } else if (e.type === 'touchend' && e.touches.length > 0) {
-      pageX = e.touches[0].pageX;
-      pageY = e.touches[0].pageY;
+    } else if (e.type === 'touchend' && lastTouch) {
+      pageX = lastTouch.pageX;
+      pageY = lastTouch.pageY;
     }
 
     setDelta(() => ({
       x: start.x > pageX ? -(start.x - pageX) : pageX - start.x,
       y: start.y > pageY ? start.y - pageY : -(pageY - start.y),
     }));
+  };
+
+  const handleMove = (e) => {
+    setLastTouch({
+      pageX: e.touches.length > 0 ? e.touches[0].pageX : start.x - 10,
+      pageY: e.touches.length > 0 ? e.touches[0].pageY : start.y - 10,
+    });
   };
 
   return (
@@ -80,10 +90,11 @@ const Hero = ({ title, text, hideContent }) => {
         </Content>
       )}
       <Canvas
-        onTouchEnd={handleEndInput}
-        onTouchStart={handleStartInput}
         onPointerUp={handleEndInput}
         onPointerDown={handleStartInput}
+        onTouchEnd={handleEndInput}
+        onTouchStart={handleStartInput}
+        onTouchMove={handleMove}
         style={{ background: colors.BACKGROUND, height: '75vh' }}
       >
         <ambientLight />
