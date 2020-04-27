@@ -48,15 +48,15 @@ jobs:
           echo "$GH_DO_SSH_KEY" > /home/runner/.ssh/id_rsa
           chmod 600 /home/runner/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.DO_DROP_HOST }} >> /home/runner/.ssh/known_hosts
-      - name: Update DigitalOcean drop via SSH
-        shell: bash
-        run: |
-          ssh -i /home/runner/.ssh/id_rsa root@${{ secrets.DO_DROP_HOST }}
-          /www/docker/server_infrastructure/update.sh
-          exit
-      # - name: Update DigitalOcean drop via doctl
+      # - name: Update DigitalOcean drop via SSH
       #   shell: bash
       #   run: |
-      #     doctl compute ssh drop001 \
-      #       --ssh-command /www/docker/server_infrastructure/update.sh \
-      #       --ssh-key-path /home/runner/.ssh/id_rsa
+      #     ssh -i /home/runner/.ssh/id_rsa root@${{ secrets.DO_DROP_HOST }}
+      #     /www/docker/server_infrastructure/update.sh
+      #     exit
+      - name: Update DigitalOcean drop via doctl
+        shell: bash
+        run: |
+          doctl compute ssh drop001 \
+            --ssh-command /www/docker/server_infrastructure/update.sh \
+            --ssh-key-path /home/runner/.ssh/id_rsa
