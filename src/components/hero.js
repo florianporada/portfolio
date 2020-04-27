@@ -33,6 +33,44 @@ const Hero = ({ title, text, hideContent }) => {
   const [start, setStart] = useState({ x: 0, y: 0 });
   const [delta, setDelta] = useState({ x: 0, y: 0 });
 
+  const handleStartInput = (e) => {
+    e.persist();
+
+    let pageX = 0;
+    let pageY = 0;
+
+    if (e.type === 'pointerdown') {
+      pageX = e.pageX;
+      pageY = e.pageY;
+    } else if (e.type === 'touchstart' && e.touches.length > 0) {
+      pageX = e.touches[0].pageX;
+      pageY = e.touches[0].pageY;
+    }
+
+    setStart(() => ({
+      x: pageX,
+      y: pageY,
+    }));
+  };
+
+  const handleEndInput = (e) => {
+    let pageX = 0;
+    let pageY = 0;
+
+    if (e.type === 'pointerup') {
+      pageX = e.pageX;
+      pageY = e.pageY;
+    } else if (e.type === 'touchend' && e.touches.length > 0) {
+      pageX = e.touches[0].pageX;
+      pageY = e.touches[0].pageY;
+    }
+
+    setDelta(() => ({
+      x: start.x > pageX ? -(start.x - pageX) : pageX - start.x,
+      y: start.y > pageY ? start.y - pageY : -(pageY - start.y),
+    }));
+  };
+
   return (
     <Wrapper>
       {(title || text) && !hideContent && (
@@ -42,22 +80,10 @@ const Hero = ({ title, text, hideContent }) => {
         </Content>
       )}
       <Canvas
-        onPointerUp={(e) => {
-          e.persist();
-
-          setDelta(() => ({
-            x: start.x > e.pageX ? -(start.x - e.pageX) : e.pageX - start.x,
-            y: start.y > e.pageY ? start.y - e.pageY : -(e.pageY - start.y),
-          }));
-        }}
-        onPointerDown={(e) => {
-          e.persist();
-
-          setStart(() => ({
-            x: e.pageX,
-            y: e.pageY,
-          }));
-        }}
+        onTouchEnd={handleEndInput}
+        onTouchStart={handleStartInput}
+        onPointerUp={handleEndInput}
+        onPointerDown={handleStartInput}
         style={{ background: colors.BACKGROUND, height: '75vh' }}
       >
         <ambientLight />
