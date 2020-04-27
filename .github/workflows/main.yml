@@ -2,36 +2,36 @@ name: Build -> Push -> Publish project
 on: [push]
 
 jobs:
-  build_container:
-    runs-on: ubuntu-latest
-    name: Build and Push
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Get release version
-        id: get_version
-        run: echo ::set-env name=RELEASE_VERSION::$(echo ${GITHUB_SHA::8})
-      - name: Create .npmrc file
-        id: create_npmrc
-        env:
-          FA_NPM_PACKAGE_TOKEN: ${{ secrets.FA_NPM_PACKAGE_TOKEN }}
-        shell: bash
-        run: |
-          echo '@fortawesome:registry=https://npm.fontawesome.com/' > ${GITHUB_WORKSPACE}/.npmrc
-          echo //npm.fontawesome.com/:_authToken=${FA_NPM_PACKAGE_TOKEN} >> ${GITHUB_WORKSPACE}/.npmrc
-      - name: Build and publish to registry
-        uses: elgohr/Publish-Docker-Github-Action@master
-        env:
-          APP_VERSION: ${{ env.RELEASE_VERSION }}
-          RELEASE_DATE: $(date +\"%Y/%m/%d\")
-        with:
-          name: florianporada/portfolio
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          buildargs: APP_VERSION,RELEASE_DATE
-          tags: 'latest,${{ env.RELEASE_VERSION }}'
+  # build_container:
+  #   runs-on: ubuntu-latest
+  #   name: Build and Push
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+  #     - name: Get release version
+  #       id: get_version
+  #       run: echo ::set-env name=RELEASE_VERSION::$(echo ${GITHUB_SHA::8})
+  #     - name: Create .npmrc file
+  #       id: create_npmrc
+  #       env:
+  #         FA_NPM_PACKAGE_TOKEN: ${{ secrets.FA_NPM_PACKAGE_TOKEN }}
+  #       shell: bash
+  #       run: |
+  #         echo '@fortawesome:registry=https://npm.fontawesome.com/' > ${GITHUB_WORKSPACE}/.npmrc
+  #         echo //npm.fontawesome.com/:_authToken=${FA_NPM_PACKAGE_TOKEN} >> ${GITHUB_WORKSPACE}/.npmrc
+  #     - name: Build and publish to registry
+  #       uses: elgohr/Publish-Docker-Github-Action@master
+  #       env:
+  #         APP_VERSION: ${{ env.RELEASE_VERSION }}
+  #         RELEASE_DATE: $(date +\"%Y/%m/%d\")
+  #       with:
+  #         name: florianporada/portfolio
+  #         username: ${{ secrets.DOCKER_USERNAME }}
+  #         password: ${{ secrets.DOCKER_PASSWORD }}
+  #         buildargs: APP_VERSION,RELEASE_DATE
+  #         tags: 'latest,${{ env.RELEASE_VERSION }}'
   update_droplet:
-    needs: [build_container]
+    # needs: [build_container]
     runs-on: ubuntu-latest
     name: Update DigitalOcean droplet
     steps:
@@ -49,17 +49,17 @@ jobs:
           chmod 600 /home/runner/.ssh/id_rsa
           ls /home/runner/.ssh -la
           cat /home/runner/.ssh/id_rsa
-      # - name: Update DigitalOcean drop via SSH
-      #   env:
-      #     DO_DROP_HOST: ${{ secrets.DO_DROP_HOST }}
-      #   shell: bash
-      #   run: |
-      #     ssh -i /home/runner/.ssh/id_rsa root@${DO_DROP_HOST}
-      #     /www/docker/server_infrastructure/update.sh
-      #     logout
-      - name: Update DigitalOcean drop via doctl
+      - name: Update DigitalOcean drop via SSH
+        env:
+          DO_DROP_HOST: ${{ secrets.DO_DROP_HOST }}
         shell: bash
         run: |
-          doctl compute ssh drop001 \
-            --ssh-command /www/docker/server_infrastructure/update.sh \
-            --ssh-key-path /home/runner/.ssh/id_rsa
+          ssh -i /home/runner/.ssh/id_rsa root@${DO_DROP_HOST}
+          /www/docker/server_infrastructure/update.sh
+          logout
+      # - name: Update DigitalOcean drop via doctl
+      #   shell: bash
+      #   run: |
+      #     doctl compute ssh drop001 \
+      #       --ssh-command /www/docker/server_infrastructure/update.sh \
+      #       --ssh-key-path /home/runner/.ssh/id_rsa
