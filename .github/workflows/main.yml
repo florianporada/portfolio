@@ -42,20 +42,23 @@ jobs:
       - name: Create ssh key
         env:
           GH_DO_SSH_KEY: ${{ secrets.GH_DO_SSH_KEY }}
+          DO_DROP_HOST: ${{ secrets.DO_DROP_HOST }}
         shell: bash
         run: |
           mkdir /home/runner/.ssh
           echo "$GH_DO_SSH_KEY" > /home/runner/.ssh/id_rsa
           chmod 600 /home/runner/.ssh/id_rsa
           ls /home/runner/.ssh -la
-          cat /home/runner/.ssh/id_rsa
+          ssh-keyscan -H ${DO_DROP_HOST} >> /home/runner/.ssh/known_hosts
+          cat /home/runner/.ssh/known_hosts
       - name: Update DigitalOcean drop via SSH
         env:
           DO_DROP_HOST: ${{ secrets.DO_DROP_HOST }}
         shell: bash
         run: |
+          echo ${{ secrets.DO_DROP_HOST }}
           ssh -i /home/runner/.ssh/id_rsa root@${DO_DROP_HOST}
-          /www/docker/server_infrastructure/update.sh
+          # /www/docker/server_infrastructure/update.sh
           logout
       # - name: Update DigitalOcean drop via doctl
       #   shell: bash
