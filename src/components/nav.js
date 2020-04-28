@@ -1,10 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import { navigate } from '@reach/router';
 import styled, { css } from 'styled-components';
 import scrollTo from 'gatsby-plugin-smoothscroll';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/pro-regular-svg-icons';
 
 import { colors } from '../constants';
 import NavButton from './navbutton';
@@ -73,9 +70,7 @@ function Navigation({ items, minimize }) {
           e.preventDefault();
           setVisible((prev) => !prev);
         }}
-      >
-        <FontAwesomeIcon style={{ marginRight: 10 }} icon={faBars} />
-      </NavButton>
+      />
       <NavButton
         bars={3}
         minimize={minimize}

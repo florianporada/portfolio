@@ -19,8 +19,6 @@ function Bird({ speed, factor, url, ...props }) {
     mixer.update(delta * speed);
   });
 
-  console.log(useLoader(GLTFLoader, url));
-
   return (
     <group ref={group} dispose={null}>
       <scene name="Scene" {...props}>

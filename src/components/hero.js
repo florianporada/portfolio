@@ -4,6 +4,8 @@ import React, { Suspense, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Canvas, useFrame, useCamera, useThree } from 'react-three-fiber';
 import * as THREE from 'three';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/pro-regular-svg-icons';
 
 import { colors } from '../constants';
 
@@ -95,11 +97,11 @@ const Hero = ({ title, text, hideContent }) => {
         onTouchEnd={handleEndInput}
         onTouchStart={handleStartInput}
         onTouchMove={handleMove}
-        style={{ background: colors.BACKGROUND, height: '75vh' }}
+        style={{ background: colors.BACKGROUND, height: '95vh' }}
       >
         <ambientLight />
         <DDDLightSource />
-        <Suspense fallback={<DDDBox />}>
+        <Suspense fallback={<DDDBox rotation={[0, Math.PI, 0]} />}>
           {/* <DDDBox /> */}
           {/* <DDDBird
             position={[0, 0, 0]}
@@ -108,7 +110,12 @@ const Hero = ({ title, text, hideContent }) => {
             factor={1}
             url={`/3d/Flamingo.glb`}
           /> */}
-          <DDDHead delta={delta} url="/3d/me.obj" position={[0, -20, -60]} />
+          <DDDHead
+            delta={delta}
+            url="/3d/me.obj"
+            position={[0, -10, -70]}
+            rotation={[0.11, 200, 0]}
+          />
         </Suspense>
       </Canvas>
     </Wrapper>

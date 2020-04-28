@@ -44,7 +44,7 @@ function ThreeObject(props) {
       material={
         new THREE.MeshPhongMaterial({
           side: THREE.DoubleSide,
-          transparent: true,
+          transparent: false,
           color: new THREE.Color(colors.TEXT),
           wireframe: true,
           flatShading: false,
