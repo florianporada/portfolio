@@ -1,20 +1,24 @@
 import React, { Suspense, useRef, useState, useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
-import Img from 'gatsby-image';
 
 import styled from 'styled-components';
 
 import Layout from '../components/layout';
 import Image from '../components/image';
 import Hero from '../components/hero';
-import Work from '../components/work';
+import Work from '../components/sections/work';
+import About from '../components/sections/about';
 import SEO from '../components/seo';
 
 import { colors } from '../constants';
 
-const Title = styled.h1`
-  font-size: 140px;
+const Section = styled.section`
+  margin: 50px 0;
+`;
+
+const Title = styled.h2`
+  font-size: 6em;
   margin-left: 5px;
   transition: margin 250ms ease-out;
   color: ${colors.TEXT};
@@ -62,24 +66,6 @@ const Title = styled.h1`
   }
 `;
 
-const StyledImg = styled(Img)`
-  width: 400px;
-`;
-
-const About = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: center;
-`;
-
-const TitleSmall = styled.h3`
-  position: absolute;
-  top: 150px;
-  left: 250px;
-  max-width: 370px;
-  color: ${colors.TEXT};
-`;
-
 const IndexPage = ({ data }) => {
   return (
     <Layout>
@@ -89,22 +75,16 @@ const IndexPage = ({ data }) => {
         text={data.about.frontmatter.short}
         hideContent
       />
-      <section style={{ paddingTop: 300 }}>
-        <About>
-          <StyledImg
-            fluid={data.about.frontmatter.featuredimage.childImageSharp.fluid}
-          />
-          <TitleSmall>{data.about.frontmatter.short}</TitleSmall>
-        </About>
-      </section>
-      <section>
-        <Title>Selected Work</Title>
+      <Section id="about">
+        <About data={data.about} />
+      </Section>
+      <Section>
+        <Title id="work">Selected Work</Title>
         <Work items={data.work.nodes} />
-      </section>
-
-      <section>
+      </Section>
+      <Section id="skill">
         <Title>Skill</Title>
-      </section>
+      </Section>
     </Layout>
   );
 };
@@ -147,8 +127,8 @@ export const query = graphql`
           featuredimage {
             childImageSharp {
               fixed(
-                width: 400
-                height: 400
+                width: 800
+                height: 800
                 cropFocus: CENTER
                 grayscale: true
               ) {

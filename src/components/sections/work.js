@@ -3,7 +3,7 @@ import React, { useState, useRef, useLayoutEffect } from 'react';
 import styled, { css } from 'styled-components';
 import Img from 'gatsby-image';
 
-import { colors } from '../constants';
+import { colors } from '../../constants';
 
 const Wrapper = styled.div`
   padding: 15px;
@@ -16,7 +16,7 @@ const Wrapper = styled.div`
 `;
 const ContentWrapper = styled.div`
   position: relative;
-  margin: 30px 8vw;
+  margin: 30px 180px;
 
   &:first-of-type {
     margin-left: 0;
@@ -25,7 +25,7 @@ const ContentWrapper = styled.div`
 
 const Excerpt = styled.div`
   color: ${colors.TEXT};
-  width: 65vw;
+  width: 600px;
   position: relative;
   transition: left 0.5s ease;
   justify-content: center;
@@ -68,17 +68,17 @@ const Excerpt = styled.div`
 
 const Details = styled.div`
   position: absolute;
-  top: calc(40vw + 3.25em - 8px);
+  top: calc(3.25em - 7px);
   right: 0;
-  width: 40vw;
-  height: 5px;
+  width: 100%;
+  height: 0;
   background: ${colors.TEXT};
   color: ${colors.BACKGROUND};
   z-index: 9;
   padding: 0;
   overflow: hidden;
-  transition: left 0.5s ease, height 0.5s ease 1s, padding 0.5s ease 1s,
-    top 0.5s ease 1s;
+  transition: left 0.5s ease, height 0.5s ease 0.5s, padding 0.5s ease 0.5s,
+    top 0.5s ease 0.5s;
 
   * {
     opacity: 0;
@@ -88,8 +88,8 @@ const Details = styled.div`
   ${(props) =>
     props.visible &&
     css`
-      height: calc(40vw + 3.25em - 3px);
-      top: 0;
+      height: calc(600px);
+      // top: 0;
       padding: 15px;
 
       * {
@@ -178,11 +178,12 @@ const Work = ({ items }) => {
                 animate(item.id, i);
               }}
             >
+              <h2>{item.frontmatter.title}</h2>
+
               <Img
-                style={{ width: '40vw', height: '40vw' }}
+                style={{ width: 600, height: 600 }}
                 fixed={item.frontmatter.featuredimage.childImageSharp.fixed}
               />
-              <h2>{item.frontmatter.title}</h2>
             </Excerpt>
             <Details visible={visibleId === item.id}>
               <span
