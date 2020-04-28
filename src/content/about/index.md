@@ -16,5 +16,9 @@ When Florian is not tinkering with everything that has a microchip on it, he enj
 
 - Reactjs
 - React Native
+- threejs
+- nodejs
+- Python
+- PHP
 - HTML5
--
+- SASS / CSS

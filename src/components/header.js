@@ -13,11 +13,14 @@ const HeaderWrapper = styled.header`
   padding: 30px;
   position: fixed;
   top: 0;
-  width: 100%;
+  width: ${(props) => {
+    return props.minimize ? '100px' : '100%';
+  }};
   z-index: 10;
   display: flex;
   flex-direction: column;
   height: 104px;
+  transition: width 0.5s ease-out 0.25s;
 
   &::after {
     content: '';
@@ -109,7 +112,9 @@ const Header = ({ siteTitle }) => {
   const minimize = position.y > 30;
   const data = useStaticQuery(graphql`
     query {
-      pages: allFile(filter: { relativePath: { regex: "/pages/" } }) {
+      pages: allDirectory(
+        filter: { absolutePath: { regex: "/src/content/(\\\\w*)$/" } }
+      ) {
         nodes {
           id
           name
