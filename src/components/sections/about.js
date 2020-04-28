@@ -7,7 +7,8 @@ import Img from 'gatsby-image';
 const Wrapper = styled.div`
   position: relative;
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `;
 
 const Intro = styled.h3`
@@ -15,11 +16,18 @@ const Intro = styled.h3`
   margin-top: -100px;
 `;
 
+const Content = styled.div`
+  max-width: 500px;
+  font-size: 1.35em;
+  margin-top: 30px;
+`;
+
 const About = ({ data }) => {
   return (
     <Wrapper>
-      <Intro>{data.frontmatter.short}</Intro>
+      <Intro>{data.frontmatter.description}</Intro>
       {/* <Img fluid={data.frontmatter.featuredimage.childImageSharp.fluid} /> */}
+      <Content dangerouslySetInnerHTML={{ __html: data.html }} />
     </Wrapper>
   );
 };

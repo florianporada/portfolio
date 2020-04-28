@@ -1,11 +1,10 @@
-import React, { Suspense, useRef, useState, useMemo, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 
 import styled from 'styled-components';
 
 import Layout from '../components/layout';
-import Image from '../components/image';
 import Hero from '../components/hero';
 import Work from '../components/sections/work';
 import About from '../components/sections/about';
@@ -71,8 +70,8 @@ const IndexPage = ({ data }) => {
     <Layout>
       <SEO title="Home" />
       <Hero
-        title={data.about.frontmatter.name}
-        text={data.about.frontmatter.short}
+        title={data.about.frontmatter.title}
+        text={data.about.frontmatter.description}
         hideContent
       />
       <Section id="about">
@@ -101,9 +100,10 @@ export const query = graphql`
   query {
     about: markdownRemark(fileAbsolutePath: { regex: "/content/about/" }) {
       id
+      html
       frontmatter {
-        short
-        name
+        description
+        title
         date
         featuredimage {
           childImageSharp {
