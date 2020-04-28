@@ -20,9 +20,9 @@ const Main = styled.main`
   margin-bottom: 400px;
   min-height: 100%;
 
-  -webkit-box-shadow: 0px 4px 25px 0px ${colors.BACKGROUND};
-  -moz-box-shadow: 0px 4px 25px 0px ${colors.BACKGROUND};
-  box-shadow: 0px 4px 25px 0px ${colors.BACKGROUND};
+  // -webkit-box-shadow: 0px 4px 25px 0px ${colors.BACKGROUND};
+  // -moz-box-shadow: 0px 4px 25px 0px ${colors.BACKGROUND};
+  // box-shadow: 0px 4px 25px 0px ${colors.BACKGROUND};
 `;
 
 const Layout = ({ children }) => {
@@ -38,8 +38,10 @@ const Layout = ({ children }) => {
 
   return (
     <>
+      <span id="home" style={{ opacity: 0, height: 0, width: 0 }} />
       <Header siteTitle={data.site.siteMetadata.title} />
       <Main>{children}</Main>
+      <span id="contact" style={{ opacity: 0, height: 0, width: 0 }} />
       <Footer />
     </>
   );

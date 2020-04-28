@@ -47,12 +47,16 @@ const Li = styled.li`
 const Footer = () => {
   const data = useStaticQuery(graphql`
     query {
-      contacts: allContactJson {
-        nodes {
-          faIcon
-          link
-          name
-          id
+      contact: markdownRemark(
+        fileAbsolutePath: { regex: "/content/contact/" }
+      ) {
+        id
+        frontmatter {
+          social {
+            faIcon
+            link
+            name
+          }
         }
       }
     }
@@ -62,9 +66,9 @@ const Footer = () => {
     <FooterWrapper>
       <Content>
         <Ul>
-          {data.contacts.nodes.map((detail) => {
+          {data.contact.frontmatter.social.map((detail) => {
             return (
-              <Li key={detail.id}>
+              <Li key={detail.name}>
                 <FontAwesomeIcon
                   style={{ marginRight: 10 }}
                   icon={faComplete[detail.faIcon]}

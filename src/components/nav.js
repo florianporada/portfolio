@@ -1,13 +1,13 @@
-import { Link } from 'gatsby';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import { navigate } from '@reach/router';
 import styled, { css } from 'styled-components';
+import scrollTo from 'gatsby-plugin-smoothscroll';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/pro-regular-svg-icons';
 
 import { colors } from '../constants';
 import NavButton from './navbutton';
-import { useFrame } from 'react-three-fiber';
 
 const NavWrapper = styled.div`
   width: 100%;
@@ -29,11 +29,17 @@ const NavWrapper = styled.div`
       left: 0;
       height: 100vh;
       top 0;
-      // transition: top 0.5s ease, height 0.5s ease, left 0.2s ease 0.7s;
+
+      nav {
+        opacity: 1;
+      }
     `}
 `;
 
-const Nav = styled.nav``;
+const Nav = styled.nav`
+  opacity: 0;
+  transition: opacity 0.25s ease 0.75s;
+`;
 
 const NavList = styled.ul`
   display: flex;
@@ -81,26 +87,27 @@ function Navigation({ items, minimize }) {
       <NavWrapper visible={visible}>
         <Nav>
           <NavList>
-            {items
-              .filter((item) => item.name !== '404')
-              .map((item) => {
-                return (
-                  <NavItem key={item.id}>
-                    <Link
-                      onClick={() => {
-                        setVisible((prev) => !prev);
-                      }}
-                      to={item.name === 'index' ? '/' : `/${item.name}`}
-                      style={{
-                        color: `white`,
-                        textDecoration: `none`,
-                      }}
-                    >
-                      {item.name === 'index' ? 'home' : item.name}
-                    </Link>
-                  </NavItem>
-                );
-              })}
+            {items.map((item) => {
+              return (
+                <NavItem key={item.id}>
+                  <a
+                    style={{
+                      color: colors.TEXT,
+                      textDecoration: `none`,
+                    }}
+                    href="#click"
+                    onClick={(e) => {
+                      e.preventDefault();
+
+                      setVisible((prev) => !prev);
+                      scrollTo(`#${item.name}`);
+                    }}
+                  >
+                    {item.name}
+                  </a>
+                </NavItem>
+              );
+            })}
           </NavList>
         </Nav>
       </NavWrapper>

@@ -17,6 +17,7 @@
     "gatsby-plugin-react-svg": "^3.0.0",
     "gatsby-plugin-sass": "^2.2.3",
     "gatsby-plugin-sharp": "^2.5.3",
+    "gatsby-plugin-smoothscroll": "^1.1.0",
     "gatsby-plugin-styled-components": "^3.2.3",
     "gatsby-plugin-web-font-loader": "^1.0.4",
     "gatsby-remark-images": "^3.2.5",
@@ -39,7 +40,10 @@
     "prettier": "2.0.4"
   },
   "keywords": [
-    "gatsby", "threejs", "portfolio", ""
+    "gatsby",
+    "threejs",
+    "portfolio",
+    ""
   ],
   "license": "MIT",
   "scripts": {
