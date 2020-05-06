@@ -1,7 +1,7 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import * as THREE from 'three';
-import { Canvas, useFrame, useCamera, useThree } from 'react-three-fiber';
+import { Canvas, useFrame } from 'react-three-fiber';
 import vertexShader from '../../assets/shader/vertexShader.glsl';
 import fragmentShader from '../../assets/shader/fragmentShader.glsl';
 
@@ -9,59 +9,75 @@ function ImageWrapper(props) {
   // This reference will give us direct access to the mesh
   const mesh = useRef();
   const material = useRef();
-  const image1 = props.image[0].frontmatter.featuredimage.childImageSharp;
-  const image2 = props.image[1].frontmatter.featuredimage.childImageSharp;
+  // const [active, setActive] = useState(false);
+  const image = props.image.childImageSharp;
+  const imageHeight = image.fixed.height;
+  const imageWidth = image.fixed.width;
+  const windowWidth = window ? window.innerWidth : imageWidth;
+  const windowHeight = window ? window.innerHeight : imageHeight;
+  const imageSize = new THREE.Vector2(imageWidth, imageHeight);
+  const offset = new THREE.Vector2(0, 0);
+  let active = false;
 
   const uniforms = {
     u_image: {
       type: 't',
-      value: new THREE.TextureLoader().load(image1.fixed.src),
+      value: new THREE.TextureLoader().load(image.fixed.src),
     },
     u_imagehover: {
       type: 't',
-      value: new THREE.TextureLoader().load(image2.fixed.src),
+      value: new THREE.TextureLoader().load(image.fixed.src),
     },
     u_mouse: { value: new THREE.Vector2(0, 0) },
     u_time: { value: 0 },
     u_res: {
-      value: new THREE.Vector2(image2.fixed.height, image2.fixed.width),
+      value: new THREE.Vector2(windowWidth, windowHeight),
     },
   };
 
   const defines = {
-    PR: window.devicePixelRatio.toFixed(1),
+    PR: window ? window.devicePixelRatio.toFixed(1) : 1,
   };
   const perspective = 800;
-  const fov =
-    (180 * (2 * Math.atan(window.innerHeight / 2 / perspective))) / Math.PI;
-
-  // Set up state for the hovered and active state
-  const [hovered, setHover] = useState(false);
-  const [active, setActive] = useState(false);
-
-  // Rotate mesh every frame, this is outside of React without overhead
+  const fov = (180 * (2 * Math.atan(windowHeight / 2 / perspective))) / Math.PI;
 
   function Image() {
     useFrame((state) => {
       material.current.uniforms.u_time.value += 0.01;
-      material.current.uniforms.u_mouse.value = new THREE.Vector2(
-        state.mouse.x,
-        state.mouse.y
-      );
 
-      mesh.current.rotation.x = -(state.mouse.y * 0.05);
-      mesh.current.rotation.y = state.mouse.x * 0.05;
+      mesh.current.rotation.x = -(state.mouse.y * 0.025);
+      mesh.current.rotation.y = state.mouse.x * 0.025;
     });
+
+    useEffect(() => {
+      if (!window) return;
+
+      const handler = (event) => {
+        const mouseCoords = {
+          x: (event.clientX / windowWidth) * 2 - 1,
+          y: -(event.clientY / windowHeight) * 2 + 1,
+        };
+
+        if (active) {
+          material.current.uniforms.u_mouse.value = new THREE.Vector2(
+            mouseCoords.x,
+            mouseCoords.y
+          );
+        }
+      };
+
+      window.addEventListener('mousemove', handler);
+
+      // clean up
+      return () => window.removeEventListener('mousemove', handler);
+    }, []);
 
     return (
       <mesh
         {...props}
         ref={mesh}
-        position={[0, 0, 0]}
-        scale={[image1.fixed.height, image1.fixed.width, 1]}
-        // onClick={(e) => setActive(!active)}
-        // onPointerOver={(e) => setHover(true)}
-        // onPointerOut={(e) => setHover(false)}
+        position={[offset.x, offset.y, 0]}
+        scale={[imageSize.x, imageSize.y, 1]}
       >
         <planeBufferGeometry attach="geometry" args={[1, 1, 1, 1]} />
         <shaderMaterial
@@ -78,16 +94,22 @@ function ImageWrapper(props) {
 
   return (
     <Canvas
+      onMouseEnter={() => {
+        active = true;
+      }}
+      onMouseLeave={() => {
+        active = false;
+      }}
       camera={{
         position: [0, 0, perspective],
         fov: fov,
-        aspect: window.innerWidth / window.innerHeight,
+        aspect: windowWidth / windowHeight,
         near: 1,
         far: 1000,
       }}
-      style={{ height: image1.fixed.height }}
+      style={{ height: imageHeight, width: imageWidth }}
     >
-      <ambientLight intensity={2} />
+      <ambientLight intensity={1} />
       <Image />
     </Canvas>
   );

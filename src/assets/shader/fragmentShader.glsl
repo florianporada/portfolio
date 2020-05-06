@@ -109,19 +109,16 @@ float snoise3(vec3 v)
   }
 
 float blendDarken(float base, float blend) {
-	return min(blend,base);
+  return min(blend,base);
 }
 
 vec3 blendDarken(vec3 base, vec3 blend) {
-	return vec3(blendDarken(base.r,blend.r),blendDarken(base.g,blend.g),blendDarken(base.b,blend.b));
+  return vec3(blendDarken(base.r,blend.r),blendDarken(base.g,blend.g),blendDarken(base.b,blend.b));
 }
 
 vec3 blendDarken(vec3 base, vec3 blend, float opacity) {
-	return (blendDarken(base, blend) * opacity + base * (1.0 - opacity));
+  return (blendDarken(base, blend) * opacity + base * (1.0 - opacity));
 }
-
-vec3 colorA = vec3(0.149,0.141,0.912);
-vec3 colorB = vec3(1.000,0.833,0.224);
 
 void main() {
   // We manage the device ratio by passing PR constant
@@ -132,9 +129,12 @@ void main() {
 
   // We readjust the mouse coordinates
   vec2 mouse = u_mouse * -0.5;
+  // tip2: do the same for your mouse
+  mouse.y *= u_res.y / u_res.x;
+  // mouse *= -1.;
 
   vec2 circlePos = st + mouse;
-  float c = circle(circlePos, 0.03, 2.) * 2.5;
+  float c = circle(circlePos, .05, 2.) * 2.75;
 
   float offx = v_uv.x + sin(v_uv.y + u_time * .1);
   float offy = v_uv.y - u_time * 0.1 - cos(u_time * .001) * .01;
@@ -152,12 +152,12 @@ void main() {
 
   vec3 color = vec3(0.0);
 
-  float pct = abs(sin(u_time));
+  float pct = abs(cos(u_time));
 
   // Mix uses pct (a value from 0-1) to
   // mix the two colors
-  color = mix(colorA, colorB, pct);
-  hover = mix(image, vec4(color,0.7), 0.2);
+  color = mix(vec3(v_uv.x, v_uv.y, 0.2), vec3(1, v_uv.x, v_uv.y), pct);
+  hover = mix(image, vec4(color, 1), 0.25);
 
   // test end
   vec4 finalImage = mix(image, hover, finalMask);

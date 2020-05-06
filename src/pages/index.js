@@ -6,6 +6,7 @@ import styled from 'styled-components';
 
 import Layout from '../components/layout';
 import Hero from '../components/hero';
+import Image from '../components/3d/image';
 import Work from '../components/sections/work';
 import About from '../components/sections/about';
 import SEO from '../components/seo';
@@ -69,6 +70,7 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       <SEO title="Home" />
+      {/* <Image image={data.work.nodes[0].frontmatter.featuredimage} /> */}
       <Hero
         title={data.about.frontmatter.title}
         text={data.about.frontmatter.description}

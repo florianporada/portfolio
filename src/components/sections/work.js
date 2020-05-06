@@ -3,6 +3,7 @@ import React, { useState, useRef, useLayoutEffect } from 'react';
 import styled, { css } from 'styled-components';
 import Img from 'gatsby-image';
 
+import DDDImage from '../3d/image';
 import { colors } from '../../constants';
 
 const Wrapper = styled.div`
@@ -180,9 +181,13 @@ const Work = ({ items }) => {
             >
               <h2>{item.frontmatter.title}</h2>
 
-              <Img
+              {/* <Img
                 style={{ width: 600, height: 600 }}
                 fixed={item.frontmatter.featuredimage.childImageSharp.fixed}
+              /> */}
+              <DDDImage
+                image={item.frontmatter.featuredimage}
+                // active={visibleId === item.id}
               />
             </Excerpt>
             <Details visible={visibleId === item.id}>
