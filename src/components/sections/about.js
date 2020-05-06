@@ -9,6 +9,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  padding: 0 15px;
 `;
 
 const Intro = styled.h3`
