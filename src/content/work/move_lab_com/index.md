@@ -1,8 +1,9 @@
 ---
-date: '2019-05-04'
-title: 'EEE'
+date: '2017-05-04'
+title: 'printerprinter'
 description: 'Sollicitudin mattis malesuada nisi himenaeos mauris eu'
-featuredimage: eee.jpg
+featuredimage: printr_v1.jpg
+featured: true
 ---
 
 ## About

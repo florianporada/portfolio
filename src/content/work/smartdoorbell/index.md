@@ -3,6 +3,7 @@ date: '2019-05-04'
 title: 'Smart Doorbell'
 description: 'Sollicitudin mattis malesuada nisi himenaeos mauris eu'
 featuredimage: smartdoorbell.jpg
+featured: true
 ---
 
 ## About
