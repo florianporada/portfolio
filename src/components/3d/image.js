@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import * as THREE from 'three';
-import { Canvas, useFrame } from 'react-three-fiber';
+import { Canvas, useFrame, stateContext } from 'react-three-fiber';
 import vertexShader from '../../assets/shader/vertexShader.glsl';
 import fragmentShader from '../../assets/shader/fragmentShader.glsl';
 
@@ -37,7 +37,7 @@ function ImageWrapper(props) {
     u_mouse: { value: new THREE.Vector2(0, 0) },
     u_time: { value: 0 },
     u_res: {
-      value: new THREE.Vector2(windowWidth, windowHeight),
+      value: new THREE.Vector2(imageWidth, imageHeight),
     },
   };
 
@@ -45,11 +45,17 @@ function ImageWrapper(props) {
     PR: typeof window !== `undefined` ? window.devicePixelRatio.toFixed(1) : 1,
   };
   const perspective = 800;
-  const fov = (180 * (2 * Math.atan(windowHeight / 2 / perspective))) / Math.PI;
+  const fov = (180 * (2 * Math.atan(imageHeight / 2 / perspective))) / Math.PI;
 
   function Image() {
     useFrame((state) => {
       material.current.uniforms.u_time.value += 0.01;
+      // material.current.uniforms.u_mouse.value = new THREE.Vector2(
+      //   normalizedMouse.x,
+      //   normalizedMouse.y
+      // );
+
+      // console.log(state.mouse.width);
 
       mesh.current.rotation.x = -(state.mouse.y * 0.025);
       mesh.current.rotation.y = state.mouse.x * 0.025;
@@ -58,14 +64,14 @@ function ImageWrapper(props) {
     useEffect(() => {
       const handler = (event) => {
         const mouseCoords = {
-          x: (event.clientX / windowWidth) * 2 - 1,
-          y: -(event.clientY / windowHeight) * 2 + 1,
+          x: event.clientX / imageWidth,
+          y: 1 - event.clientY / imageWidth,
         };
 
         if (active) {
           material.current.uniforms.u_mouse.value = new THREE.Vector2(
-            mouseCoords.x,
-            mouseCoords.y
+            -mouseCoords.x,
+            -mouseCoords.y
           );
         }
       };
@@ -88,6 +94,22 @@ function ImageWrapper(props) {
         ref={mesh}
         position={[offset.x, offset.y, 0]}
         scale={[imageSize.x, imageSize.y, 1]}
+        onPointerMove={(event) => {
+          console.log(event);
+          if (event.pointerType === 'touch') {
+            const mouseCoords = {
+              x: event.clientX / imageWidth,
+              y: 1 - event.clientY / imageWidth,
+            };
+
+            if (active) {
+              material.current.uniforms.u_mouse.value = new THREE.Vector2(
+                -mouseCoords.x,
+                -mouseCoords.y
+              );
+            }
+          }
+        }}
       >
         <planeBufferGeometry attach="geometry" args={[1, 1, 1, 1]} />
         <shaderMaterial
@@ -113,7 +135,7 @@ function ImageWrapper(props) {
       camera={{
         position: [0, 0, perspective],
         fov: fov,
-        aspect: windowWidth / windowHeight,
+        aspect: imageWidth / imageHeight,
         near: 1,
         far: 1000,
       }}

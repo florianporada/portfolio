@@ -130,34 +130,39 @@ void main() {
   // We readjust the mouse coordinates
   vec2 mouse = u_mouse * -0.5;
   // tip2: do the same for your mouse
-  mouse.y *= u_res.y / u_res.x;
+  // mouse.y *= u_res.y / u_res.x;
   // mouse *= -1.;
+  vec2 originPos = vec2( gl_FragCoord.xy / u_res.xy );
+  vec2 mousePos = originPos + u_mouse;
 
-  vec2 circlePos = st + mouse;
-  float c = circle(circlePos, .05, 2.) * 2.75;
+  // vec2 circlePos = st + mouse;
+  float c = circle(mousePos, .035, 2.75) * 8.;
 
   float offx = v_uv.x + sin(v_uv.y + u_time * .1);
   float offy = v_uv.y - u_time * 0.1 - cos(u_time * .001) * .01;
 
-  float n = snoise3(vec3(offx, offy, u_time * .1) * 8.) - 1.;
+  float n = snoise3(vec3(offx, offy, u_time * .1) * 6.) - 1.;
 
-  float finalMask = smoothstep(0.4, 0.5, n + pow(c, 2.));
+  float finalMask = smoothstep(0.4, 0.5, n + pow(c, 2.)) * 2.75;
 
   vec4 image = texture2D(u_image, v_uv);
   vec4 hover = texture2D(u_imagehover, v_uv);
 
-
   // test start
   vec4 darken = vec4(blendDarken(image.rgb, vec4(22.0, 255.0, 1.0, 1).rgb), 5.);
 
-  vec3 color = vec3(0.0);
+  // vec3 color = vec3(0.0);
 
-  float pct = abs(cos(u_time));
+  float pct = abs(sin(u_time));
 
   // Mix uses pct (a value from 0-1) to
   // mix the two colors
-  color = mix(vec3(v_uv.x, v_uv.y, 0.2), vec3(1, v_uv.x, v_uv.y), pct);
-  hover = mix(image, vec4(color, 1), 0.25);
+  // color = mix(vec3(v_uv.x, v_uv.y, 0.2), vec3(0.1, v_uv.x, v_uv.y), pct);
+  // hover = mix(image, vec4(vec3(v_uv.x, v_uv.y, 0.2), 0.7), 1.);
+
+  vec3 color = mix(vec3(v_uv.x, v_uv.y, 0.2), vec3(1, v_uv.x, v_uv.y), pct);
+  // hover = mix(image, vec4(color, 1), 0.25);
+  hover = vec4(vec3(v_uv.x, v_uv.y, 0.2), 0.7);
 
   // test end
   vec4 finalImage = mix(image, hover, finalMask);
