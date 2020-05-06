@@ -11,6 +11,7 @@
     "@fortawesome/react-fontawesome": "^0.1.9",
     "gatsby": "^2.20.12",
     "gatsby-image": "^2.3.1",
+    "gatsby-plugin-glslify": "^1.0.0",
     "gatsby-plugin-manifest": "^2.3.3",
     "gatsby-plugin-offline": "^3.1.2",
     "gatsby-plugin-react-helmet": "^3.2.2",
@@ -25,6 +26,7 @@
     "gatsby-transformer-json": "^2.3.1",
     "gatsby-transformer-remark": "^2.7.3",
     "gatsby-transformer-sharp": "^2.4.3",
+    "glslify": "^7.0.0",
     "node-sass": "^4.13.1",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
@@ -40,7 +42,7 @@
     "prettier": "2.0.4"
   },
   "keywords": [
-    "gatsby",
+    "gatsbyjs",
     "threejs",
     "portfolio",
     ""
@@ -48,8 +50,8 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
-    "docker:build": "docker build . -t florianporada/portfolio --build-arg APP_VERSION=$(node -p \"require('./package.json').version\") --build-arg RELEASE_DATE=$(date +\"%Y/%m/%d\")",
-    "docker:run": "docker run -p 80:80 florianporada/portfolio:latest",
+    "docker:build": "docker build . -t florianporada/florianporada.com --build-arg APP_VERSION=$(node -p \"require('./package.json').version\") --build-arg RELEASE_DATE=$(date +\"%Y/%m/%d\")",
+    "docker:run": "docker run -p 80:80 florianporada/florianporada.com:latest",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",

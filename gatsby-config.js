@@ -12,6 +12,7 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-smoothscroll`,
+    `gatsby-plugin-glslify`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
