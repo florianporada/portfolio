@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import * as THREE from 'three';
 import { Canvas, useFrame } from 'react-three-fiber';
@@ -6,15 +6,15 @@ import vertexShader from '../../assets/shader/vertexShader.glsl';
 import fragmentShader from '../../assets/shader/fragmentShader.glsl';
 
 function ImageWrapper(props) {
-  // This reference will give us direct access to the mesh
   const mesh = useRef();
   const material = useRef();
-  // const [active, setActive] = useState(false);
   const image = props.image.childImageSharp;
   const imageHeight = image.fixed.height;
   const imageWidth = image.fixed.width;
-  const windowWidth = window ? window.innerWidth : imageWidth;
-  const windowHeight = window ? window.innerHeight : imageHeight;
+  const windowWidth =
+    typeof window !== `undefined` ? window.innerWidth : imageWidth;
+  const windowHeight =
+    typeof window !== `undefined` ? window.innerHeight : imageHeight;
   const imageSize = new THREE.Vector2(imageWidth, imageHeight);
   const offset = new THREE.Vector2(0, 0);
   let active = false;
@@ -22,11 +22,17 @@ function ImageWrapper(props) {
   const uniforms = {
     u_image: {
       type: 't',
-      value: new THREE.TextureLoader().load(image.fixed.src),
+      value:
+        typeof document !== `undefined`
+          ? new THREE.TextureLoader().load(image.fixed.src)
+          : null,
     },
     u_imagehover: {
       type: 't',
-      value: new THREE.TextureLoader().load(image.fixed.src),
+      value:
+        typeof document !== `undefined`
+          ? new THREE.TextureLoader().load(image.fixed.src)
+          : null,
     },
     u_mouse: { value: new THREE.Vector2(0, 0) },
     u_time: { value: 0 },
@@ -36,7 +42,7 @@ function ImageWrapper(props) {
   };
 
   const defines = {
-    PR: window ? window.devicePixelRatio.toFixed(1) : 1,
+    PR: typeof window !== `undefined` ? window.devicePixelRatio.toFixed(1) : 1,
   };
   const perspective = 800;
   const fov = (180 * (2 * Math.atan(windowHeight / 2 / perspective))) / Math.PI;
@@ -50,8 +56,6 @@ function ImageWrapper(props) {
     });
 
     useEffect(() => {
-      if (!window) return;
-
       const handler = (event) => {
         const mouseCoords = {
           x: (event.clientX / windowWidth) * 2 - 1,
@@ -66,10 +70,16 @@ function ImageWrapper(props) {
         }
       };
 
-      window.addEventListener('mousemove', handler);
+      if (typeof window !== `undefined`) {
+        window.addEventListener('mousemove', handler);
+      }
 
       // clean up
-      return () => window.removeEventListener('mousemove', handler);
+      return () => {
+        if (typeof window !== `undefined`) {
+          window.removeEventListener('mousemove', handler);
+        }
+      };
     }, []);
 
     return (
