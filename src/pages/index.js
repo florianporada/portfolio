@@ -72,11 +72,11 @@ const IndexPage = ({ data }) => {
     <Layout>
       <SEO title="Home" />
       {/* <Image image={data.work.nodes[0].frontmatter.featuredimage} /> */}
-      {/* <Hero
+      <Hero
         title={data.about.frontmatter.title}
         text={data.about.frontmatter.description}
         hideContent
-      /> */}
+      />
       <Section id="about">
         <About data={data.about} />
       </Section>
