@@ -41,7 +41,7 @@ const ButtonWrapper = styled.div`
       padding-bottom: 14px;
       width: 75px;
       left: ${(props) => {
-        return props.minimize ? '-15px' : '-75px';
+        return props.minimize ? '-3px' : '-75px';
       }};
       transition: left 0.2s ease 0.4s;
 

@@ -27,7 +27,7 @@ const HeaderWrapper = styled.header`
     display: block;
     height: 3px;
     width: ${(props) => {
-      return props.minimize ? '60px' : '100%';
+      return props.minimize ? '72px' : '100%';
     }};
     bottom: 0;
     left: 0;
