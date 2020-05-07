@@ -9,6 +9,7 @@ import Hero from '../components/hero';
 import Image from '../components/3d/image';
 import Work from '../components/sections/work';
 import About from '../components/sections/about';
+import Skill from '../components/sections/skill';
 import SEO from '../components/seo';
 
 import { colors } from '../constants';
@@ -45,11 +46,11 @@ const Title = styled.h2`
   }
 
   @media (max-width: 768px) {
-    font-size: 100px;
+    font-size: 4em;
   }
 
   @media (max-width: 320px) {
-    font-size: 80px;
+    font-size: 3em;
 
     &::after {
       margin-left: 0;
@@ -71,20 +72,21 @@ const IndexPage = ({ data }) => {
     <Layout>
       <SEO title="Home" />
       {/* <Image image={data.work.nodes[0].frontmatter.featuredimage} /> */}
-      <Hero
+      {/* <Hero
         title={data.about.frontmatter.title}
         text={data.about.frontmatter.description}
         hideContent
-      />
+      /> */}
       <Section id="about">
         <About data={data.about} />
+      </Section>
+      <Section id="skill">
+        <Title>Skill</Title>
+        <Skill data={data.skill} />
       </Section>
       <Section>
         <Title id="work">Selected Work</Title>
         <Work items={data.work.nodes} />
-      </Section>
-      <Section id="skill">
-        <Title>Skill</Title>
       </Section>
     </Layout>
   );
@@ -114,6 +116,12 @@ export const query = graphql`
             }
           }
         }
+      }
+    }
+    skill: markdownRemark(fileAbsolutePath: { regex: "/content/skill/" }) {
+      id
+      frontmatter {
+        hardskills
       }
     }
     work: allMarkdownRemark(
