@@ -7,7 +7,7 @@ import DDDImage from '../3d/image';
 import { colors } from '../../constants';
 
 const Wrapper = styled.div`
-  padding: 15px;
+  padding: 15px 0;
   overflow-x: auto;
   display: flex;
 
@@ -15,6 +15,74 @@ const Wrapper = styled.div`
     display: none;
   }
 `;
+
+const Element = styled.div`
+  position: relative;
+  width: ${(props) => 100 / props.count}vw;
+  height: 800px;
+  border-color: ${colors.TEXT};
+  border-style: solid;
+  border-width: 3px;
+  overflow: hidden;
+  transition: border-color 0.25s ease, width 0.25s ease;
+
+  &:hover {
+    border-color: ${colors.PRIMARY};
+
+    h2 {
+      color: ${colors.PRIMARY};
+    }
+  }
+
+  ${(props) =>
+    props.visible &&
+    css`
+      width: 80vw;
+
+      ${StyledImg} {
+        left: 0;
+        width: 100% !important;
+        height: 60% !important;
+      }
+
+      ${Content} {
+        height: 40%;
+        padding: 15px;
+      }
+    `}
+`;
+
+const StyledImg = styled(Img)`
+  width: ${(props) => props.width}px;
+  height: ${(props) => props.height}px;
+  left: ${(props) => -props.width / 2}px;
+  transition: all 0.25s ease;
+
+  &:hover {
+    transform: scale(1.085);
+  }
+`;
+
+const Content = styled.div`
+  background-color: ${colors.BACKGROUND};
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 0;
+  padding: 0;
+  transition: height 0.25s ease, padding 0.25s ease;
+`;
+
+const Title = styled.h2`
+  position: absolute;
+  top: -5px;
+  transform-origin: left;
+  transform: rotate(90deg);
+  left: 25px;
+  width: max-content;
+  transition: color 0.25s ease;
+`;
+
 const ContentWrapper = styled.div`
   position: relative;
   margin: 30px 180px;
@@ -168,6 +236,35 @@ const Work = ({ items }) => {
   return (
     <Wrapper ref={wrapperRef} onWheel={handleHorizontalScroll}>
       {items.map((item, i) => {
+        const image = item.frontmatter.featuredimage.childImageSharp;
+
+        return (
+          <Element
+            count={items.length}
+            key={item.id}
+            onClick={() => {
+              setVisibleId((activeId) => {
+                const isActive = activeId !== item.id ? item.id : undefined;
+
+                return isActive;
+              });
+            }}
+            visible={visibleId === item.id}
+          >
+            <StyledImg
+              width={image.fixed.height}
+              height={image.fixed.height}
+              fixed={image.fixed}
+            />
+            <Title>{item.frontmatter.title}</Title>
+            <Content>
+              <p>{item.frontmatter.description}</p>
+            </Content>
+            {/* <DDDImage image={item.frontmatter.featuredimage} /> */}
+          </Element>
+        );
+      })}
+      {/* {items.map((item, i) => {
         return (
           <ContentWrapper key={item.id}>
             <Excerpt
@@ -181,13 +278,12 @@ const Work = ({ items }) => {
             >
               <h2>{item.frontmatter.title}</h2>
 
-              {/* <Img
+              <Img
                 style={{ width: 600, height: 600 }}
                 fixed={item.frontmatter.featuredimage.childImageSharp.fixed}
-              /> */}
+              />
               <DDDImage
                 image={item.frontmatter.featuredimage}
-                // active={visibleId === item.id}
               />
             </Excerpt>
             <Details visible={visibleId === item.id}>
@@ -204,7 +300,7 @@ const Work = ({ items }) => {
             </Details>
           </ContentWrapper>
         );
-      })}
+      })} */}
     </Wrapper>
   );
 };
