@@ -133,7 +133,7 @@ void main() {
   // mouse.y *= u_res.y / u_res.x;
   // mouse *= -1.;
   vec2 originPos = vec2( gl_FragCoord.xy / u_res.xy );
-  vec2 mousePos = originPos + u_mouse;
+  vec2 mousePos = originPos - u_mouse;
 
   // vec2 circlePos = st + mouse;
   float c = circle(mousePos, .035, 2.75) * 8.;

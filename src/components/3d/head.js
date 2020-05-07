@@ -46,7 +46,7 @@ function ThreeObject(props) {
           side: THREE.DoubleSide,
           transparent: false,
           color: new THREE.Color(colors.TEXT),
-          wireframe: true,
+          wireframe: false,
           flatShading: false,
           wireframeLinewidth: 20,
         })

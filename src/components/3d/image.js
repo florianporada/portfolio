@@ -70,8 +70,8 @@ function ImageWrapper(props) {
 
         if (active) {
           material.current.uniforms.u_mouse.value = new THREE.Vector2(
-            -mouseCoords.x,
-            -mouseCoords.y
+            mouseCoords.x,
+            mouseCoords.y
           );
         }
       };
