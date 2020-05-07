@@ -1,0 +1,11 @@
+---
+hardskills:
+  - Reactjs
+  - React Native
+  - threejs
+  - nodejs
+  - Python
+  - PHP
+  - HTML5
+  - SASS / CSS
+---
