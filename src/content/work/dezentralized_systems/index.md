@@ -4,6 +4,11 @@ title: 'EEE'
 description: 'Sollicitudin mattis malesuada nisi himenaeos mauris eu'
 featuredimage: eee.jpg
 featured: true
+tags:
+  - 'test1'
+  - 'test1'
+  - 'test1'
+  - 'test1'
 ---
 
 ## About

@@ -83,6 +83,25 @@ const Title = styled.h2`
   transition: color 0.25s ease;
 `;
 
+const Tag = styled.span`
+  background-color: ${colors.TEXT};
+  color: ${colors.BACKGROUND};
+  padding: 5px;
+  margin: 2.5px;
+  font-size: 14px;
+  font-family: 'Suprapower';
+  transition: all 0.25s ease;
+
+  &:hover {
+    background-color: ${colors.PRIMARY};
+    color: ${colors.TEXT};
+  }
+
+  &:first-of-type {
+    margin-left: 0;
+  }
+`;
+
 const ContentWrapper = styled.div`
   position: relative;
   margin: 30px 180px;
@@ -259,6 +278,8 @@ const Work = ({ items }) => {
             <Title>{item.frontmatter.title}</Title>
             <Content>
               <p>{item.frontmatter.description}</p>
+              {item.frontmatter.tags &&
+                item.frontmatter.tags.map((tag) => <Tag key={tag}>{tag}</Tag>)}
             </Content>
             {/* <DDDImage image={item.frontmatter.featuredimage} /> */}
           </Element>
