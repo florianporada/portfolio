@@ -11,7 +11,6 @@ tags:
   - 'solidity'
   - 'ethereum'
   - 'decentralized'
-  - 'ethereum'
   - 'energy market'
 ---
 

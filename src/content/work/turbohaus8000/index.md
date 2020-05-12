@@ -14,4 +14,4 @@ tags:
   - Sensors
 ---
 
-Turbohaus8000 is a experimental home automation project which combines different **IoT** sensors and devices around a **core** decision and gateway unit. The purpose of the project is to **research and develop services** that support you in your personal day-to-day tasks.
+Turbohaus8000 is an experimental home automation project which combines different **IoT** sensors and devices around a **core** decision and gateway unit. The purpose of the project is to **research and develop services** that support you in your personal day-to-day tasks.
