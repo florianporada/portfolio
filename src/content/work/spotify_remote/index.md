@@ -1,8 +1,8 @@
 ---
-date: '2019-05-04'
-title: 'Spotify Remote'
+date: '2019-10-26'
+title: 'Retro Spotify Remote'
 description: 'Sollicitudin mattis malesuada nisi himenaeos mauris eu'
-featuredimage: eee.jpg
+featuredimage: remote.jpeg
 featured: true
 ---
 

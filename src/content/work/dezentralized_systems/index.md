@@ -1,6 +1,6 @@
 ---
-date: '2019-05-04'
-title: 'EEE'
+date: '2017-05-04'
+title: 'Dezentralized Energy Prototype'
 description: 'Sollicitudin mattis malesuada nisi himenaeos mauris eu'
 featuredimage: eee.jpg
 featured: true

@@ -1,8 +1,8 @@
 ---
-date: '2017-05-04'
-title: 'printerprinter'
+date: '2017-08-01'
+title: 'purize-filters.com'
 description: 'Sollicitudin mattis malesuada nisi himenaeos mauris eu'
-featuredimage: printr_v1.jpg
+featuredimage: purize_filters.png
 featured: true
 ---
 

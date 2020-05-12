@@ -11,8 +11,11 @@ const Wrapper = styled.div`
   overflow-x: auto;
   display: flex;
 
-  &::-webkit-scrollbar {
-    display: none;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+
+  @media (max-width: 320px) {
   }
 `;
 
@@ -24,7 +27,7 @@ const Element = styled.div`
   border-style: solid;
   border-width: 3px;
   overflow: hidden;
-  transition: border-color 0.25s ease, width 0.25s ease;
+  transition: border-color 0.25s ease, width 0.25s ease, height 0.25s ease;
 
   &:hover {
     border-color: ${colors.PRIMARY};
@@ -50,6 +53,33 @@ const Element = styled.div`
         padding: 15px;
       }
     `}
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: ${(props) => 100 / props.count}vh;
+
+    ${(props) =>
+      props.visible &&
+      css`
+        height: 75vh;
+
+        ${StyledImg} {
+          width: 100% !important;
+          height: 60% !important;
+          left: 0;
+
+          &:hover {
+            transform: scale(1.085);
+          }
+        }
+
+        ${Content} {
+        }
+      `}
+  }
+
+  @media (max-width: 320px) {
+  }
 `;
 
 const StyledImg = styled(Img)`
@@ -61,6 +91,16 @@ const StyledImg = styled(Img)`
   &:hover {
     transform: scale(1.085);
   }
+
+  @media (max-width: 768px) {
+    width: 100% !important;
+    height: inherit !important;
+    left: 0;
+
+    &:hover {
+      transform: scale(1.085);
+    }
+  }
 `;
 
 const Content = styled.div`
@@ -71,6 +111,7 @@ const Content = styled.div`
   height: 0;
   padding: 0;
   transition: height 0.25s ease, padding 0.25s ease;
+  font-family: 'Wireframer';
 `;
 
 const Title = styled.h2`
@@ -81,6 +122,12 @@ const Title = styled.h2`
   left: 25px;
   width: max-content;
   transition: color 0.25s ease;
+
+  @media (max-width: 768px) {
+    top: 5px;
+    left: 15px;
+    transform: none;
+  }
 `;
 
 const Tag = styled.span`
@@ -261,6 +308,7 @@ const Work = ({ items }) => {
           <Element
             count={items.length}
             key={item.id}
+            visible={visibleId === item.id}
             onClick={() => {
               setVisibleId((activeId) => {
                 const isActive = activeId !== item.id ? item.id : undefined;
@@ -268,7 +316,6 @@ const Work = ({ items }) => {
                 return isActive;
               });
             }}
-            visible={visibleId === item.id}
           >
             <StyledImg
               width={image.fixed.height}
@@ -277,7 +324,7 @@ const Work = ({ items }) => {
             />
             <Title>{item.frontmatter.title}</Title>
             <Content>
-              <p>{item.frontmatter.description}</p>
+              <div dangerouslySetInnerHTML={{ __html: item.html }} />
               {item.frontmatter.tags &&
                 item.frontmatter.tags.map((tag) => <Tag key={tag}>{tag}</Tag>)}
             </Content>
