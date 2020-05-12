@@ -48,7 +48,7 @@ function ThreeObject(props) {
           color: new THREE.Color(colors.TEXT),
           wireframe: true,
           flatShading: false,
-          wireframeLinewidth: 10,
+          wireframeLinewidth: 1,
         })
       }
     >

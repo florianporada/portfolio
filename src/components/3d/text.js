@@ -103,7 +103,7 @@ const Text = function ({
         // }
       >
         <textGeometry attach="geometry" args={[children, config]} />
-        <shaderMaterial
+        <meshNormalMaterial
           ref={material}
           attach="material"
           uniforms={uniforms}
