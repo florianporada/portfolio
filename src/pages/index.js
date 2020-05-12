@@ -128,7 +128,10 @@ export const query = graphql`
       }
     }
     work: allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: "/content/work/" } }
+      filter: {
+        fileAbsolutePath: { regex: "/content/work/" }
+        frontmatter: { featured: { eq: true } }
+      }
       sort: { order: DESC, fields: [frontmatter___date] }
     ) {
       nodes {
