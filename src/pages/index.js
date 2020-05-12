@@ -80,13 +80,13 @@ const IndexPage = ({ data }) => {
       <Section id="about">
         <About data={data.about} />
       </Section>
-      <Section id="skill">
-        <Title>Skill</Title>
-        <Skill data={data.skill} />
-      </Section>
       <Section>
         <Title id="work">Selected Work</Title>
         <Work items={data.work.nodes} />
+      </Section>
+      <Section id="skill">
+        <Title>{data.skill.frontmatter.title}</Title>
+        <Skill data={data.skill} />
       </Section>
     </Layout>
   );
@@ -120,7 +120,10 @@ export const query = graphql`
     }
     skill: markdownRemark(fileAbsolutePath: { regex: "/content/skill/" }) {
       id
+      html
+      htmlAst
       frontmatter {
+        title
         hardskills
       }
     }
