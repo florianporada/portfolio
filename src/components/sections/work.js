@@ -40,12 +40,10 @@ const Element = styled.div`
   ${(props) =>
     props.visible &&
     css`
-      width: 80vw;
+      width: max-content;
 
       ${StyledImg} {
         left: 0;
-        width: 100% !important;
-        height: 60% !important;
       }
 
       ${Content} {
@@ -64,8 +62,6 @@ const Element = styled.div`
         height: 75vh;
 
         ${StyledImg} {
-          width: 100% !important;
-          height: 60% !important;
           left: 0;
 
           &:hover {
@@ -111,7 +107,7 @@ const Content = styled.div`
   height: 0;
   padding: 0;
   transition: height 0.25s ease, padding 0.25s ease;
-  font-family: 'Wireframer';
+  // font-family: 'Wireframer';
 `;
 
 const Title = styled.h2`
@@ -136,6 +132,7 @@ const Tag = styled.span`
   padding: 5px;
   margin: 2.5px;
   font-size: 14px;
+  line-height: 1.75rem;
   font-family: 'Suprapower';
   transition: all 0.25s ease;
 
@@ -149,105 +146,105 @@ const Tag = styled.span`
   }
 `;
 
-const ContentWrapper = styled.div`
-  position: relative;
-  margin: 30px 180px;
+// const ContentWrapper = styled.div`
+//   position: relative;
+//   margin: 30px 180px;
 
-  &:first-of-type {
-    margin-left: 0;
-  }
-`;
+//   &:first-of-type {
+//     margin-left: 0;
+//   }
+// `;
 
-const Excerpt = styled.div`
-  color: ${colors.TEXT};
-  width: 600px;
-  position: relative;
-  transition: left 0.5s ease;
-  justify-content: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+// const Excerpt = styled.div`
+//   color: ${colors.TEXT};
+//   width: 600px;
+//   position: relative;
+//   transition: left 0.5s ease;
+//   justify-content: center;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
 
-  &:hover {
-    cursor: pointer;
+//   &:hover {
+//     cursor: pointer;
 
-    h2 {
-      &::after {
-        width: 100%;
-        margin-left: 0;
-      }
-    }
-  }
+//     h2 {
+//       &::after {
+//         width: 100%;
+//         margin-left: 0;
+//       }
+//     }
+//   }
 
-  h2 {
-    width: 100%;
-    font-size: 3.25em;
-    margin-bottom: 0;
-    text-align: center;
-    position: relative;
+//   h2 {
+//     width: 100%;
+//     font-size: 3.25em;
+//     margin-bottom: 0;
+//     text-align: center;
+//     position: relative;
 
-    &::after {
-      content: '';
-      display: block;
-      height: 5px;
-      width: 0;
-      background: ${colors.TEXT};
-      position: absolute;
-      margin-left: 120px;
-      top: 51px;
-      z-index: 2;
-      transition: width 0.25s ease, margin-left 0.25s ease;
-    }
-  }
-`;
+//     &::after {
+//       content: '';
+//       display: block;
+//       height: 5px;
+//       width: 0;
+//       background: ${colors.TEXT};
+//       position: absolute;
+//       margin-left: 120px;
+//       top: 51px;
+//       z-index: 2;
+//       transition: width 0.25s ease, margin-left 0.25s ease;
+//     }
+//   }
+// `;
 
-const Details = styled.div`
-  position: absolute;
-  top: calc(3.25em - 7px);
-  right: 0;
-  width: 100%;
-  height: 0;
-  background: ${colors.TEXT};
-  color: ${colors.BACKGROUND};
-  z-index: 9;
-  padding: 0;
-  overflow: hidden;
-  transition: left 0.5s ease, height 0.5s ease 0.5s, padding 0.5s ease 0.5s,
-    top 0.5s ease 0.5s;
+// const Details = styled.div`
+//   position: absolute;
+//   top: calc(3.25em - 7px);
+//   right: 0;
+//   width: 100%;
+//   height: 0;
+//   background: ${colors.TEXT};
+//   color: ${colors.BACKGROUND};
+//   z-index: 9;
+//   padding: 0;
+//   overflow: hidden;
+//   transition: left 0.5s ease, height 0.5s ease 0.5s, padding 0.5s ease 0.5s,
+//     top 0.5s ease 0.5s;
 
-  * {
-    opacity: 0;
-    transition: opacity 0.5s ease 1s;
-  }
+//   * {
+//     opacity: 0;
+//     transition: opacity 0.5s ease 1s;
+//   }
 
-  ${(props) =>
-    props.visible &&
-    css`
-      height: calc(600px);
-      // top: 0;
-      padding: 15px;
+//   ${(props) =>
+//     props.visible &&
+//     css`
+//       height: calc(600px);
+//       // top: 0;
+//       padding: 15px;
 
-      * {
-        opacity: 1;
-      }
-    `}
-`;
+//       * {
+//         opacity: 1;
+//       }
+//     `}
+// `;
 
-const calcPosition = (a) => {
-  return {
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-  };
-};
+// const calcPosition = (a) => {
+//   return {
+//     left: 0,
+//     right: 0,
+//     top: 0,
+//     bottom: 0,
+//   };
+// };
 
 const Work = ({ items }) => {
   const [visibleId, setVisibleId] = useState(undefined);
   const [offsetTop, setOffsetTop] = useState(0);
   const [horizontalScroll, setHorizontalScroll] = useState(false);
   const wrapperRef = useRef();
-  const [positions] = useState(items.map(() => calcPosition()));
+  // const [positions] = useState(items.map(() => calcPosition()));
   const contentRefs = items.map(() => React.createRef());
 
   const animate = (id, index) => {
