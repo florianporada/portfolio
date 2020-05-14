@@ -1,5 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { isMobile } from 'react-device-detect';
 import { useFrame, useLoader } from 'react-three-fiber';
 import * as THREE from 'three';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
@@ -9,10 +10,44 @@ import { colors } from '../../constants';
 function ThreeObject(props) {
   const mesh = useRef();
   const obj = useLoader(OBJLoader, props.url);
-  const modes = ['rotate', 'follow', 'spin'];
-  const mode = modes[2];
+  const modes = {
+    rotate: 'rotate',
+    follow: 'follow',
+    spin: 'spin',
+    mobile: 'mobile',
+  };
+  const mode = useRef(modes.spin);
 
   obj.children[0].geometry.center();
+
+  useEffect(() => {
+    console.log(isMobile);
+
+    if (isMobile) {
+      mode.current = modes.mobile;
+    }
+  }, [mode, modes]);
+
+  useEffect(() => {
+    const handleDeviceMotion = ({ absolute, alpha, beta, gamma, ...event }) => {
+      if (mode.current === 'mobile') {
+        mesh.current.rotation.y =
+          props.rotation[1] + THREE.Math.degToRad(alpha);
+        mesh.current.rotation.x = THREE.Math.degToRad(
+          mesh.current.rotation.x + beta - 90
+        );
+      }
+    };
+
+    window.addEventListener(
+      'devicemotion',
+      window.addEventListener('deviceorientation', handleDeviceMotion, true)
+    );
+
+    return () => {
+      window.removeEventListener('deviceorientation', handleDeviceMotion, true);
+    };
+  }, [props.rotation, mode]);
 
   useFrame((state) => {
     if (mode === 'spin') {
@@ -22,8 +57,8 @@ function ThreeObject(props) {
       };
 
       mesh.current.rotation.x += -(spin.y + 0.001);
-      mesh.current.rotation.y += spin.x + 0.001;
-    } else if (mode === 'follow') {
+      mesh.current.rotation.y += spin.x + 0.01;
+    } else if (mode.current === 'follow') {
       const fov =
         Math.abs(Math.abs(state.mouse.y) + Math.abs(state.mouse.x) - 2) * 10 +
         7;
@@ -31,7 +66,7 @@ function ThreeObject(props) {
 
       mesh.current.rotation.x = -(state.mouse.y * 0.75);
       mesh.current.rotation.y = state.mouse.x * 0.75;
-    } else if (mode === 'rotate') {
+    } else if (mode.current === 'rotate') {
       mesh.current.rotation.x += 0.001;
       mesh.current.rotation.y += 0.01;
     }
@@ -62,6 +97,7 @@ export default ThreeObject;
 ThreeObject.propTypes = {
   url: PropTypes.string,
   delta: PropTypes.object,
+  rotation: PropTypes.any,
 };
 
 ThreeObject.defaultProps = {

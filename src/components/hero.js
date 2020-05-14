@@ -100,7 +100,7 @@ const Hero = ({ title, text, hideContent }) => {
         style={{ background: colors.BACKGROUND, height: '95vh' }}
       >
         <ambientLight />
-        <DDDLightSource />
+        <DDDLightSource name="pointlight" />
         <Suspense fallback={<DDDBox rotation={[0, Math.PI, 0]} />}>
           {/* <DDDBox /> */}
           {/* <DDDBird
@@ -114,7 +114,7 @@ const Hero = ({ title, text, hideContent }) => {
             delta={delta}
             url="/3d/me.obj"
             position={[0, -10, -70]}
-            rotation={[0.11, 200, 0]}
+            rotation={[0.11, -0.9, 0]}
           />
         </Suspense>
       </Canvas>
