@@ -44,6 +44,17 @@ const Li = styled.li`
   align-items: center;
 `;
 
+const Copyright = styled.div`
+  display: flex;
+  align-self: flex-end;
+  font-family: 'Suprapower';
+  text-decoration: none;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
+`;
+
 const Footer = () => {
   const data = useStaticQuery(graphql`
     query {
@@ -87,14 +98,8 @@ const Footer = () => {
           })}
         </Ul>
       </Content>
-      <div
-        style={{
-          alignSelf: 'flex-end',
-          fontFamily: 'Suprapower',
-          textDecoration: 'none',
-        }}
-      >
-        {`© ${new Date().getFullYear()} `}
+      <Copyright>
+        <span>{`© ${new Date().getFullYear()} `}</span>
         <a
           target="_blank"
           rel="noopener noreferrer"
@@ -102,7 +107,7 @@ const Footer = () => {
         >
           florianporada
         </a>
-      </div>
+      </Copyright>
     </FooterWrapper>
   );
 };

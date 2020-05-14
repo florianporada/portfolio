@@ -70,7 +70,7 @@ template {
   display: none;
 }
 a {
-  color: $color3;
+  color: $background;
   background-color: transparent;
   -webkit-text-decoration-skip: objects;
   text-decoration: none;
@@ -89,10 +89,10 @@ a {
   }
 
   &:visited {
-    color: $color2;
+    color: darken($background, 10);
 
     &::after {
-      background: $color2;
+      background: darken($color1, 10);
     }
   }
 
@@ -100,7 +100,7 @@ a {
     content: '';
     height: 0.175rem;
     width: 0;
-    background: $color3;
+    background: $color1;
     display: block;
     content: '';
     transition: width ease-in 100ms;
