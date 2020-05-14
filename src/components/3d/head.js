@@ -39,18 +39,23 @@ function ThreeObject(props) {
       }
     };
 
-    window.addEventListener(
-      'devicemotion',
-      window.addEventListener('deviceorientation', handleDeviceMotion, true)
-    );
+    if (typeof window !== `undefined`) {
+      window.addEventListener('deviceorientation', handleDeviceMotion, true);
+    }
 
     return () => {
-      window.removeEventListener('deviceorientation', handleDeviceMotion, true);
+      if (typeof window !== `undefined`) {
+        window.removeEventListener(
+          'deviceorientation',
+          handleDeviceMotion,
+          true
+        );
+      }
     };
   }, [props.rotation, mode]);
 
   useFrame((state) => {
-    if (mode === 'spin') {
+    if (mode.current === 'spin') {
       const spin = {
         x: props.delta.x / window.innerWidth / 10,
         y: props.delta.y / window.innerHeight / 10,
