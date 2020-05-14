@@ -4,7 +4,6 @@ import PropTypes, { arrayOf, string } from 'prop-types';
 import styled from 'styled-components';
 import * as THREE from 'three';
 import { Canvas, useFrame, useUpdate } from 'react-three-fiber';
-import scrollTo from 'gatsby-plugin-smoothscroll';
 import { useSpring, animated, useSprings, useTransition } from 'react-spring';
 
 import DDDText from '../3d/text';
@@ -72,6 +71,7 @@ const List = styled.ul`
   position: absolute;
   top: 0;
   margin-left: 0;
+  margin-top: 30px;
   list-style: none;
   display: flex;
   flex-wrap: wrap;
@@ -146,8 +146,9 @@ const getHardskills = (data) => {
 };
 
 const Skill = ({ data }) => {
+  const buttonRef = useRef();
   const [listVisible, setListVisible] = useState(false);
-  // const [hardskills, setHardskills] = useState(getHardskills(data));
+  const [offsetTop, setOffsetTop] = useState(0);
   const hardskills = useMemo(() => getHardskills(data), [data]);
   const [contentProps, setContentProps] = useSpring(() => ({
     config: { duration: 250 },
@@ -158,6 +159,7 @@ const Skill = ({ data }) => {
 
     return {
       config: { duration: duration },
+      delay: 2500,
       from: { opacity: 0, marginRight: 0 },
     };
   });
@@ -175,6 +177,14 @@ const Skill = ({ data }) => {
       // trail: 25,
     }
   );
+
+  useEffect(() => {
+    setOffsetTop(() => {
+      const { height } = buttonRef.current.getBoundingClientRect();
+
+      return height;
+    });
+  }, [buttonRef]);
 
   useEffect(() => {
     setItemProps(() =>
@@ -205,11 +215,24 @@ const Skill = ({ data }) => {
       {/* {data.frontmatter.hardskills.map((item, i) => (
         <Text key={item}> {item}</Text>
       ))} */}
+      <Button
+        ref={buttonRef}
+        href="#skill"
+        onClick={(e) => {
+          e.preventDefault();
+
+          setListVisible((prev) => {
+            return !prev;
+          });
+        }}
+      >
+        {listVisible ? 'read more' : 'tl;dr'}
+      </Button>
       <Content
         style={contentProps}
         dangerouslySetInnerHTML={{ __html: data.html }}
       />
-      <List>
+      <List style={{ top: offsetTop }}>
         {hardskills.map((item, idx) => {
           const name = item.children[0].value || 'things';
 
@@ -220,20 +243,6 @@ const Skill = ({ data }) => {
           );
         })}
       </List>
-      <Button
-        href="#skill"
-        onClick={(e) => {
-          e.preventDefault();
-
-          setListVisible((prev) => {
-            return !prev;
-          });
-
-          scrollTo(`#skill`);
-        }}
-      >
-        {listVisible ? 'read more' : 'tl;dr'}
-      </Button>
     </Wrapper>
   );
 };
