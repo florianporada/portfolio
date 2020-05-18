@@ -21,8 +21,6 @@ function ThreeObject(props) {
   obj.children[0].geometry.center();
 
   useEffect(() => {
-    console.log(isMobile);
-
     if (isMobile) {
       mode.current = modes.mobile;
     }
@@ -30,7 +28,7 @@ function ThreeObject(props) {
 
   useEffect(() => {
     const handleDeviceMotion = ({ absolute, alpha, beta, gamma, ...event }) => {
-      if (mode.current === 'mobile') {
+      if (mode.current === modes.mobile) {
         mesh.current.rotation.y =
           props.rotation[1] + THREE.Math.degToRad(alpha);
         mesh.current.rotation.x = THREE.Math.degToRad(
@@ -52,7 +50,7 @@ function ThreeObject(props) {
         );
       }
     };
-  }, [props.rotation, mode]);
+  }, [props.rotation, mode, modes.mobile]);
 
   useFrame((state) => {
     if (mode.current === 'spin') {
