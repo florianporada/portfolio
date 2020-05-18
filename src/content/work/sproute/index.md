@@ -14,4 +14,4 @@ tags:
   - mapbox
 ---
 
-Sproute helps diversify how you travel by offering a set of characters that all get you to your destination in different ways.
+Sproute helps _diversify how you travel_ by offering a set of characters that all get you to your destination in different ways. It consists of a **nodejs** backend service which handles the route calculation and a user friendly **react-native** app.

@@ -1,6 +1,7 @@
 import { colors } from '../../constants';
 import React, { useRef, useEffect, Suspense, useState, useMemo } from 'react';
 import PropTypes, { arrayOf, string } from 'prop-types';
+import Img from 'gatsby-image';
 import styled from 'styled-components';
 import * as THREE from 'three';
 import { Canvas, useFrame, useUpdate } from 'react-three-fiber';
@@ -31,6 +32,10 @@ const Content = styled(animated.div)`
   line-height: 1.25em;
   margin-top: 30px;
 
+  em {
+    font-weight: bold;
+  }
+
   strong {
     padding: 2px;
     background-color: ${colors.TEXT};
@@ -42,6 +47,13 @@ const Content = styled(animated.div)`
       color: ${colors.TEXT};
     }
   }
+`;
+
+const StyledImg = styled(Img)`
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: all 0.25s ease;
 `;
 
 const Button = styled.a`
@@ -140,9 +152,22 @@ const getHardskills = (data) => {
     }
   }, []);
 
-  return children.filter((el) => {
-    return el.tagName === 'strong';
-  });
+  const result = children
+    .filter((el) => {
+      return el.tagName === 'strong';
+    })
+    .map((el) => {
+      return el.children[0].value;
+    });
+
+  console.log(result);
+
+  return [...result, ...data.frontmatter.hardskills].reduce(
+    (result, current) => {
+      return result.includes(current) ? result : [...result, current];
+    },
+    []
+  );
 };
 
 const Skill = ({ data }) => {
@@ -164,19 +189,19 @@ const Skill = ({ data }) => {
     };
   });
 
-  const transitions = useTransition(
-    hardskills,
-    (item) => {
-      return item.children[0].value;
-    },
-    {
-      from: { opacity: 0 },
-      enter: { opacity: 1 },
-      leave: { opacity: 0 },
-      config: { duration: 500 },
-      // trail: 25,
-    }
-  );
+  // const transitions = useTransition(
+  //   hardskills,
+  //   (item) => {
+  //     return item.children[0].value;
+  //   },
+  //   {
+  //     from: { opacity: 0 },
+  //     enter: { opacity: 1 },
+  //     leave: { opacity: 0 },
+  //     config: { duration: 500 },
+  //     // trail: 25,
+  //   }
+  // );
 
   useEffect(() => {
     setOffsetTop(() => {
@@ -228,13 +253,14 @@ const Skill = ({ data }) => {
       >
         {listVisible ? 'read more' : 'tl;dr'}
       </Button>
+      {/* <StyledImg fixed={data.frontmatter.featuredimage.childImageSharp.fixed} /> */}
       <Content
         style={contentProps}
         dangerouslySetInnerHTML={{ __html: data.html }}
       />
       <List style={{ top: offsetTop }}>
         {hardskills.map((item, idx) => {
-          const name = item.children[0].value || 'things';
+          const name = item || 'things';
 
           return (
             <Item style={itemProps[idx]} key={name}>

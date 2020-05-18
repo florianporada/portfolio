@@ -12,4 +12,4 @@ tags:
   - node.js
 ---
 
-This is the second iteration of the printerprinter project. It uses the original idea and utilizes the hardware to create a personlized newsfeed in combination with the [turbohaus8000 project](https://github.com/florianporada/turbohaus8000/) or integrates as a feature in other services.
+PrinterPrinter v2 is the second iteration of the printerprinter project. It uses the original idea and utilizes the hardware to create a personlized newsfeed in combination with the [turbohaus8000 project](https://github.com/florianporada/turbohaus8000/) or integrates as a feature in other services.

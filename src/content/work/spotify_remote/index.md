@@ -14,4 +14,4 @@ tags:
   - Physical computing
 ---
 
-This project originated out of the idea of not using the phone as a universal device but export the remote function into a single device.
+The retro _Spotify_ remote is a NodeMCU driven porject to control your spotify playback device. It originated out of the idea of **not** using the phone as a universal device but export the remote function into a single device.

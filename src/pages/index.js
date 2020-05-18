@@ -125,6 +125,13 @@ export const query = graphql`
       frontmatter {
         title
         hardskills
+        featuredimage {
+          childImageSharp {
+            fixed(width: 800, height: 800, cropFocus: CENTER, grayscale: true) {
+              ...GatsbyImageSharpFixed
+            }
+          }
+        }
       }
     }
     work: allMarkdownRemark(
@@ -143,12 +150,7 @@ export const query = graphql`
           description
           featuredimage {
             childImageSharp {
-              fixed(
-                width: 800
-                height: 800
-                cropFocus: CENTER
-                grayscale: true
-              ) {
+              fixed(width: 800, height: 800, grayscale: true) {
                 ...GatsbyImageSharpFixed
               }
             }
