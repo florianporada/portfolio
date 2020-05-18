@@ -160,8 +160,6 @@ const getHardskills = (data) => {
       return el.children[0].value;
     });
 
-  console.log(result);
-
   return [...result, ...data.frontmatter.hardskills].reduce(
     (result, current) => {
       return result.includes(current) ? result : [...result, current];
