@@ -7,7 +7,6 @@ import { useFrame } from 'react-three-fiber';
 function Light(props) {
   const light = useRef();
   const mode = useRef(props.mode);
-  let step = 0.6;
 
   useEffect(() => {
     if (isMobile) {
@@ -15,19 +14,10 @@ function Light(props) {
     }
   }, [mode]);
 
-  // Rotate mesh every frame, this is outside of React without overhead
   useFrame(({ mouse, ...state }) => {
     if (mode.current === 'moving') {
-      light.current.position.x += step;
+      light.current.position.x += Math.sin(state.clock.getElapsedTime()) * 0.5;
       light.current.intensity = 2;
-
-      if (light.current.position.x >= 100) {
-        step = step * -1;
-      }
-
-      if (light.current.position.x <= -100) {
-        step = Math.abs(step);
-      }
     } else if (mode.current === 'mouse') {
       light.current.position.x = mouse.x * 10;
       light.current.position.y = mouse.y * 10;
