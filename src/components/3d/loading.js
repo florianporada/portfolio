@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 
-import { useFrame } from 'react-three-fiber';
+import { useFrame, Dom } from 'react-three-fiber';
 import { colors } from '../../constants';
 
 function Loading(props) {
@@ -11,14 +11,19 @@ function Loading(props) {
   useFrame(() => (mesh.current.rotation.y += 0.1));
 
   return (
-    <mesh {...props} ref={mesh}>
-      <boxBufferGeometry attach="geometry" args={[0.5, 2, 0.75]} />
-      <meshStandardMaterial
-        attach="material"
-        color={colors.TEXT}
-        wireframe={true}
-      />
-    </mesh>
+    <group>
+      <Dom center className="loading">
+        {'Loading...'}
+      </Dom>
+      <mesh {...props} ref={mesh}>
+        <boxBufferGeometry attach="geometry" args={[0.5, 2, 0.75]} />
+        <meshStandardMaterial
+          attach="material"
+          color={colors.TEXT}
+          wireframe={true}
+        />
+      </mesh>
+    </group>
   );
 }
 
