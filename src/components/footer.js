@@ -1,4 +1,4 @@
-import { Link, graphql, useStaticQuery } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
@@ -41,7 +41,7 @@ const Ul = styled.ul`
 
 const Overlay = styled.div`
   height: 1.1em;
-  width: 1.1em;
+  width: 1.5em;
   background: ${colors.TEXT};
   margin-top: 4px;
   margin-left: -1.1em;

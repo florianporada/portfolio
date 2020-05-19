@@ -20,6 +20,14 @@ const Main = styled.main`
   margin-bottom: 400px;
   min-height: 100%;
 
+  &::after {
+    z-index: -1;
+    height: 400px;
+    content: "";
+    position: absolute;
+    width: 100%;
+  }
+
   // -webkit-box-shadow: 0px 4px 25px 0px ${colors.BACKGROUND};
   // -moz-box-shadow: 0px 4px 25px 0px ${colors.BACKGROUND};
   // box-shadow: 0px 4px 25px 0px ${colors.BACKGROUND};
