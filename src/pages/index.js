@@ -125,10 +125,10 @@ export const query = graphql`
       frontmatter {
         title
         hardskills
-        featuredimage {
+        images {
           childImageSharp {
-            fixed(width: 800, height: 800, cropFocus: CENTER, grayscale: true) {
-              ...GatsbyImageSharpFixed
+            fluid(maxWidth: 800) {
+              ...GatsbyImageSharpFluid
             }
           }
         }
@@ -147,11 +147,15 @@ export const query = graphql`
           title
           date
           tags
+          link
           description
           featuredimage {
             childImageSharp {
               fixed(width: 800, height: 800, grayscale: true) {
                 ...GatsbyImageSharpFixed
+              }
+              fluid(maxWidth: 800, grayscale: true) {
+                ...GatsbyImageSharpFluid
               }
             }
           }

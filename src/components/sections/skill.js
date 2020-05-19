@@ -49,7 +49,7 @@ const Content = styled(animated.div)`
   }
 `;
 
-const StyledImg = styled(Img)`
+const ImageWrapper = styled.div`
   position: absolute;
   right: 0;
   top: 0;
@@ -251,7 +251,9 @@ const Skill = ({ data }) => {
       >
         {listVisible ? 'read more' : 'tl;dr'}
       </Button>
-      {/* <StyledImg fixed={data.frontmatter.featuredimage.childImageSharp.fixed} /> */}
+      <ImageWrapper>
+        <Img fluid={data.frontmatter.images[0].childImageSharp.fluid} />
+      </ImageWrapper>
       <Content
         style={contentProps}
         dangerouslySetInnerHTML={{ __html: data.html }}
