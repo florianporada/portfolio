@@ -37,8 +37,26 @@ function ThreeObject(props) {
       }
     };
 
-    if (typeof window !== `undefined`) {
-      window.addEventListener('deviceorientation', handleDeviceMotion, true);
+    if (
+      typeof DeviceOrientationEvent !== 'undefined' &&
+      typeof DeviceOrientationEvent.requestPermission === 'function'
+    ) {
+      // iOS 13+
+      DeviceOrientationEvent.requestPermission()
+        .then((response) => {
+          if (response === 'granted' && typeof window !== `undefined`) {
+            window.addEventListener(
+              'deviceorientation',
+              handleDeviceMotion,
+              true
+            );
+          }
+        })
+        .catch(console.error);
+    } else {
+      if (typeof window !== `undefined`) {
+        window.addEventListener('deviceorientation', handleDeviceMotion, true);
+      }
     }
 
     return () => {
@@ -50,7 +68,7 @@ function ThreeObject(props) {
         );
       }
     };
-  }, [props.rotation, mode, modes.mobile]);
+  }, [modes.mobile, props.rotation]);
 
   useFrame((state) => {
     if (mode.current === 'spin') {
