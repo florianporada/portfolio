@@ -77,7 +77,7 @@ const Element = styled.div`
     ${(props) =>
       props.visible &&
       css`
-        height: 75vh;
+        height: 100%;
       `}
   }
 
