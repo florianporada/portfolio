@@ -2,7 +2,7 @@
 date: '2019-03-04'
 title: 'turbohaus8000'
 description: 'Sollicitudin mattis malesuada nisi himenaeos mauris eu'
-featuredimage: eee.jpg
+featuredimage: turbohaus800_featured.jpg
 featured: true
 link: https://github.com/florianporada/turbohaus8000
 tags:
