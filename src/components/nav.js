@@ -16,7 +16,7 @@ const NavWrapper = styled.div`
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background-color: ${colors.PRIMARY}e6;
+  background-color: ${colors.PRIMARY};
   z-index: 9999;
   transition: left 0.5s ease, top 0.5s ease 0.75s, height 0.5s ease 0.75s;
 

@@ -11,8 +11,24 @@ const Wrapper = styled.div`
   overflow-x: auto;
   display: flex;
 
+  ${(props) =>
+    props.open &&
+    css`
+      ${Element} {
+        width: ${(100 - 50) / (props.count - 1)}vw;
+      }
+    `}
+
   @media (max-width: 768px) {
     flex-direction: column;
+
+    ${(props) =>
+      props.open &&
+      css`
+        ${Element} {
+          width: 100% !important;
+        }
+      `}
   }
 
   @media (max-width: 320px) {
@@ -31,6 +47,7 @@ const Element = styled.div`
 
   &:hover {
     border-color: ${colors.PRIMARY};
+    cursor: pointer;
 
     h2 {
       color: ${colors.PRIMARY};
@@ -40,14 +57,15 @@ const Element = styled.div`
   ${(props) =>
     props.visible &&
     css`
-      width: max-content;
+      width: 50vw !important;
 
       ${StyledImg} {
-        left: 0;
+        width: 100% !important;
+        height: 70%;
       }
 
       ${Content} {
-        height: 40%;
+        height: 30%;
         padding: 15px;
       }
     `}
@@ -60,17 +78,6 @@ const Element = styled.div`
       props.visible &&
       css`
         height: 75vh;
-
-        ${StyledImg} {
-          left: 0;
-
-          &:hover {
-            transform: scale(1.085);
-          }
-        }
-
-        ${Content} {
-        }
       `}
   }
 
@@ -79,35 +86,29 @@ const Element = styled.div`
 `;
 
 const StyledImg = styled(Img)`
-  width: ${(props) => props.width}px;
-  height: ${(props) => props.height}px;
-  left: ${(props) => -props.width / 2}px;
+  height: 100%;
   transition: all 0.25s ease;
 
   &:hover {
-    transform: scale(1.085);
+    transform: scale(1.01);
   }
 
   @media (max-width: 768px) {
     width: 100% !important;
-    height: inherit !important;
-    left: 0;
-
-    &:hover {
-      transform: scale(1.085);
-    }
   }
 `;
 
 const Content = styled.div`
   background-color: ${colors.BACKGROUND};
-  position: absolute;
   bottom: 0;
   width: 100%;
   height: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
   transition: height 0.25s ease, padding 0.25s ease;
-  // font-family: 'Wireframer';
 `;
 
 const Title = styled.h2`
@@ -123,6 +124,23 @@ const Title = styled.h2`
     top: 5px;
     left: 15px;
     transform: none;
+  }
+`;
+
+const Meta = styled.div`
+  display: block;
+  width: 100%;
+`;
+
+const Link = styled.a`
+  color: ${colors.TEXT};
+  font-size: 1.5rem;
+  font-family: 'Suprapower';
+  display: block;
+  margin-bottom: 10px;
+
+  &:visited {
+    color: ${colors.TEXT};
   }
 `;
 
@@ -230,37 +248,10 @@ const Tag = styled.span`
 //     `}
 // `;
 
-// const calcPosition = (a) => {
-//   return {
-//     left: 0,
-//     right: 0,
-//     top: 0,
-//     bottom: 0,
-//   };
-// };
-
 const Work = ({ items }) => {
   const [visibleId, setVisibleId] = useState(undefined);
-  const [offsetTop, setOffsetTop] = useState(0);
   const [horizontalScroll, setHorizontalScroll] = useState(false);
   const wrapperRef = useRef();
-  // const [positions] = useState(items.map(() => calcPosition()));
-  const contentRefs = items.map(() => React.createRef());
-
-  const animate = (id, index) => {
-    const current = contentRefs[index].current;
-    const bounds = current.getBoundingClientRect();
-
-    setOffsetTop(() => {
-      return -bounds.y;
-    });
-
-    setVisibleId((activeId) => {
-      const isActive = activeId !== id ? id : undefined;
-
-      return isActive;
-    });
-  };
 
   const handleHorizontalScroll = (e) => {
     if (
@@ -297,7 +288,12 @@ const Work = ({ items }) => {
   }, [horizontalScroll]);
 
   return (
-    <Wrapper ref={wrapperRef} onWheel={handleHorizontalScroll}>
+    <Wrapper
+      ref={wrapperRef}
+      onWheel={handleHorizontalScroll}
+      open={visibleId !== undefined ? true : false}
+      count={items.length}
+    >
       {items.map((item, i) => {
         const image = item.frontmatter.featuredimage.childImageSharp;
 
@@ -314,16 +310,23 @@ const Work = ({ items }) => {
               });
             }}
           >
-            <StyledImg
-              width={image.fixed.height}
-              height={image.fixed.height}
-              fixed={image.fixed}
-            />
+            <StyledImg fixed={image.fixed} fluid={image.fluid} />
             <Title>{item.frontmatter.title}</Title>
             <Content>
               <div dangerouslySetInnerHTML={{ __html: item.html }} />
-              {item.frontmatter.tags &&
-                item.frontmatter.tags.map((tag) => <Tag key={tag}>{tag}</Tag>)}
+              <Meta>
+                <Link
+                  href={item.frontmatter.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Link
+                </Link>
+                {item.frontmatter.tags &&
+                  item.frontmatter.tags.map((tag) => (
+                    <Tag key={tag}>{tag}</Tag>
+                  ))}
+              </Meta>
             </Content>
             {/* <DDDImage image={item.frontmatter.featuredimage} /> */}
           </Element>
