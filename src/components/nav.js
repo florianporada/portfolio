@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import scrollTo from 'gatsby-plugin-smoothscroll';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import * as faRegularIcons from '@fortawesome/pro-regular-svg-icons';
+
 import { colors } from '../constants';
 import NavButton from './navbutton';
 
@@ -103,6 +106,18 @@ function Navigation({ items, minimize }) {
                 </NavItem>
               );
             })}
+            <a
+              href="#close"
+              onClick={(e) => {
+                setVisible(false);
+                e.preventDefault();
+              }}
+            >
+              <FontAwesomeIcon
+                style={{ margin: '0 auto', fontSize: '2rem' }}
+                icon={faRegularIcons['faTimes']}
+              />
+            </a>
           </NavList>
         </Nav>
       </NavWrapper>
