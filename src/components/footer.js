@@ -39,13 +39,32 @@ const Ul = styled.ul`
   margin-left: 0;
 `;
 
+const Overlay = styled.div`
+  height: 1.1em;
+  width: 1.1em;
+  background: ${colors.TEXT};
+  margin-top: 4px;
+  margin-left: -1.1em;
+  opacity 1;
+  transition: opacity 0.5s ease 0.1s;
+`;
+
 const Li = styled.li`
   display: flex;
-  align-items: center;
+
+  h3 {
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    ${Overlay} {
+      opacity: 0;
+    }
+  }
 `;
 
 const Copyright = styled.div`
-  display: flex;
+  display: block;
   align-self: flex-end;
   font-family: 'Suprapower';
   text-decoration: none;
@@ -80,10 +99,6 @@ const Footer = () => {
           {data.contact.frontmatter.social.map((detail) => {
             return (
               <Li key={detail.name}>
-                <FontAwesomeIcon
-                  style={{ marginRight: 10 }}
-                  icon={faComplete[detail.faIcon]}
-                />
                 <h3>
                   <a
                     target="_blank"
@@ -93,6 +108,11 @@ const Footer = () => {
                     {detail.name}
                   </a>
                 </h3>
+                <FontAwesomeIcon
+                  style={{ marginLeft: 10, marginTop: 5 }}
+                  icon={faComplete[detail.faIcon]}
+                />
+                <Overlay />
               </Li>
             );
           })}
