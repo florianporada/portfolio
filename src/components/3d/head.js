@@ -7,39 +7,52 @@ import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 
 import { colors } from '../../constants';
 
+const modes = {
+  rotate: 'rotate',
+  follow: 'follow',
+  spin: 'spin',
+  mobile: 'mobile',
+};
+
 function ThreeObject(props) {
   const mesh = useRef();
+  const mode = useRef(modes.spin);
+  const orientationOffset = useRef({
+    x: props.rotation[0],
+    y: props.rotation[1],
+    z: props.rotation[2],
+  });
   const obj = useLoader(OBJLoader, props.url, (loader) => {
     if (props.loadingManager) {
       loader.manager = props.loadingManager.current;
     }
   });
-  const modes = {
-    rotate: 'rotate',
-    follow: 'follow',
-    spin: 'spin',
-    mobile: 'mobile',
-  };
-  const mode = useRef(modes.spin);
 
-  obj.children[0].geometry.center();
+  const resetRotation = () => {
+    mesh.current.rotation.x = orientationOffset.current.x;
+    mesh.current.rotation.y = orientationOffset.current.y;
+    mesh.current.rotation.z = orientationOffset.current.z;
+  };
 
   useEffect(() => {
     if (isMobile) {
       mode.current = modes.mobile;
     }
-  }, [mode, modes]);
+  }, [mode]);
 
   useEffect(() => {
     const handleDeviceMotion = ({ absolute, alpha, beta, gamma, ...event }) => {
       if (mode.current === modes.mobile) {
         mesh.current.rotation.y =
-          props.rotation[1] + THREE.Math.degToRad(alpha);
+          props.rotation[1] +
+          THREE.Math.degToRad(mesh.current.rotation.y + Math.abs(alpha) * 0.25);
         mesh.current.rotation.x = THREE.Math.degToRad(
-          mesh.current.rotation.x + beta - 90
+          (mesh.current.rotation.x + Math.abs(beta) - 95) * 0.25
         );
       }
     };
+
+    obj.children[0].geometry.center();
 
     if (
       typeof DeviceOrientationEvent !== 'undefined' &&
@@ -72,7 +85,7 @@ function ThreeObject(props) {
         );
       }
     };
-  }, [modes.mobile, props.rotation]);
+  }, [props.rotation, mesh, obj]);
 
   useFrame((state) => {
     if (mode.current === 'spin') {
@@ -98,22 +111,24 @@ function ThreeObject(props) {
   });
 
   return (
-    <mesh
-      {...props}
-      ref={mesh}
-      material={
-        new THREE.MeshPhongMaterial({
-          side: THREE.DoubleSide,
-          transparent: false,
-          color: new THREE.Color(colors.TEXT),
-          wireframe: true,
-          flatShading: false,
-          wireframeLinewidth: 1,
-        })
-      }
-    >
-      <primitive object={obj.children[0].geometry} attach="geometry" />
-    </mesh>
+    <group>
+      <mesh
+        {...props}
+        ref={mesh}
+        material={
+          new THREE.MeshPhongMaterial({
+            side: THREE.DoubleSide,
+            // transparent: false,
+            color: new THREE.Color(colors.TEXT),
+            wireframe: true,
+            flatShading: false,
+            wireframeLinewidth: 1,
+          })
+        }
+      >
+        <primitive object={obj.children[0].geometry} attach="geometry" />
+      </mesh>
+    </group>
   );
 }
 

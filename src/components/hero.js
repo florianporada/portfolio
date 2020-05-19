@@ -1,11 +1,10 @@
-import { graphql, useStaticQuery } from 'gatsby';
 import PropTypes from 'prop-types';
 import React, { Suspense, useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { Canvas, useFrame, useCamera, useThree } from 'react-three-fiber';
+import { Canvas, useFrame } from 'react-three-fiber';
+import { Physics, usePlane, useBox } from 'use-cannon';
+
 import * as THREE from 'three';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/pro-regular-svg-icons';
 
 import { colors } from '../constants';
 
@@ -31,6 +30,25 @@ const Content = styled.div`
     font-size: 2rem;
   }
 `;
+
+// function Cube(props) {
+//   const [ref, api] = useBox(() => ({
+//     mass: 1,
+//     position: [0, 16, -50],
+//     ...props,
+//   }));
+
+//   useFrame(() => {
+//     api.rotation.set(ref.current.rotation.x + 0.1, 0, ref.current.rotation.z);
+//   });
+
+//   return (
+//     <mesh ref={ref}>
+//       <meshStandardMaterial attach="material" color={'hotpink'} />
+//       <boxBufferGeometry attach="geometry" />
+//     </mesh>
+//   );
+// }
 
 const Hero = ({ title, text, hideContent }) => {
   const [start, setStart] = useState({ x: 0, y: 0 });
@@ -112,6 +130,16 @@ const Hero = ({ title, text, hideContent }) => {
         <ambientLight />
         <DDDLightSource name="pointlight" />
         <Suspense fallback={<DDDLoading />}>
+          <DDDHead
+            loadingManager={loadingManager}
+            delta={delta}
+            url="/3d/me.obj"
+            position={[0, -10, -70]}
+            rotation={[0.11, -0.9, 0]}
+          />
+          {/* <Physics>
+            <Cube />
+          </Physics> */}
           {/* <DDDBox /> */}
           {/* <DDDBird
             position={[0, 0, 0]}
@@ -120,13 +148,6 @@ const Hero = ({ title, text, hideContent }) => {
             factor={1}
             url={`/3d/Flamingo.glb`}
           /> */}
-          <DDDHead
-            loadingManager={loadingManager}
-            delta={delta}
-            url="/3d/me.obj"
-            position={[0, -10, -70]}
-            rotation={[0.11, -0.9, 0]}
-          />
         </Suspense>
       </Canvas>
     </Wrapper>
