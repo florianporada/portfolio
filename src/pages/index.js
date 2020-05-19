@@ -16,6 +16,10 @@ import { colors } from '../constants';
 
 const Section = styled.section`
   margin: 50px 0;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
 `;
 
 const Title = styled.h2`
@@ -71,7 +75,6 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       <SEO title="Home" />
-      {/* <Image image={data.work.nodes[0].frontmatter.featuredimage} /> */}
       <Hero
         title={data.about.frontmatter.title}
         text={data.about.frontmatter.description}
@@ -112,7 +115,7 @@ export const query = graphql`
         featuredimage {
           childImageSharp {
             fluid(maxWidth: 800) {
-              ...GatsbyImageSharpFluid
+              ...GatsbyImageSharpFluid_withWebp
             }
           }
         }
@@ -128,7 +131,7 @@ export const query = graphql`
         images {
           childImageSharp {
             fluid(maxWidth: 800) {
-              ...GatsbyImageSharpFluid
+              ...GatsbyImageSharpFluid_withWebp
             }
           }
         }
@@ -152,10 +155,10 @@ export const query = graphql`
           featuredimage {
             childImageSharp {
               fixed(width: 800, height: 800, grayscale: true) {
-                ...GatsbyImageSharpFixed
+                ...GatsbyImageSharpFixed_withWebp
               }
               fluid(maxWidth: 800, grayscale: true) {
-                ...GatsbyImageSharpFluid
+                ...GatsbyImageSharpFluid_withWebp
               }
             }
           }
