@@ -9,7 +9,11 @@ import { colors } from '../../constants';
 
 function ThreeObject(props) {
   const mesh = useRef();
-  const obj = useLoader(OBJLoader, props.url);
+  const obj = useLoader(OBJLoader, props.url, (loader) => {
+    if (props.loadingManager) {
+      loader.manager = props.loadingManager.current;
+    }
+  });
   const modes = {
     rotate: 'rotate',
     follow: 'follow',
@@ -119,6 +123,7 @@ ThreeObject.propTypes = {
   url: PropTypes.string,
   delta: PropTypes.object,
   rotation: PropTypes.any,
+  loadingManager: PropTypes.object,
 };
 
 ThreeObject.defaultProps = {

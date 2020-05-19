@@ -1,6 +1,6 @@
 import { graphql, useStaticQuery } from 'gatsby';
 import PropTypes from 'prop-types';
-import React, { Suspense, useState, useEffect } from 'react';
+import React, { Suspense, useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Canvas, useFrame, useCamera, useThree } from 'react-three-fiber';
 import * as THREE from 'three';
@@ -14,6 +14,7 @@ import DDDObject from '../components/3d/object';
 import DDDBird from '../components/3d/bird';
 import DDDHead from '../components/3d/head';
 import DDDLightSource from '../components/3d/lightsource';
+import DDDLoading from '../components/3d/loading';
 
 const Wrapper = styled.div`
   background-color: ${colors.BACKGROUND};
@@ -35,6 +36,7 @@ const Hero = ({ title, text, hideContent }) => {
   const [start, setStart] = useState({ x: 0, y: 0 });
   const [delta, setDelta] = useState({ x: 0, y: 0 });
   const [lastTouch, setLastTouch] = useState(undefined);
+  const loadingManager = useRef();
 
   const handleStartInput = (e) => {
     e.persist();
@@ -83,6 +85,14 @@ const Hero = ({ title, text, hideContent }) => {
     });
   };
 
+  useEffect(() => {
+    loadingManager.current = new THREE.LoadingManager();
+
+    loadingManager.current.onProgress = function (item, loaded, total) {
+      console.log('finished loading 3d object.');
+    };
+  }, []);
+
   return (
     <Wrapper>
       {(title || text) && !hideContent && (
@@ -101,7 +111,7 @@ const Hero = ({ title, text, hideContent }) => {
       >
         <ambientLight />
         <DDDLightSource name="pointlight" />
-        <Suspense fallback={<DDDBox rotation={[0, Math.PI, 0]} />}>
+        <Suspense fallback={<DDDLoading />}>
           {/* <DDDBox /> */}
           {/* <DDDBird
             position={[0, 0, 0]}
@@ -111,6 +121,7 @@ const Hero = ({ title, text, hideContent }) => {
             url={`/3d/Flamingo.glb`}
           /> */}
           <DDDHead
+            loadingManager={loadingManager}
             delta={delta}
             url="/3d/me.obj"
             position={[0, -10, -70]}
