@@ -2,7 +2,7 @@
 date: '2019-11-01'
 title: 'printerprinter v2'
 description: 'Sollicitudin mattis malesuada nisi himenaeos mauris eu'
-featuredimage: printerprinter_v2.jpeg
+featuredimage: printerprinter_v2.jpg
 featured: true
 link: https://github.com/florianporada/printerprinter/
 tags:
