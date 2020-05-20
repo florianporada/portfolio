@@ -1,7 +1,7 @@
 {
   "name": "portfolio",
   "private": true,
-  "description": "My portfolio",
+  "description": "my portfolio",
   "version": "0.1.0",
   "author": "florianporada",
   "dependencies": {
@@ -48,7 +48,8 @@
     "gatsbyjs",
     "threejs",
     "portfolio",
-    ""
+    "GitHub Actions",
+    "ReactJS"
   ],
   "license": "MIT",
   "scripts": {
