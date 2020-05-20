@@ -4,6 +4,7 @@ import { isMobile } from 'react-device-detect';
 import { useFrame, useLoader } from 'react-three-fiber';
 import * as THREE from 'three';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import { colors } from '../../constants';
 
@@ -14,6 +15,26 @@ const modes = {
   mobile: 'mobile',
 };
 
+const getLoader = (url) => {
+  const fileExtension = url.split('.')[url.split('.').length - 1];
+
+  if (fileExtension === 'obj') {
+    return OBJLoader;
+  } else if (fileExtension === 'glb') {
+    return GLTFLoader;
+  }
+};
+
+const getGeometry = (obj) => {
+  if (obj.nodes.object) {
+    return obj.nodes.object.geometry;
+  } else if (obj.children.length > 0) {
+    return obj.children[0].geometry;
+  } else {
+    return 0;
+  }
+};
+
 function ThreeObject(props) {
   const mesh = useRef();
   const mode = useRef(modes.spin);
@@ -22,11 +43,13 @@ function ThreeObject(props) {
     y: props.rotation[1],
     z: props.rotation[2],
   });
-  const obj = useLoader(OBJLoader, props.url, (loader) => {
+
+  const obj = useLoader(getLoader(props.url), props.url, (loader) => {
     if (props.loadingManager) {
       loader.manager = props.loadingManager.current;
     }
   });
+  const geometry = getGeometry(obj);
 
   const resetRotation = () => {
     mesh.current.rotation.x = orientationOffset.current.x;
@@ -51,8 +74,6 @@ function ThreeObject(props) {
         );
       }
     };
-
-    obj.children[0].geometry.center();
 
     if (
       typeof DeviceOrientationEvent !== 'undefined' &&
@@ -85,7 +106,7 @@ function ThreeObject(props) {
         );
       }
     };
-  }, [props.rotation, mesh, obj]);
+  }, [props.rotation, mesh]);
 
   useFrame((state) => {
     if (mode.current === 'spin') {
@@ -94,8 +115,8 @@ function ThreeObject(props) {
         y: props.delta.y / window.innerHeight / 10,
       };
 
-      mesh.current.rotation.x += -(spin.y + 0.001);
-      mesh.current.rotation.y += spin.x + 0.01;
+      mesh.current.rotation.x += -(spin.y + 0.0001);
+      mesh.current.rotation.y += spin.x + 0.001;
     } else if (mode.current === 'follow') {
       const fov =
         Math.abs(Math.abs(state.mouse.y) + Math.abs(state.mouse.x) - 2) * 10 +
@@ -118,7 +139,7 @@ function ThreeObject(props) {
         material={
           new THREE.MeshPhongMaterial({
             side: THREE.DoubleSide,
-            // transparent: false,
+            transparent: false,
             color: new THREE.Color(colors.TEXT),
             wireframe: true,
             flatShading: false,
@@ -126,7 +147,7 @@ function ThreeObject(props) {
           })
         }
       >
-        <primitive object={obj.children[0].geometry} attach="geometry" />
+        <primitive object={geometry} attach="geometry" />
       </mesh>
     </group>
   );
@@ -137,10 +158,11 @@ export default ThreeObject;
 ThreeObject.propTypes = {
   url: PropTypes.string,
   delta: PropTypes.object,
-  rotation: PropTypes.any,
+  rotation: PropTypes.arrayOf(PropTypes.number),
   loadingManager: PropTypes.object,
 };
 
 ThreeObject.defaultProps = {
-  url: '/3d/Scan.obj',
+  url: '/3d/head.glb',
+  rotation: [0, 0, 0],
 };

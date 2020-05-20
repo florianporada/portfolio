@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Suspense, useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { Canvas, useFrame } from 'react-three-fiber';
-import { Physics, usePlane, useBox } from 'use-cannon';
+import { Canvas } from 'react-three-fiber';
 
 import * as THREE from 'three';
 
@@ -30,25 +29,6 @@ const Content = styled.div`
     font-size: 2rem;
   }
 `;
-
-// function Cube(props) {
-//   const [ref, api] = useBox(() => ({
-//     mass: 1,
-//     position: [0, 16, -50],
-//     ...props,
-//   }));
-
-//   useFrame(() => {
-//     api.rotation.set(ref.current.rotation.x + 0.1, 0, ref.current.rotation.z);
-//   });
-
-//   return (
-//     <mesh ref={ref}>
-//       <meshStandardMaterial attach="material" color={'hotpink'} />
-//       <boxBufferGeometry attach="geometry" />
-//     </mesh>
-//   );
-// }
 
 const Hero = ({ title, text, hideContent }) => {
   const [start, setStart] = useState({ x: 0, y: 0 });
@@ -133,13 +113,14 @@ const Hero = ({ title, text, hideContent }) => {
           <DDDHead
             loadingManager={loadingManager}
             delta={delta}
-            url="/3d/me.obj"
-            position={[0, -10, -70]}
-            rotation={[0.11, -0.9, 0]}
+            url="/3d/head.glb"
+            position={[0, 0, -70]}
+            rotation={[
+              THREE.Math.degToRad(0),
+              THREE.Math.degToRad(-180),
+              THREE.Math.degToRad(-180),
+            ]}
           />
-          {/* <Physics>
-            <Cube />
-          </Physics> */}
           {/* <DDDBox /> */}
           {/* <DDDBird
             position={[0, 0, 0]}
