@@ -108,6 +108,7 @@ function Navigation({ items, minimize }) {
             })}
             <a
               href="#close"
+              alt="close menu"
               onClick={(e) => {
                 setVisible(false);
                 e.preventDefault();
