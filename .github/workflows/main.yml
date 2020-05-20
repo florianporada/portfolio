@@ -1,5 +1,8 @@
 name: Build -> Push -> Publish project
-on: [push]
+
+push:
+  branches:
+    - master
 
 jobs:
   build_container:
@@ -25,7 +28,7 @@ jobs:
           APP_VERSION: ${{ env.RELEASE_VERSION }}
           RELEASE_DATE: $(date +\"%Y/%m/%d\")
         with:
-          name: florianporada/portfolio
+          name: florianporada/florianporada.com
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           buildargs: APP_VERSION,RELEASE_DATE
