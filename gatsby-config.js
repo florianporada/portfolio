@@ -1,8 +1,11 @@
 module.exports = {
   siteMetadata: {
     title: `Florian Porada`,
-    description: `Florian Porada's Portfolio.`,
-    author: `@flooopooo`,
+    description: `Florian Porada's portfolio page.`,
+    author: `Florian Porada`,
+    url: 'https://www.florianporada.com',
+    image: '/img/favicon.png',
+    twitterUsername: '@flooopooo',
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
