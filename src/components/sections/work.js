@@ -66,7 +66,6 @@ const Element = styled.div`
 
       ${Content} {
         height: 30%;
-        padding: 15px;
       }
     `}
 
@@ -77,11 +76,16 @@ const Element = styled.div`
     ${(props) =>
       props.visible &&
       css`
-        height: 100%;
+        height: 150vh;
       `}
   }
 
   @media (max-width: 320px) {
+    ${(props) =>
+      props.visible &&
+      css`
+        height: 225vh;
+      `}
   }
 `;
 
@@ -103,7 +107,7 @@ const Content = styled.div`
   bottom: 0;
   width: 100%;
   height: 0;
-  padding: 0;
+  padding: 15px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -145,6 +149,7 @@ const Link = styled.a`
 `;
 
 const Tag = styled.span`
+  display: inline-block;
   background-color: ${colors.TEXT};
   color: ${colors.BACKGROUND};
   padding: 5px;
