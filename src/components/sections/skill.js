@@ -16,6 +16,7 @@ const Wrapper = styled.div`
   justify-content: center;
   flex-direction: column;
   padding: 0 15px 15px 15px;
+  line-height: 1.1;
 `;
 
 const Text = styled.h3`
@@ -24,6 +25,10 @@ const Text = styled.h3`
   margin: 5px;
   background-color: ${colors.TEXT};
   color: ${colors.BACKGROUND};
+`;
+
+const ContentWrapper = styled.div`
+  position: relative;
 `;
 
 const Content = styled(animated.div)`
@@ -46,6 +51,31 @@ const Content = styled(animated.div)`
       background-color: ${colors.PRIMARY};
       color: ${colors.TEXT};
     }
+  }
+`;
+
+const List = styled.ul`
+  top: 0;
+  position: absolute;
+  margin-left: 0;
+  margin-top: 30px;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 992px;
+`;
+
+const Item = styled(animated.li)`
+  background-color: ${colors.TEXT};
+  color: ${colors.BACKGROUND};
+  font-size: 2.75em;
+  padding: 15px;
+  margin: 10px;
+  transition: background-color 0.25s ease, color 0.25s ease;
+
+  &:hover {
+    background-color: ${colors.PRIMARY};
+    color: ${colors.TEXT};
   }
 `;
 
@@ -72,31 +102,6 @@ const Button = styled.a`
   &:visited {
     color: ${colors.BACKGROUND};
   }
-
-  &:hover {
-    background-color: ${colors.PRIMARY};
-    color: ${colors.TEXT};
-  }
-`;
-
-const List = styled.ul`
-  position: absolute;
-  top: 0;
-  margin-left: 0;
-  margin-top: 30px;
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  max-width: 992px;
-`;
-
-const Item = styled(animated.li)`
-  background-color: ${colors.TEXT};
-  color: ${colors.BACKGROUND};
-  font-size: 2.75em;
-  padding: 15px;
-  margin: 10px;
-  transition: background-color 0.25s ease, color 0.25s ease;
 
   &:hover {
     background-color: ${colors.PRIMARY};
@@ -170,8 +175,10 @@ const getHardskills = (data) => {
 
 const Skill = ({ data }) => {
   const buttonRef = useRef();
+  const listRef = useRef();
+  const contentRef = useRef();
   const [listVisible, setListVisible] = useState(false);
-  const [offsetTop, setOffsetTop] = useState(0);
+  const [contentHeight, setContentHeight] = useState(0);
   const hardskills = useMemo(() => getHardskills(data), [data]);
   const [contentProps, setContentProps] = useSpring(() => ({
     config: { duration: 250 },
@@ -202,12 +209,15 @@ const Skill = ({ data }) => {
   // );
 
   useEffect(() => {
-    setOffsetTop(() => {
-      const { height } = buttonRef.current.getBoundingClientRect();
+    const { height: listHeight } = listRef.current.getBoundingClientRect();
+    const {
+      height: contentHeight,
+    } = contentRef.current.getBoundingClientRect();
 
-      return height;
-    });
-  }, [buttonRef]);
+    setContentHeight(
+      listHeight > contentHeight ? listHeight + 30 : contentHeight
+    );
+  }, [buttonRef, contentRef, listRef]);
 
   useEffect(() => {
     setItemProps(() =>
@@ -243,10 +253,7 @@ const Skill = ({ data }) => {
         href="#skill"
         onClick={(e) => {
           e.preventDefault();
-
-          setListVisible((prev) => {
-            return !prev;
-          });
+          setListVisible((prev) => !prev);
         }}
       >
         {listVisible ? 'read more' : 'tl;dr'}
@@ -254,21 +261,20 @@ const Skill = ({ data }) => {
       <ImageWrapper>
         <Img fluid={data.frontmatter.images[0].childImageSharp.fluid} />
       </ImageWrapper>
-      <Content
-        style={contentProps}
-        dangerouslySetInnerHTML={{ __html: data.html }}
-      />
-      <List style={{ top: offsetTop }}>
-        {hardskills.map((item, idx) => {
-          const name = item || 'things';
-
-          return (
-            <Item style={itemProps[idx]} key={name}>
-              {name}
+      <ContentWrapper style={{ height: contentHeight }}>
+        <Content
+          ref={contentRef}
+          style={contentProps}
+          dangerouslySetInnerHTML={{ __html: data.html }}
+        />
+        <List ref={listRef}>
+          {hardskills.map((item, idx) => (
+            <Item style={itemProps[idx]} key={item || 'things'}>
+              {item || 'things'}
             </Item>
-          );
-        })}
-      </List>
+          ))}
+        </List>
+      </ContentWrapper>
     </Wrapper>
   );
 };

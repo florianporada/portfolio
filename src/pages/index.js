@@ -5,69 +5,18 @@ import { graphql } from 'gatsby';
 import styled from 'styled-components';
 
 import Layout from '../components/layout';
+import SectionTitle from '../components/sectiontitle';
 import Hero from '../components/hero';
-import Image from '../components/3d/image';
 import Work from '../components/sections/work';
 import About from '../components/sections/about';
 import Skill from '../components/sections/skill';
 import SEO from '../components/seo';
-
-import { colors } from '../constants';
 
 const Section = styled.section`
   margin: 50px 0;
 
   &:last-of-type {
     margin-bottom: 0;
-  }
-`;
-
-const Title = styled.h2`
-  font-size: 6em;
-  margin-left: 5px;
-  transition: margin 250ms ease-out;
-  color: ${colors.TEXT};
-
-  &::after {
-    content: '';
-    display: block;
-    height: 10px;
-    width: 0;
-    background: ${colors.TEXT};
-    position: absolute;
-    margin-left: 120px;
-    margin-top: -30px;
-    z-index: 2;
-    transition: width 250ms ease-out;
-  }
-
-  &:hover {
-    margin-left: 10px;
-
-    &::after {
-      width: 70%;
-    }
-  }
-
-  @media (max-width: 768px) {
-    font-size: 4em;
-  }
-
-  @media (max-width: 320px) {
-    font-size: 3em;
-
-    &::after {
-      margin-left: 0;
-      margin-top: -20px;
-    }
-
-    &:hover {
-      margin-left: 10px;
-
-      &::after {
-        width: 90%;
-      }
-    }
   }
 `;
 
@@ -84,11 +33,11 @@ const IndexPage = ({ data }) => {
         <About data={data.about} />
       </Section>
       <Section>
-        <Title id="work">Selected Work</Title>
+        <SectionTitle id="work">Selected Work</SectionTitle>
         <Work items={data.work.nodes} />
       </Section>
       <Section id="skill">
-        <Title>{data.skill.frontmatter.title}</Title>
+        <SectionTitle>{data.skill.frontmatter.title}</SectionTitle>
         <Skill data={data.skill} />
       </Section>
     </Layout>

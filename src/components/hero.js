@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Suspense, useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { Canvas } from 'react-three-fiber';
+import { Canvas, useFrame } from 'react-three-fiber';
 
 import * as THREE from 'three';
 
@@ -29,6 +29,18 @@ const Content = styled.div`
     font-size: 2rem;
   }
 `;
+
+function Plane(props) {
+  // This reference will give us direct access to the mesh
+  const ref = useRef();
+
+  return (
+    <mesh ref={ref} {...props}>
+      <planeBufferGeometry attach="geometry" args={[100, 100]} />
+      <meshStandardMaterial attach="material" color="#ff1717" />
+    </mesh>
+  );
+}
 
 const Hero = ({ title, text, hideContent }) => {
   const [start, setStart] = useState({ x: 0, y: 0 });
@@ -109,11 +121,12 @@ const Hero = ({ title, text, hideContent }) => {
       >
         <ambientLight />
         <DDDLightSource name="pointlight" />
+        {/* <Plane receiveShadow position={[0, 0, -100]} /> */}
         <Suspense fallback={<DDDLoading />}>
           <DDDHead
+            castShadow
             loadingManager={loadingManager}
             delta={delta}
-            url="/3d/head.glb"
             position={[0, 0, -70]}
             rotation={[
               THREE.Math.degToRad(0),

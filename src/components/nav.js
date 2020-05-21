@@ -106,20 +106,21 @@ function Navigation({ items, minimize }) {
                 </NavItem>
               );
             })}
-            <a
-              href="#close"
-              alt="close menu"
-              onClick={(e) => {
-                setVisible(false);
-                e.preventDefault();
-              }}
-            >
-              <FontAwesomeIcon
-                style={{ margin: '0 auto', fontSize: '2rem' }}
-                icon={faRegularIcons['faTimes']}
-              />
-            </a>
           </NavList>
+          <a
+            style={{ display: 'flex' }}
+            href="#close"
+            alt="close menu"
+            onClick={(e) => {
+              setVisible(false);
+              e.preventDefault();
+            }}
+          >
+            <FontAwesomeIcon
+              style={{ margin: '0 auto', fontSize: '2rem' }}
+              icon={faRegularIcons['faTimes']}
+            />
+          </a>
         </Nav>
       </NavWrapper>
     </>
