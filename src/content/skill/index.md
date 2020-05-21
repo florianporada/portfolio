@@ -22,7 +22,6 @@ hardskills:
   - Docker
   - CI/CD
   - Data Analysis
-  - Task Runner
 ---
 
 <!-- I'm trying to explain how I and why I work the way I do...
