@@ -2,8 +2,9 @@ import { graphql, useStaticQuery } from 'gatsby';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
-import { colors } from '../constants';
 
+import { colors } from '../constants';
+import SectionTitle from './sectiontitle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as faRegularIcons from '@fortawesome/pro-regular-svg-icons';
 import * as faBrandIcons from '@fortawesome/free-brands-svg-icons';
@@ -81,6 +82,10 @@ const Webring = styled.a`
   left: 15px;
   height: 25px;
 
+  img {
+    filter: brightness(0.9);
+  }
+
   @media (max-width: 320px) {
     right: 15px;
     left: unset;
@@ -107,6 +112,7 @@ const Footer = () => {
 
   return (
     <FooterWrapper>
+      <SectionTitle invert>Contact</SectionTitle>
       <Content>
         <Ul>
           {data.contact.frontmatter.social.map((detail) => {

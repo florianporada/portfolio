@@ -17,20 +17,21 @@ import { colors } from '../constants';
 
 const Main = styled.main`
   background-color: ${colors.BACKGROUND};
-  margin-bottom: 400px;
   min-height: 100%;
 
   &::after {
     z-index: -1;
-    height: 400px;
-    content: "";
+    height: 500px;
+    content: '';
     position: absolute;
     width: 100%;
   }
 
-  // -webkit-box-shadow: 0px 4px 25px 0px ${colors.BACKGROUND};
-  // -moz-box-shadow: 0px 4px 25px 0px ${colors.BACKGROUND};
-  // box-shadow: 0px 4px 25px 0px ${colors.BACKGROUND};
+  @media (max-width: 768px) {
+    &::after {
+      height: 440px;
+    }
+  }
 `;
 
 const Layout = ({ children }) => {
@@ -46,8 +47,8 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <span id="home" style={{ opacity: 0, height: 0, width: 0 }} />
       <Header siteTitle={data.site.siteMetadata.title} />
+      <span id="home" style={{ opacity: 0, height: 0, width: 0 }} />
       <Main>{children}</Main>
       <span id="contact" style={{ opacity: 0, height: 0, width: 0 }} />
       <Footer />
