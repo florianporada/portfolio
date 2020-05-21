@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { isMobile } from 'react-device-detect';
 import { useFrame, useLoader } from 'react-three-fiber';
@@ -14,6 +14,7 @@ const modes = {
   spin: 'spin',
   mobile: 'mobile',
 };
+const models = ['head_lowpoly.glb', 'head_stick.glb', 'head.glb'];
 
 const getLoader = (url) => {
   const fileExtension = url.split('.')[url.split('.').length - 1];
@@ -26,16 +27,21 @@ const getLoader = (url) => {
 };
 
 const getGeometry = (obj) => {
-  if (obj.nodes.object) {
-    return obj.nodes.object.geometry;
+  if (obj.nodes) {
+    for (let [, value] of Object.entries(obj.nodes)) {
+      if (value.type === 'Mesh') {
+        return value.geometry;
+      }
+    }
+    return null;
   } else if (obj.children.length > 0) {
     return obj.children[0].geometry;
   } else {
-    return 0;
+    return null;
   }
 };
 
-function ThreeObject(props) {
+function Head(props) {
   const mesh = useRef();
   const mode = useRef(modes.spin);
   const orientationOffset = useRef({
@@ -43,13 +49,12 @@ function ThreeObject(props) {
     y: props.rotation[1],
     z: props.rotation[2],
   });
-
-  const obj = useLoader(getLoader(props.url), props.url, (loader) => {
+  const [head] = useState(models[Math.floor(Math.random() * models.length)]);
+  const obj = useLoader(getLoader(head), `/3d/${head}`, (loader) => {
     if (props.loadingManager) {
       loader.manager = props.loadingManager.current;
     }
   });
-  const geometry = getGeometry(obj);
 
   const resetRotation = () => {
     mesh.current.rotation.x = orientationOffset.current.x;
@@ -141,28 +146,25 @@ function ThreeObject(props) {
             side: THREE.DoubleSide,
             transparent: false,
             color: new THREE.Color(colors.TEXT),
-            wireframe: true,
+            wireframe: false,
             flatShading: false,
-            wireframeLinewidth: 1,
           })
         }
       >
-        <primitive object={geometry} attach="geometry" />
+        <primitive object={getGeometry(obj)} attach="geometry" />
       </mesh>
     </group>
   );
 }
 
-export default ThreeObject;
+export default Head;
 
-ThreeObject.propTypes = {
-  url: PropTypes.string,
+Head.propTypes = {
   delta: PropTypes.object,
   rotation: PropTypes.arrayOf(PropTypes.number),
   loadingManager: PropTypes.object,
 };
 
-ThreeObject.defaultProps = {
-  url: '/3d/head.glb',
+Head.defaultProps = {
   rotation: [0, 0, 0],
 };

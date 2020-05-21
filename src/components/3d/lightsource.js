@@ -17,14 +17,14 @@ function Light(props) {
   useFrame(({ mouse, ...state }) => {
     if (mode.current === 'moving') {
       light.current.position.x += Math.sin(state.clock.getElapsedTime()) * 0.5;
-      light.current.intensity = 2;
+      light.current.intensity = 3;
     } else if (mode.current === 'mouse') {
       light.current.position.x = mouse.x * 10;
       light.current.position.y = mouse.y * 10;
-      light.current.position.z = 10;
-      light.current.intensity = 2 - Math.abs(mouse.x);
+      light.current.position.z = -50;
+      light.current.intensity = 4 - Math.abs(mouse.x);
     } else {
-      light.current.intensity = 2;
+      light.current.intensity = 3;
     }
   });
 
