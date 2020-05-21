@@ -29,7 +29,7 @@ const Main = styled.main`
 
   @media (max-width: 768px) {
     &::after {
-      height: 440px;
+      height: 460px;
     }
   }
 `;

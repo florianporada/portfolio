@@ -4,28 +4,29 @@ import { colors } from '../constants';
 
 const Title = styled.h2`
   font-size: 6rem;
-  margin-left: 5px;
-  transition: margin 250ms ease-out;
   color: ${(props) => (props.invert ? colors.BACKGROUND : colors.TEXT)};
+  margin-left: 15px;
+  transition: margin 0.25s ease;
 
   &::after {
     content: '';
     display: block;
     height: 10px;
     width: 0;
-    background: ${(props) => (props.invert ? colors.BACKGROUND : colors.TEXT)};
+    background: ${(props) => (props.invert ? colors.PRIMARY : colors.PRIMARY)};
     position: absolute;
-    margin-left: 120px;
-    margin-top: -30px;
+    margin-left: 0;
+    margin-top: -0.2em;
     z-index: 2;
-    transition: width 250ms ease-out;
+    transition: width 0.25s ease, margin-left 0.25s ease;
   }
 
   &:hover {
-    margin-left: 10px;
+    margin-left: 20px;
 
     &::after {
-      width: 70%;
+      margin-left: -5px;
+      width: calc(100vw - 30px);
     }
   }
 
@@ -38,7 +39,6 @@ const Title = styled.h2`
 
     &::after {
       margin-left: 0;
-      margin-top: -20px;
     }
 
     &:hover {
