@@ -97,10 +97,6 @@ const Hero = ({ title, text, hideContent }) => {
 
   useEffect(() => {
     loadingManager.current = new THREE.LoadingManager();
-
-    loadingManager.current.onProgress = function (item, loaded, total) {
-      console.log('finished loading 3d object.');
-    };
   }, []);
 
   return (
