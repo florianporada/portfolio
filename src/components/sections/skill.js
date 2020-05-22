@@ -162,7 +162,7 @@ const Skill = ({ data }) => {
         ? {
             to: [{ opacity: 0, marginLeft: 10 }, { display: 'none' }],
           }
-        : { to: [{ opacity: 1 }, { display: 'block' }] }
+        : { to: [{ opacity: 1, marginLeft: 0 }, { display: 'block' }] }
     );
 
     setListProps(() =>
