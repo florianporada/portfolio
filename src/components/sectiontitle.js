@@ -8,6 +8,7 @@ import { colors } from '../constants';
 const TitleWrapper = styled.h2`
   font-size: 6rem;
   margin-left: 15px;
+  margin-right: 15px;
   transition: margin 0.25s ease;
 
   &::after {
