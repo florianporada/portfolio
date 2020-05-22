@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useMemo } from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { isMobile } from 'react-device-detect';
 import { useFrame, useLoader } from 'react-three-fiber';
