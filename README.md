@@ -41,4 +41,5 @@ If you are reading this feel free to explore this repository or visit florianpor
 ## 📝ToDo
 
 - refine motion detection on mobile
+- make collapsed nav button 'background aware'
 - ...
