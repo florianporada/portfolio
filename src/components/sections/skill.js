@@ -13,11 +13,8 @@ const Wrapper = styled.div`
   flex-direction: column;
   padding: 0 15px 15px 15px;
   line-height: 1.1;
-`;
-
-const ContentWrapper = styled.div`
-  position: relative;
   max-width: 992px;
+  margin: 0 auto;
 `;
 
 const Content = styled(animated.div)`
@@ -56,7 +53,6 @@ const Item = styled.a`
   color: ${colors.BACKGROUND};
   font-size: 2.75em;
   padding: 15px;
-  margin: 10px;
   transition: background-color 0.25s ease, color 0.25s ease;
 
   &:hover {
@@ -82,7 +78,7 @@ const Button = styled.a`
   font-size: 2.75em;
   padding: 30px;
   font-family: 'Suprapower';
-  margin: 10px;
+  align-self: flex-start;
   transition: background-color 0.25s ease, color 0.25s ease;
 
   &::after {
@@ -138,7 +134,11 @@ const Skill = ({ data }) => {
     return {
       config: { duration: duration },
       delay: 2500,
-      from: { opacity: 1, marginRight: 0, display: 'flex' },
+      from: {
+        opacity: 1,
+        marginRight: Math.floor(Math.random() * 10) + 5,
+        display: 'flex',
+      },
     };
   });
   const [listProps, setListProps] = useSpring(() => {
@@ -153,7 +153,7 @@ const Skill = ({ data }) => {
       listVisible
         ? {
             opacity: 1,
-            marginRight: Math.floor(Math.random() * 10) + 3,
+            marginRight: 15,
           }
         : { opacity: 0, marginRight: 0 }
     );
@@ -189,27 +189,25 @@ const Skill = ({ data }) => {
       <ImageWrapper>
         <Img fluid={data.frontmatter.images[0].childImageSharp.fluid} />
       </ImageWrapper>
-      <ContentWrapper>
-        <Content
-          style={contentProps}
-          dangerouslySetInnerHTML={{ __html: data.html }}
-        />
-        <List style={listProps}>
-          {hardskills.map((item, idx) => (
-            <animated.li style={itemProps[idx]} key={item || 'things'}>
-              <Item
-                href={`http://www.google.com/search?q=what+is+${item
-                  .split(' ')
-                  .join('+')}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {item || 'things'}
-              </Item>
-            </animated.li>
-          ))}
-        </List>
-      </ContentWrapper>
+      <Content
+        style={contentProps}
+        dangerouslySetInnerHTML={{ __html: data.html }}
+      />
+      <List style={listProps}>
+        {hardskills.map((item, idx) => (
+          <animated.li style={itemProps[idx]} key={item || 'things'}>
+            <Item
+              href={`http://www.google.com/search?q=what+is+${item
+                .split(' ')
+                .join('+')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {item || 'things'}
+            </Item>
+          </animated.li>
+        ))}
+      </List>
     </Wrapper>
   );
 };
