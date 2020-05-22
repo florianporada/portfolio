@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `Florian Porada`,
-    description: `Florian Porada's portfolio page.`,
+    description: `Exploring and developing technology in an antidisciplinary way.`,
     author: `Florian Porada`,
     url: 'https://www.florianporada.com',
     image: '/img/favicon.png',
