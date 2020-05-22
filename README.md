@@ -38,8 +38,9 @@ If you are reading this feel free to explore this repository or visit florianpor
 
    Save your changes and the browser will update in real time!
 
-## 📝ToDo
+## 📝 ToDo
 
 - refine motion detection on mobile
 - make collapsed nav button 'background aware'
+- use compressed 3d model files
 - ...
