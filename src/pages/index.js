@@ -32,8 +32,8 @@ const IndexPage = ({ data }) => {
       <Section id="about">
         <About data={data.about} />
       </Section>
-      <Section>
-        <SectionTitle id="work">Selected Work</SectionTitle>
+      <Section id="work">
+        <SectionTitle>Selected Work</SectionTitle>
         <Work items={data.work.nodes} />
       </Section>
       <Section id="skill">

@@ -8,13 +8,14 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import { colors } from '../../constants';
 
+const models = ['/3d/head_lowpoly.glb', '/3d/head_stick.glb', '/3d/head.glb'];
+const model = models[Math.floor(Math.random() * models.length)];
 const modes = {
   rotate: 'rotate',
   follow: 'follow',
   spin: 'spin',
   mobile: 'mobile',
 };
-const models = ['head_lowpoly.glb', 'head_stick.glb', 'head.glb'];
 
 const getLoader = (url) => {
   const fileExtension = url.split('.')[url.split('.').length - 1];
@@ -27,15 +28,32 @@ const getLoader = (url) => {
 };
 
 const getGeometry = (obj) => {
+  if (obj === undefined) return null;
+
+  const getMesh = (arr) => {
+    for (let index = 0; index < arr.length; index++) {
+      const element = arr[index];
+
+      if (element.type === 'Mesh') {
+        return element.geometry;
+      }
+    }
+
+    return null;
+  };
+
   if (obj.nodes) {
     for (let [, value] of Object.entries(obj.nodes)) {
       if (value.type === 'Mesh') {
         return value.geometry;
       }
     }
+
     return null;
-  } else if (obj.children.length > 0) {
-    return obj.children[0].geometry;
+  } else if (obj.children && obj.children.length > 0) {
+    return getMesh(obj.children);
+  } else if (obj.scene && obj.scene.children) {
+    return getMesh(obj.scene.children);
   } else {
     return null;
   }
@@ -49,8 +67,7 @@ function Head(props) {
     y: props.rotation[1],
     z: props.rotation[2],
   });
-  const [head] = useState(models[Math.floor(Math.random() * models.length)]);
-  const obj = useLoader(getLoader(head), `/3d/${head}`, (loader) => {
+  const obj = useLoader(getLoader(model), model, (loader) => {
     if (props.loadingManager) {
       loader.manager = props.loadingManager.current;
     }

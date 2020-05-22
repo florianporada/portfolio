@@ -1,11 +1,14 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import scrollTo from 'gatsby-plugin-smoothscroll';
 
 import { colors } from '../constants';
 
-const Title = styled.h2`
+const TitleWrapper = styled.h2`
   font-size: 6rem;
-  color: ${(props) => (props.invert ? colors.BACKGROUND : colors.TEXT)};
   margin-left: 15px;
+  margin-right: 15px;
   transition: margin 0.25s ease;
 
   &::after {
@@ -30,6 +33,14 @@ const Title = styled.h2`
     }
   }
 
+  a {
+    color: ${(props) => (props.invert ? colors.BACKGROUND : colors.TEXT)};
+
+    &::after {
+      display: none;
+    }
+  }
+
   @media (max-width: 768px) {
     font-size: 4rem;
   }
@@ -51,8 +62,32 @@ const Title = styled.h2`
   }
 `;
 
-Title.propTypes = {};
+function Title({ children, id, ...props }) {
+  const anchor = children.split(' ').join('_') || id;
 
-Title.defaultProps = {};
+  return (
+    <TitleWrapper id={anchor} {...props}>
+      <a
+        href={`#${anchor}`}
+        onClick={(e) => {
+          e.preventDefault();
+          scrollTo(`#${anchor}`);
+        }}
+      >
+        {children}
+      </a>
+    </TitleWrapper>
+  );
+}
+
+Title.propTypes = {
+  children: PropTypes.string,
+  id: PropTypes.string,
+};
+
+Title.defaultProps = {
+  children: '',
+  id: '',
+};
 
 export default Title;
