@@ -198,10 +198,9 @@ const Skill = ({ data }) => {
           {hardskills.map((item, idx) => (
             <animated.li style={itemProps[idx]} key={item || 'things'}>
               <Item
-                href={`http://www.google.com/search?q=what+is+${item.replace(
-                  ' ',
-                  '+'
-                )}`}
+                href={`http://www.google.com/search?q=what+is+${item
+                  .split(' ')
+                  .join('+')}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
