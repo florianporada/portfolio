@@ -59,7 +59,7 @@ const Title = styled.h1`
   a {
     display: inline-block;
     position: relative;
-    width: 325px;
+    width: 305px;
     height: 40px;
     transform: translateX(-50%);
     transition: transform 0.5s ease 0.25s, width 0.5s ease,
