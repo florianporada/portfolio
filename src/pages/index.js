@@ -23,7 +23,15 @@ const Section = styled.section`
 const IndexPage = ({ data }) => {
   return (
     <Layout>
-      <SEO title="Home" />
+      <SEO
+        title="Home"
+        noscript={[
+          {
+            innerHTML:
+              '<meta http-equiv="refresh" content="1;url=simpleversion" />',
+          },
+        ]}
+      />
       <Hero
         title={data.about.frontmatter.title}
         text={data.about.frontmatter.description}
@@ -40,9 +48,6 @@ const IndexPage = ({ data }) => {
         <SectionTitle>{data.skill.frontmatter.title}</SectionTitle>
         <Skill data={data.skill} />
       </Section>
-      <noscript>
-        <meta httpEquiv="refresh" content="1;url=simpleversion" />
-      </noscript>
     </Layout>
   );
 };

@@ -1,6 +1,6 @@
 import { Link, graphql, useStaticQuery } from 'gatsby';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
 import { useScrollData } from 'scroll-data-hook';
 

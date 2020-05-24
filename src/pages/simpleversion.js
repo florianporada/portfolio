@@ -93,8 +93,8 @@ const SimpleVersionPage = ({ data }) => {
         <span role="img" aria-label="waving hand">
           👋
         </span>
-        Seems your browser does not support JavaScript. That is why you are
-        seeing a simple version of the portfolio.
+        It seems that your browser does not support JavaScript. That is why you
+        are seeing a simple version of the portfolio.
       </Note>
       <Section id="about">
         <SectionTitle>About</SectionTitle>
