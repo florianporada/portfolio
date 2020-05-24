@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components';
 import Img from 'gatsby-image';
 
 import DDDImage from '../3d/image';
+import Tag from '../tag';
 import { colors } from '../../constants';
 
 const Wrapper = styled.div`
@@ -145,27 +146,6 @@ const Link = styled.a`
 
   &:visited {
     color: ${colors.TEXT};
-  }
-`;
-
-const Tag = styled.span`
-  display: inline-block;
-  background-color: ${colors.TEXT};
-  color: ${colors.BACKGROUND};
-  padding: 5px;
-  margin: 2.5px;
-  font-size: 14px;
-  line-height: 1.75rem;
-  font-family: 'Suprapower';
-  transition: all 0.25s ease;
-
-  &:hover {
-    background-color: ${colors.PRIMARY};
-    color: ${colors.TEXT};
-  }
-
-  &:first-of-type {
-    margin-left: 0;
   }
 `;
 

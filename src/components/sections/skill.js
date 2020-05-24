@@ -1,9 +1,12 @@
-import { colors } from '../../constants';
 import React, { useRef, useEffect, useState, useMemo } from 'react';
 import PropTypes, { arrayOf, string } from 'prop-types';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
 import { useSpring, animated, useSprings } from 'react-spring';
+
+import { getHardskills } from '../../lib/helper';
+import { colors } from '../../constants';
+import ListItem from '../listitem';
 
 const Wrapper = styled.div`
   position: relative;
@@ -18,7 +21,7 @@ const Wrapper = styled.div`
 `;
 
 const Content = styled(animated.div)`
-  font-size: 1.75em;
+  font-size: 1.75rem;
   line-height: 1.25em;
   margin-top: 30px;
 
@@ -46,23 +49,6 @@ const List = styled(animated.ul)`
   display: flex;
   flex-wrap: wrap;
   opacity: 0;
-`;
-
-const Item = styled.a`
-  background-color: ${colors.TEXT};
-  color: ${colors.BACKGROUND};
-  font-size: 2.75em;
-  padding: 15px;
-  transition: background-color 0.25s ease, color 0.25s ease;
-
-  &:hover {
-    background-color: ${colors.PRIMARY};
-    color: ${colors.TEXT};
-  }
-
-  &::after {
-    display: none;
-  }
 `;
 
 const ImageWrapper = styled.div`
@@ -94,31 +80,6 @@ const Button = styled.a`
     color: ${colors.TEXT};
   }
 `;
-
-const getHardskills = (data) => {
-  const children = data.htmlAst.children.reduce((result, current) => {
-    if (current.children) {
-      return [...result, ...current.children];
-    } else {
-      return result;
-    }
-  }, []);
-
-  const result = children
-    .filter((el) => {
-      return el.tagName === 'strong';
-    })
-    .map((el) => {
-      return el.children[0].value;
-    });
-
-  return [...result, ...data.frontmatter.hardskills].reduce(
-    (result, current) => {
-      return result.includes(current) ? result : [...result, current];
-    },
-    []
-  );
-};
 
 const Skill = ({ data }) => {
   const buttonRef = useRef();
@@ -196,7 +157,7 @@ const Skill = ({ data }) => {
       <List style={listProps}>
         {hardskills.map((item, idx) => (
           <animated.li style={itemProps[idx]} key={item || 'things'}>
-            <Item
+            <ListItem
               href={`http://www.google.com/search?q=what+is+${item
                 .split(' ')
                 .join('+')}`}
@@ -204,7 +165,7 @@ const Skill = ({ data }) => {
               rel="noopener noreferrer"
             >
               {item || 'things'}
-            </Item>
+            </ListItem>
           </animated.li>
         ))}
       </List>

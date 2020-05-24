@@ -13,13 +13,13 @@ const Wrapper = styled.div`
 `;
 
 const Intro = styled.h3`
-  font-size: 1.75em;
+  font-size: 1.75rem;
   margin-top: -100px;
 `;
 
 const Content = styled.div`
   max-width: 500px;
-  font-size: 1.35em;
+  font-size: 1.75rem;
   margin-top: 30px;
 `;
 

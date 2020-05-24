@@ -40,6 +40,9 @@ const IndexPage = ({ data }) => {
         <SectionTitle>{data.skill.frontmatter.title}</SectionTitle>
         <Skill data={data.skill} />
       </Section>
+      <noscript>
+        <meta httpEquiv="refresh" content="1;url=simpleversion" />
+      </noscript>
     </Layout>
   );
 };

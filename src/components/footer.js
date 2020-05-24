@@ -92,7 +92,7 @@ const Webring = styled.a`
   }
 `;
 
-const Footer = () => {
+const Footer = ({ simple }) => {
   const data = useStaticQuery(graphql`
     query {
       contact: markdownRemark(
@@ -127,11 +127,15 @@ const Footer = () => {
                     {detail.name}
                   </a>
                 </h3>
-                <FontAwesomeIcon
-                  style={{ marginLeft: 10, marginTop: 5 }}
-                  icon={faComplete[detail.faIcon]}
-                />
-                <Overlay />
+                {!simple && (
+                  <>
+                    <FontAwesomeIcon
+                      style={{ marginLeft: 10, marginTop: 5 }}
+                      icon={faComplete[detail.faIcon]}
+                    />
+                    <Overlay />
+                  </>
+                )}
               </Li>
             );
           })}
@@ -163,8 +167,11 @@ const Footer = () => {
 
 Footer.propTypes = {
   data: PropTypes.object,
+  simple: PropTypes.bool,
 };
 
-Footer.defaultProps = {};
+Footer.defaultProps = {
+  simple: false,
+};
 
 export default Footer;
