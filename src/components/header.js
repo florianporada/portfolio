@@ -149,7 +149,9 @@ const Header = ({ siteTitle, simple }) => {
         <ul>
           {data.pages.nodes.map((item) => (
             <li key={item.id}>
-              <a href={`#${item.name}`}>{item.name}</a>
+              <a href={item.name === 'home' ? '/' : `#${item.name}`}>
+                {item.name}
+              </a>
             </li>
           ))}
         </ul>

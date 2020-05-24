@@ -93,7 +93,7 @@ function Navigation({ items, minimize }) {
                       color: colors.TEXT,
                       textDecoration: `none`,
                     }}
-                    href="#click"
+                    href={`#${item.name}`}
                     onClick={(e) => {
                       e.preventDefault();
 
