@@ -1,6 +1,6 @@
 import { Link, graphql, useStaticQuery } from 'gatsby';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
 import { useScrollData } from 'scroll-data-hook';
 
@@ -44,6 +44,25 @@ const HeaderWrapper = styled.header`
     &::after {
       display: none;
     }
+  }
+`;
+
+const SimpleHeaderWrapper = styled.header`
+  padding: 30px;
+  background-color: ${colors.TEXT};
+  color: ${colors.BACKGROUND};
+
+  h1 {
+    transform: unset;
+    text-align: center;
+  }
+
+  ul {
+    display: flex;
+    list-style: none;
+    justify-content: space-evenly;
+    max-width: 992px;
+    margin: 30px auto 0 auto;
   }
 `;
 
@@ -107,7 +126,7 @@ const Title = styled.h1`
     `}
 `;
 
-const Header = ({ siteTitle }) => {
+const Header = ({ siteTitle, simple }) => {
   const { position } = useScrollData();
   const minimize = position.y > 30;
   const data = useStaticQuery(graphql`
@@ -122,6 +141,21 @@ const Header = ({ siteTitle }) => {
       }
     }
   `);
+
+  if (simple) {
+    return (
+      <SimpleHeaderWrapper>
+        <Title>{siteTitle}</Title>
+        <ul>
+          {data.pages.nodes.map((item) => (
+            <li key={item.id}>
+              <a href={`#${item.name}`}>{item.name}</a>
+            </li>
+          ))}
+        </ul>
+      </SimpleHeaderWrapper>
+    );
+  }
 
   return (
     <HeaderWrapper minimize={minimize}>
@@ -140,10 +174,12 @@ const Header = ({ siteTitle }) => {
 Header.propTypes = {
   siteTitle: PropTypes.string,
   data: PropTypes.object,
+  simple: PropTypes.bool,
 };
 
 Header.defaultProps = {
   siteTitle: ``,
+  simple: false,
 };
 
 export default Header;

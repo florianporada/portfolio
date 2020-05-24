@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `Florian Porada`,
-    description: `Florian Porada's portfolio page.`,
+    description: `Exploring and developing technology in an antidisciplinary way.`,
     author: `Florian Porada`,
     url: 'https://www.florianporada.com',
     image: '/img/favicon.png',
@@ -64,6 +64,6 @@ module.exports = {
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
+    `gatsby-plugin-offline`,
   ],
 };
