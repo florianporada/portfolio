@@ -5,10 +5,15 @@ import { useFrame, useLoader } from 'react-three-fiber';
 import * as THREE from 'three';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 
 import { colors } from '../../constants';
 
-const models = ['/3d/head_lowpoly.glb', '/3d/head_stick.glb', '/3d/head.glb'];
+const models = [
+  '/3d/head_lowpoly_compressed.gltf',
+  '/3d/head_sticks_compressed.gltf',
+  '/3d/head_compressed.gltf',
+];
 const model = models[Math.floor(Math.random() * models.length)];
 const modes = {
   rotate: 'rotate',
@@ -22,7 +27,7 @@ const getLoader = (url) => {
 
   if (fileExtension === 'obj') {
     return OBJLoader;
-  } else if (fileExtension === 'glb') {
+  } else if (fileExtension === 'glb' || fileExtension === 'gltf') {
     return GLTFLoader;
   }
 };
@@ -62,22 +67,26 @@ const getGeometry = (obj) => {
 function Head(props) {
   const mesh = useRef();
   const mode = useRef(modes.spin);
-  const orientationOffset = useRef({
-    x: props.rotation[0],
-    y: props.rotation[1],
-    z: props.rotation[2],
-  });
+  // const orientationOffset = useRef({
+  //   x: props.rotation[0],
+  //   y: props.rotation[1],
+  //   z: props.rotation[2],
+  // });
   const obj = useLoader(getLoader(model), model, (loader) => {
+    const dracoLoader = new DRACOLoader();
+    dracoLoader.decoderPath = '/draco-gltf/';
+    loader.setDRACOLoader(dracoLoader);
+
     if (props.loadingManager) {
       loader.manager = props.loadingManager.current;
     }
   });
 
-  const resetRotation = () => {
-    mesh.current.rotation.x = orientationOffset.current.x;
-    mesh.current.rotation.y = orientationOffset.current.y;
-    mesh.current.rotation.z = orientationOffset.current.z;
-  };
+  // const resetRotation = () => {
+  //   mesh.current.rotation.x = orientationOffset.current.x;
+  //   mesh.current.rotation.y = orientationOffset.current.y;
+  //   mesh.current.rotation.z = orientationOffset.current.z;
+  // };
 
   useEffect(() => {
     if (isMobile) {
