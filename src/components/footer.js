@@ -75,23 +75,6 @@ const Copyright = styled.div`
   }
 `;
 
-const Webring = styled.a`
-  width: 25px;
-  position: absolute;
-  bottom: 15px;
-  left: 15px;
-  height: 25px;
-
-  img {
-    filter: brightness(0.9);
-  }
-
-  @media (max-width: 320px) {
-    right: 15px;
-    left: unset;
-  }
-`;
-
 const Footer = ({ simple }) => {
   const data = useStaticQuery(graphql`
     query {
@@ -151,16 +134,6 @@ const Footer = ({ simple }) => {
           florianporada
         </a>
       </Copyright>
-      <Webring
-        href="https://webring.xxiivv.com/#random"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <img
-          src="https://webring.xxiivv.com/icon.white.svg"
-          alt="webring icon"
-        />
-      </Webring>
     </FooterWrapper>
   );
 };
