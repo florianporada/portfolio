@@ -16,19 +16,18 @@ exports.onCreateWebpackConfig = ({
     module: {
       rules: [
         {
-          test: /\.obj$/,
+          test: /\.(obj|glb|gltf|)$/,
           use: [`url-loader`],
         },
         {
-          test: /\.glb$/,
-          use: [`url-loader`],
+          test: /\.(bin)$/,
+          use: [
+            {
+              loader: 'file-loader',
+              options: {},
+            },
+          ],
         },
-        // {
-        //   test: /\.obj$/,
-        //   use: [
-        //     `webpack-obj-loader`,
-        //   ],
-        // },
       ],
     },
   });

@@ -42,5 +42,6 @@ If you are reading this feel free to explore this repository or visit florianpor
 
 - refine motion detection on mobile
 - make collapsed nav button 'background aware'
-- use compressed 3d model files
+- use compressed 3d model files ✅
+- no-javascript version ✅
 - ...
