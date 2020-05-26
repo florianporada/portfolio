@@ -30,6 +30,12 @@ If you are reading this feel free to explore this repository or visit florianpor
    yarn run develop -H 0.0.0.0
    ```
 
+   To test device orientation features use the `https` feature.
+
+   ```shell
+   yarn run develop -H 0.0.0.0 --https
+   ```
+
 2. **Open the source code and start editing!**
 
    Your site is now running at `http://localhost:8000`!
@@ -41,6 +47,7 @@ If you are reading this feel free to explore this repository or visit florianpor
 ## 📝 ToDo
 
 - refine motion detection on mobile
+- easing for canvas interaction
 - make collapsed nav button 'background aware'
 - use compressed 3d model files ✅
 - no-javascript version ✅
