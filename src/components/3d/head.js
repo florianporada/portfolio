@@ -97,12 +97,19 @@ function Head(props) {
   useEffect(() => {
     const handleDeviceMotion = ({ absolute, alpha, beta, gamma, ...event }) => {
       if (mode.current === modes.mobile) {
-        mesh.current.rotation.y =
+        const x =
+          props.rotation[0] +
+          THREE.Math.degToRad(mesh.current.rotation.x + 50 + -beta * 0.4);
+        const y =
           props.rotation[1] +
-          THREE.Math.degToRad(mesh.current.rotation.y + Math.abs(alpha) * 0.25);
-        mesh.current.rotation.x = THREE.Math.degToRad(
-          (mesh.current.rotation.x + Math.abs(beta) - 95) * 0.25
-        );
+          THREE.Math.degToRad(mesh.current.rotation.y + -gamma * 0.4);
+        // const z =
+        //   props.rotation[2] +
+        //   THREE.Math.degToRad(mesh.current.rotation.z + alpha * 0.25);
+
+        mesh.current.rotation.x = x;
+        mesh.current.rotation.y = y;
+        // mesh.current.rotation.z = z;
       }
     };
 
