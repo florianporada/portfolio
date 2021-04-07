@@ -3,7 +3,7 @@ import React, { useState, useRef, useLayoutEffect } from 'react';
 import styled, { css } from 'styled-components';
 import Img from 'gatsby-image';
 
-import DDDImage from '../3d/image';
+// import DDDImage from '../3d/image';
 import Tag from '../tag';
 import { colors } from '../../constants';
 

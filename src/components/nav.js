@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 import scrollTo from 'gatsby-plugin-smoothscroll';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import * as faRegularIcons from '@fortawesome/pro-regular-svg-icons';
+import * as faRegularIcons from '@fortawesome/free-regular-svg-icons';
 
 import { colors } from '../constants';
 import NavButton from './navbutton';
@@ -28,7 +28,7 @@ const NavWrapper = styled.div`
     css`
       left: 0;
       height: 100vh;
-      top 0;
+      top: 0;
 
       nav {
         opacity: 1;
@@ -118,7 +118,7 @@ function Navigation({ items, minimize }) {
           >
             <FontAwesomeIcon
               style={{ margin: '0 auto', fontSize: '2rem' }}
-              icon={faRegularIcons['faTimes']}
+              icon={faRegularIcons['faTimesCircle']}
             />
           </a>
         </Nav>
