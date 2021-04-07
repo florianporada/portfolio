@@ -23,11 +23,17 @@ jobs:
       #   run: |
       #     echo '@fortawesome:registry=https://npm.fontawesome.com/' > ${GITHUB_WORKSPACE}/.npmrc
       #     echo //npm.fontawesome.com/:_authToken=${FA_NPM_PACKAGE_TOKEN} >> ${GITHUB_WORKSPACE}/.npmrc
+      - name: Set conditional env vars
+        id: set_conditional_env_vars
+        shell: bash
+        run: |
+          echo "DOCKER_IMAGE=$(echo "florianporada/florianporada.com")" >> $GITHUB_ENV
+          echo "DOCKER_SERVICE=$(echo "florianporada.com")" >> $GITHUB_ENV
       - name: Prepare persisted_data file
         shell: bash
         run: |
-          echo "florianporada.com" > docker_service.txt
-          echo "florianporada/florianporada.com" > docker_image.txt
+          echo ${{ env.DOCKER_SERVICE }} > docker_service.txt
+          echo ${{ env.DOCKER_IMAGE }} > docker_image.txt
           echo ${{ env.RELEASE_VERSION }} > release_version.txt
       - name: Upload persisted_data
         uses: actions/upload-artifact@v2
@@ -36,7 +42,7 @@ jobs:
           path: |
             docker_service.txt
             docker_image.txt
-            release_date.txt
+            release_version.txt
       - name: Build and publish to registry
         uses: elgohr/Publish-Docker-Github-Action@master
         env:
