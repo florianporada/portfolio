@@ -6,12 +6,14 @@ import styled from 'styled-components';
 import { colors } from '../constants';
 import SectionTitle from './sectiontitle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import * as faRegularIcons from '@fortawesome/pro-regular-svg-icons';
+import * as faRegularIcons from '@fortawesome/free-regular-svg-icons';
+import * as faSolidIcons from '@fortawesome/free-solid-svg-icons';
 import * as faBrandIcons from '@fortawesome/free-brands-svg-icons';
 
 const faComplete = {
   ...faBrandIcons,
   ...faRegularIcons,
+  ...faSolidIcons,
 };
 
 const FooterWrapper = styled.footer`
@@ -32,7 +34,6 @@ const FooterWrapper = styled.footer`
 
 const Content = styled.div`
   display: flex;
-}
 `;
 
 const Ul = styled.ul`
@@ -46,7 +47,7 @@ const Overlay = styled.div`
   background: ${colors.TEXT};
   margin-top: 4px;
   margin-left: -1.1em;
-  opacity 1;
+  opacity: 1;
   transition: opacity 0.5s ease 0.1s;
 `;
 

@@ -7,7 +7,7 @@ import { colors } from '../constants';
 
 const TitleWrapper = styled.h2`
   font-size: 6rem;
-  margin-left: 15px;
+  margin-left: 85px;
   margin-right: 15px;
   transition: margin 0.25s ease;
 
@@ -25,11 +25,11 @@ const TitleWrapper = styled.h2`
   }
 
   &:hover {
-    margin-left: 20px;
+    margin-left: 90px;
 
     &::after {
       margin-left: -5px;
-      width: calc(100vw - 30px);
+      width: calc(100vw - 100px);
     }
   }
 

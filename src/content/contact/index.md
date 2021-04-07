@@ -20,5 +20,5 @@ social:
 
   - name: 'mail'
     link: 'mailto:florian.porada(at)gmail.com'
-    faIcon: 'faAt'
+    faIcon: 'faPaperPlane'
 ---
