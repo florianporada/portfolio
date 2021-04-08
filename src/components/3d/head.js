@@ -74,7 +74,7 @@ function Head(props) {
   // });
   const obj = useLoader(getLoader(model), model, (loader) => {
     const dracoLoader = new DRACOLoader();
-    dracoLoader.decoderPath = '/draco-gltf/';
+    dracoLoader.setDecoderPath('/draco-gltf/');
     loader.setDRACOLoader(dracoLoader);
 
     if (props.loadingManager) {
