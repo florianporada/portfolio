@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import * as THREE from 'three';
-import { Canvas, useFrame, stateContext } from 'react-three-fiber';
+import { Canvas, useFrame, stateContext } from '@react-three/fiber';
 import vertexShader from '../../assets/shader/vertexShader.glsl';
 import fragmentShader from '../../assets/shader/fragmentShader.glsl';
 

@@ -1,7 +1,7 @@
 import * as THREE from 'three';
-import React, { Suspense, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Canvas, useLoader, useFrame } from 'react-three-fiber';
+import { useLoader, useFrame } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 // This component was auto-generated from GLTF by: https://github.com/react-spring/gltfjsx

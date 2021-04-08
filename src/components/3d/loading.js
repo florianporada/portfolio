@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 
-import { useFrame, Dom } from 'react-three-fiber';
+import { useFrame } from '@react-three/fiber';
+import { Html } from '@react-three/drei';
 import { colors } from '../../constants';
 
 function Loading(props) {
@@ -12,9 +13,9 @@ function Loading(props) {
 
   return (
     <group>
-      <Dom center className="loading">
-        {'Loading...'}
-      </Dom>
+      <Html center className="loading">
+        <p>{'Loading...'}</p>
+      </Html>
       <mesh {...props} ref={mesh}>
         <boxBufferGeometry attach="geometry" args={[0.5, 2, 0.75]} />
         <meshStandardMaterial

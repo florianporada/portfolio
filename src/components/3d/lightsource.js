@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { isMobile } from 'react-device-detect';
 
-import { useFrame } from 'react-three-fiber';
+import { useFrame } from '@react-three/fiber';
 
 function Light(props) {
   const light = useRef();
