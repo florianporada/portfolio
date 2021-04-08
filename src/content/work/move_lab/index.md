@@ -4,7 +4,7 @@ title: 'move-lab.com'
 description: 'Sollicitudin mattis malesuada nisi himenaeos mauris eu'
 featuredimage: move_lab.png
 featured: true
-link: https://www.move-lab.com/
+link: https://www.move-lab.space/
 tags:
   - Kirby
   - PHP

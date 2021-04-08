@@ -34,6 +34,8 @@ const FooterWrapper = styled.footer`
 
 const Content = styled.div`
   display: flex;
+  width: 992px;
+  margin: 0 auto;
 `;
 
 const Ul = styled.ul`
