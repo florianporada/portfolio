@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Suspense, useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { Canvas, useFrame } from 'react-three-fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 
 import * as THREE from 'three';
 

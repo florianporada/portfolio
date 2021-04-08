@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import React, { useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { useLoader, useUpdate, useFrame } from 'react-three-fiber';
+import { useLoader, useUpdate, useFrame } from '@react-three/fiber';
 import { colors } from '../../constants';
 import vertexShader from '../../assets/shader/vertexShader.glsl';
 import fragmentShader from '../../assets/shader/fragmentShader.glsl';
