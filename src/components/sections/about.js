@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
-import { colors } from '../../constants';
-import Img from 'gatsby-image';
+// import { colors } from '../../constants';
+// import Img from 'gatsby-image';
 
 const Wrapper = styled.div`
   position: relative;
@@ -18,7 +18,7 @@ const Intro = styled.h3`
 `;
 
 const Content = styled.div`
-  max-width: 500px;
+  max-width: 992px;
   font-size: 1.75rem;
   margin-top: 30px;
 `;

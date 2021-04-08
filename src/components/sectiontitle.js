@@ -43,6 +43,15 @@ const TitleWrapper = styled.h2`
 
   @media (max-width: 768px) {
     font-size: 4rem;
+    margin-left: 15px;
+
+    &:hover {
+      margin-left: 20px;
+
+      &::after {
+        width: calc(100vw - 30px);
+      }
+    }
   }
 
   @media (max-width: 320px) {
