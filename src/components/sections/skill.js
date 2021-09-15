@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState, useMemo } from 'react';
 import PropTypes, { arrayOf, string } from 'prop-types';
-import Img from 'gatsby-image';
+import { GatsbyImage } from "gatsby-plugin-image"
 import styled from 'styled-components';
 import { useSpring, animated, useSprings } from 'react-spring';
 
@@ -147,9 +147,9 @@ const Skill = ({ data }) => {
       >
         {listVisible ? 'read more' : 'tl;dr'}
       </Button>
-      <ImageWrapper>
-        <Img fluid={data.frontmatter.images[0].childImageSharp.fluid} />
-      </ImageWrapper>
+      {/* <ImageWrapper>
+        <GatsbyImage image={data.frontmatter.images[0].childImageSharp.gatsbyImageData} alt={"Temp"} />
+      </ImageWrapper> */}
       <Content
         style={contentProps}
         dangerouslySetInnerHTML={{ __html: data.html }}

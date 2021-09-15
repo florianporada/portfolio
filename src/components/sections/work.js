@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { useState, useRef, useLayoutEffect } from 'react';
 import styled, { css } from 'styled-components';
-import Img from 'gatsby-image';
+import { GatsbyImage } from 'gatsby-plugin-image';
+import { navigate } from 'gatsby';
 
 // import DDDImage from '../3d/image';
 import Tag from '../tag';
@@ -90,7 +91,7 @@ const Element = styled.div`
   }
 `;
 
-const StyledImg = styled(Img)`
+const StyledImg = styled(GatsbyImage)`
   height: 100%;
   transition: all 0.25s ease;
 
@@ -287,15 +288,22 @@ const Work = ({ items }) => {
             count={items.length}
             key={item.id}
             visible={visibleId === item.id}
-            onClick={() => {
-              setVisibleId((activeId) => {
-                const isActive = activeId !== item.id ? item.id : undefined;
+            onClick={(e) => {
+              e.preventDefault();
+              // TODO: do something with form values
+              navigate(`${item.frontmatter.slug}`);
 
-                return isActive;
-              });
+              // setVisibleId((activeId) => {
+              //   const isActive = activeId !== item.id ? item.id : undefined;
+
+              //   return isActive;
+              // });
             }}
           >
-            <StyledImg fixed={image.fixed} fluid={image.fluid} />
+            <StyledImg
+              image={image.gatsbyImageData}
+              alt={item.frontmatter.title}
+            />
             <Title>{item.frontmatter.title}</Title>
             <Content>
               <div dangerouslySetInnerHTML={{ __html: item.html }} />

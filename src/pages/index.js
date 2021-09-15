@@ -71,9 +71,7 @@ export const query = graphql`
         date
         featuredimage {
           childImageSharp {
-            fluid(maxWidth: 800) {
-              ...GatsbyImageSharpFluid_withWebp
-            }
+            gatsbyImageData(layout: FULL_WIDTH, formats: [AUTO, WEBP])
           }
         }
       }
@@ -87,9 +85,7 @@ export const query = graphql`
         hardskills
         images {
           childImageSharp {
-            fluid(maxWidth: 800) {
-              ...GatsbyImageSharpFluid_withWebp
-            }
+            gatsbyImageData(layout: FULL_WIDTH, formats: [AUTO, WEBP])
           }
         }
       }
@@ -104,6 +100,7 @@ export const query = graphql`
       nodes {
         id
         frontmatter {
+          slug
           title
           date
           tags
@@ -111,12 +108,12 @@ export const query = graphql`
           description
           featuredimage {
             childImageSharp {
-              fixed(width: 800, height: 800, grayscale: true) {
-                ...GatsbyImageSharpFixed_withWebp
-              }
-              fluid(maxWidth: 800, grayscale: true) {
-                ...GatsbyImageSharpFluid_withWebp
-              }
+              gatsbyImageData(
+                layout: FIXED
+                formats: [AUTO, WEBP]
+                width: 800
+                height: 800
+              )
             }
           }
         }

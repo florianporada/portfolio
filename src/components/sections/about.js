@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 // import { colors } from '../../constants';
-// import Img from 'gatsby-image';
 
 const Wrapper = styled.div`
   position: relative;
@@ -27,7 +26,6 @@ const About = ({ data }) => {
   return (
     <Wrapper>
       <Intro>{data.frontmatter.description}</Intro>
-      {/* <Img fluid={data.frontmatter.featuredimage.childImageSharp.fluid} /> */}
       <Content dangerouslySetInnerHTML={{ __html: data.html }} />
     </Wrapper>
   );
