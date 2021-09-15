@@ -132,7 +132,7 @@ const Header = ({ siteTitle, simple }) => {
   const data = useStaticQuery(graphql`
     query {
       pages: allDirectory(
-        filter: { absolutePath: { regex: "/src/content/(\\\\w*)$/" } }
+        filter: { absolutePath: { regex: "/src/content/(\\w*)$/" }}
       ) {
         nodes {
           id
