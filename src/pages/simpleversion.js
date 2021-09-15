@@ -86,13 +86,15 @@ const SimpleVersionPage = ({ data }) => {
   const hardskills = useMemo(() => getHardskills(data.skill), [data]);
 
   return (
-    <Layout simple>
+    <>
       <SEO title="Simple Version" />
       <Note>
         Hey!
+        <span> </span>
         <span role="img" aria-label="waving hand">
           👋
         </span>
+        <span> </span>
         It seems that your browser does not support JavaScript. That is why you
         are seeing a simple version of the portfolio.
       </Note>
@@ -148,7 +150,7 @@ const SimpleVersionPage = ({ data }) => {
           </List>
         </Content>
       </Section>
-    </Layout>
+    </>
   );
 };
 

@@ -34,7 +34,8 @@ const Main = styled.main`
   }
 `;
 
-const Layout = ({ children, simple }) => {
+const Layout = ({ children }) => {
+  const isSimpleversion = window.location.pathname === '/simpleversion';
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -47,22 +48,22 @@ const Layout = ({ children, simple }) => {
 
   return (
     <>
-      <Header siteTitle={data.site.siteMetadata.title} simple={simple} />
+      <Header
+        siteTitle={data.site.siteMetadata.title}
+        simple={isSimpleversion}
+      />
       <span id="home" style={{ opacity: 0, height: 0, width: 0 }} />
       <Main>{children}</Main>
       <span id="contact" style={{ opacity: 0, height: 0, width: 0 }} />
-      <Footer simple={simple} />
+      <Footer simple={isSimpleversion} />
     </>
   );
 };
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
-  simple: PropTypes.bool,
 };
 
-Layout.defaultProps = {
-  simple: false,
-};
+Layout.defaultProps = {};
 
 export default Layout;

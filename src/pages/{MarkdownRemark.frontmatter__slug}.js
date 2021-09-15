@@ -3,16 +3,19 @@ import PropTypes from 'prop-types';
 import { graphql, Link } from 'gatsby';
 import TransitionLink from 'gatsby-plugin-transition-link';
 
+const interestingExitAnimation = (exit, node) => {
+  // do some animation here
+  console.log(exit, node);
+};
+
 export default function WorkTemplate({
   data, // this prop will be injected by the GraphQL query below.
 }) {
   const { markdownRemark } = data; // data.markdownRemark holds your post data
   const { frontmatter, html } = markdownRemark;
   return (
-    <div className="blog-post-container">
+    <>
       <Link to={'/'}>back</Link>
-      Copycopy code to clipboard
-      <TransitionLink>Go to Page 4</TransitionLink>
       <div className="blog-post">
         <h1>{frontmatter.title}</h1>
         <h2>{frontmatter.date}</h2>
@@ -21,7 +24,10 @@ export default function WorkTemplate({
           dangerouslySetInnerHTML={{ __html: html }}
         />
       </div>
-    </div>
+      <TransitionLink to="/" exit={{ length: 0.5 }} entry={{ delay: 0.5 }}>
+        Go to page 2
+      </TransitionLink>
+    </>
   );
 }
 

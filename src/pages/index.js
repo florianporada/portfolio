@@ -22,7 +22,7 @@ const Section = styled.section`
 
 const IndexPage = ({ data }) => {
   return (
-    <Layout>
+    <>
       <SEO
         title="Home"
         noscript={[
@@ -48,7 +48,7 @@ const IndexPage = ({ data }) => {
         <SectionTitle>{data.skill.frontmatter.title}</SectionTitle>
         <Skill data={data.skill} />
       </Section>
-    </Layout>
+    </>
   );
 };
 

@@ -17,7 +17,12 @@ module.exports = {
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-smoothscroll`,
     `gatsby-plugin-glslify`,
-    `gatsby-plugin-transition-link`,
+    {
+      resolve: 'gatsby-plugin-transition-link',
+      options: {
+        layout: require.resolve(`./src/components/layout.js`),
+      },
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
