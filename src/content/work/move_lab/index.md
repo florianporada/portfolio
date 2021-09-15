@@ -1,4 +1,5 @@
 ---
+slug: '/work/move-lab-com'
 date: '2019-04-04'
 title: 'move-lab.com'
 description: 'Sollicitudin mattis malesuada nisi himenaeos mauris eu'

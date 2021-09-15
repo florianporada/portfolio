@@ -1,4 +1,5 @@
 ---
+slug: '/work/generativeboard-games'
 date: '2020-09-08'
 title: 'generativeboard.games'
 description: 'Sollicitudin mattis malesuada nisi himenaeos mauris eu'

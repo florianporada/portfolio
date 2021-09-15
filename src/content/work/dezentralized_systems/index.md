@@ -1,6 +1,7 @@
 ---
+slug: '/work/decentralized-energy-concept'
 date: '2016-05-04'
-title: 'Dezentralized Energy Concept'
+title: 'Decentralized Energy Concept'
 description: 'Sollicitudin mattis malesuada nisi himenaeos mauris eu'
 featuredimage: eee.jpg
 featured: true

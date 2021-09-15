@@ -1,4 +1,5 @@
 ---
+slug: '/work/one-click-ridehailing-prototype'
 date: '2018-10-10'
 title: 'OneClick Ridehailing Prototype'
 description: 'Sollicitudin mattis malesuada nisi himenaeos mauris eu'

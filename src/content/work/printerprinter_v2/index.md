@@ -1,4 +1,5 @@
 ---
+slug: '/work/printerprinter-v2'
 date: '2019-11-01'
 title: 'printerprinter v2'
 description: 'Sollicitudin mattis malesuada nisi himenaeos mauris eu'

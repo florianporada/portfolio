@@ -1,4 +1,5 @@
 ---
+slug: '/work/purize-filters-com'
 date: '2017-08-01'
 title: 'purize-filters.com'
 description: 'Sollicitudin mattis malesuada nisi himenaeos mauris eu'

@@ -1,4 +1,5 @@
 ---
+slug: '/work/opendatacam'
 date: '2019-05-04'
 title: 'OpenDataCam'
 description: 'Sollicitudin mattis malesuada nisi himenaeos mauris eu'

@@ -1,4 +1,5 @@
 ---
+slug: '/work/retro-spotify-remote'
 date: '2019-10-26'
 title: 'Retro Spotify Remote'
 description: 'Sollicitudin mattis malesuada nisi himenaeos mauris eu'

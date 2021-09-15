@@ -1,4 +1,5 @@
 ---
+slug: '/work/sproute'
 date: '2020-03-15'
 title: 'Sproute'
 description: 'Sollicitudin mattis malesuada nisi himenaeos mauris eu'
