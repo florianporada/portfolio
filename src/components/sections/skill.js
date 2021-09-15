@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState, useMemo } from 'react';
 import PropTypes, { arrayOf, string } from 'prop-types';
-import { GatsbyImage } from "gatsby-plugin-image"
 import styled from 'styled-components';
 import { useSpring, animated, useSprings } from 'react-spring';
 
@@ -33,12 +32,6 @@ const Content = styled(animated.div)`
     padding: 2px;
     background-color: ${colors.TEXT};
     color: ${colors.BACKGROUND};
-    transition: background-color 0.25s ease, color 0.25s ease;
-
-    &:hover {
-      background-color: ${colors.PRIMARY};
-      color: ${colors.TEXT};
-    }
   }
 `;
 
