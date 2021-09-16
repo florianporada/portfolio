@@ -38,6 +38,14 @@ ENV APP_VERSION $APP_VERSION
 ARG NODE_ENV=production
 ENV NODE_ENV $NODE_ENV
 
+# google tag manager id
+ARG GTAG_ID=''
+ENV GTAG_ID $GTAG_ID
+
+# google analytics id
+ARG GA_ID=''
+ENV GA_ID $GA_ID
+
 # unknown is the default, but you can override it with --build-arg RELEASE_DATE=$(date +"%Y/%m/%d") during docker build
 ARG RELEASE_DATE=unknown
 LABEL com.florianporada.author="florianporada" \
