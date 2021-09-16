@@ -4,7 +4,6 @@ import { graphql } from 'gatsby';
 
 import styled from 'styled-components';
 
-import Layout from '../components/layout';
 import SectionTitle from '../components/sectiontitle';
 import Hero from '../components/hero';
 import Work from '../components/sections/work';
@@ -110,9 +109,11 @@ export const query = graphql`
             childImageSharp {
               gatsbyImageData(
                 layout: FIXED
-                formats: [AUTO, WEBP]
+                formats: [AUTO, WEBP, AVIF]
+                placeholder: BLURRED
                 width: 800
                 height: 800
+                transformOptions: { grayscale: true }
               )
             }
           }

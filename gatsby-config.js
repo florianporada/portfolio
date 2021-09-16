@@ -35,6 +35,7 @@ module.exports = {
       options: {
         name: `content`,
         path: `${__dirname}/src/content`,
+        ignore: [`**/.*`], // ignore files starting with a dot
       },
     },
     {
@@ -47,6 +48,7 @@ module.exports = {
     {
       resolve: `gatsby-transformer-remark`,
       options: {
+        // excerpt_separator: `<!-- endexcerpt -->`,
         plugins: [
           {
             resolve: `gatsby-remark-images`,
