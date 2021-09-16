@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 
-import { colors } from '../constants';
+import { colors, breakpoints } from '../constants';
 import SectionTitle from './sectiontitle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as faRegularIcons from '@fortawesome/free-regular-svg-icons';
@@ -73,7 +73,7 @@ const Copyright = styled.div`
   font-family: 'Suprapower';
   text-decoration: none;
 
-  @media (max-width: 768px) {
+  @media (max-width: ${breakpoints.MD}px) {
     font-size: 1.5rem;
   }
 `;

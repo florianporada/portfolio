@@ -13,7 +13,7 @@ import Header from './header';
 import '../assets/styles/index.scss';
 import Footer from './footer';
 import styled from 'styled-components';
-import { colors } from '../constants';
+import { colors, breakpoints } from '../constants';
 
 const Main = styled.main`
   background-color: ${colors.BACKGROUND};
@@ -27,7 +27,7 @@ const Main = styled.main`
     width: 100%;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: ${breakpoints.MD}px) {
     &::after {
       height: 460px;
     }

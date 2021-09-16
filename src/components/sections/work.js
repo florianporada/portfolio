@@ -6,7 +6,7 @@ import { navigate } from 'gatsby';
 
 // import DDDImage from '../3d/image';
 import Tag from '../tag';
-import { colors } from '../../constants';
+import { breakpoints, colors } from '../../constants';
 
 const Wrapper = styled.div`
   padding: 15px 0;
@@ -21,7 +21,7 @@ const Wrapper = styled.div`
       }
     `}
 
-  @media (max-width: 768px) {
+  @media (max-width: ${breakpoints.MD}px) {
     flex-direction: column;
 
     ${(props) =>
@@ -33,7 +33,7 @@ const Wrapper = styled.div`
       `}
   }
 
-  @media (max-width: 320px) {
+  @media (max-width: ${breakpoints.SM}) {
   }
 `;
 
@@ -71,7 +71,7 @@ const Element = styled.div`
       }
     `}
 
-  @media (max-width: 768px) {
+  @media (max-width: ${breakpoints.MD}px) {
     width: 100%;
     height: ${(props) => 100 / props.count}vh;
 
@@ -82,7 +82,7 @@ const Element = styled.div`
       `}
   }
 
-  @media (max-width: 320px) {
+  @media (max-width: ${breakpoints.SM}) {
     ${(props) =>
       props.visible &&
       css`
@@ -99,7 +99,7 @@ const StyledImg = styled(GatsbyImage)`
     transform: scale(1.01);
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: ${breakpoints.MD}px) {
     width: 100% !important;
   }
 `;
@@ -126,7 +126,7 @@ const Title = styled.h2`
   width: max-content;
   transition: color 0.25s ease;
 
-  @media (max-width: 768px) {
+  @media (max-width: ${breakpoints.MD}px) {
     top: 5px;
     left: 15px;
     transform: none;
