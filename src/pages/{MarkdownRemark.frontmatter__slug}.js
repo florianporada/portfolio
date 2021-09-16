@@ -7,7 +7,7 @@ import TransitionLink from 'gatsby-plugin-transition-link';
 
 import PageWrapper from '../components/pagewrapper';
 import Tag from '../components/tag';
-import { colors } from '../constants';
+import { colors, breakpoints } from '../constants';
 
 const interestingExitAnimation = (exit, node) => {
   // do some animation here
@@ -16,6 +16,7 @@ const interestingExitAnimation = (exit, node) => {
 
 const PageHeader = styled.div`
   text-align: center;
+  width: 100%;
 
   h1 {
     margin-bottom: 10px;
@@ -42,6 +43,44 @@ const ContentWrapper = styled.div``;
 
 const Content = styled.div`
   margin-top: 50px;
+
+  pre,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    margin-left: 150px;
+  }
+
+  span.full-size {
+    p > img,
+    span.gatsby-resp-image-wrapper {
+      width: calc(100% + 150px);
+      margin-left: -150px !important;
+      max-width: unset !important;
+    }
+  }
+
+  @media (max-width: ${breakpoints.MD}px) {
+    pre,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+      margin-left: 0;
+    }
+
+    span.full-size {
+      p > img,
+      span.gatsby-resp-image-wrapper {
+        width: 100%;
+        margin-left: auto !important;
+        max-width: unset;
+      }
+    }
+  }
 
   .gatsby-resp-image-wrapper {
   }
