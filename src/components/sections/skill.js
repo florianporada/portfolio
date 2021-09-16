@@ -6,18 +6,7 @@ import { useSpring, animated, useSprings } from 'react-spring';
 import { getHardskills } from '../../lib/helper';
 import { colors } from '../../constants';
 import ListItem from '../listitem';
-
-const Wrapper = styled.div`
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 0 15px 15px 15px;
-  line-height: 1.1;
-  max-width: 992px;
-  margin: 0 auto;
-`;
+import PageWrapper from '../pagewrapper';
 
 const Content = styled(animated.div)`
   font-size: 1.75rem;
@@ -42,13 +31,6 @@ const List = styled(animated.ul)`
   display: flex;
   flex-wrap: wrap;
   opacity: 0;
-`;
-
-const ImageWrapper = styled.div`
-  position: absolute;
-  right: 0;
-  top: 0;
-  transition: all 0.25s ease;
 `;
 
 const Button = styled.a`
@@ -129,7 +111,7 @@ const Skill = ({ data }) => {
   }, [listVisible, setItemProps, setContentProps, setListProps]);
 
   return (
-    <Wrapper>
+    <PageWrapper>
       <Button
         ref={buttonRef}
         href="#skill"
@@ -162,7 +144,7 @@ const Skill = ({ data }) => {
           </animated.li>
         ))}
       </List>
-    </Wrapper>
+    </PageWrapper>
   );
 };
 
