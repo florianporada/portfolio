@@ -50,10 +50,13 @@ module.exports = {
       options: {
         // excerpt_separator: `<!-- endexcerpt -->`,
         plugins: [
+          `gatsby-remark-copy-linked-files`,
           {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 800,
+              withWebp: true,
+              withAvif: true,
             },
           },
         ],
