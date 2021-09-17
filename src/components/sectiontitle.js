@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import scrollTo from 'gatsby-plugin-smoothscroll';
 
-import { colors } from '../constants';
+import { colors, breakpoints } from '../constants';
 
 const TitleWrapper = styled.h2`
   font-size: 6rem;
@@ -41,7 +41,7 @@ const TitleWrapper = styled.h2`
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: ${breakpoints.MD}px) {
     font-size: 4rem;
     margin-left: 15px;
 
@@ -54,7 +54,7 @@ const TitleWrapper = styled.h2`
     }
   }
 
-  @media (max-width: 320px) {
+  @media (max-width: ${breakpoints.SM}px) {
     font-size: 3rem;
 
     &::after {
