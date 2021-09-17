@@ -53,6 +53,7 @@ After some testing and adjusting, we had two trained models. One refined GPT2 mo
 
 Eventually, we decided to go forward with the idea and build an actual thing out of it. Collaborating completely remotely has some challenges, but it's not hard do overcome those.
 Managing the code in GitHub and using their own project management feature gives you a good overview of who's working on what and in which state it's in at the moment. Linking the tasks to pull requests helps you to keep track of the implementation and review the work of the team.
+
 Figma was the main space where we played around with everything visual. You can create UI elements, user flows, mood boards, or assets for the page in no time. Also, discussing those ideas and adding opinions or remarks goes a long way in aligning everything.
 
 ![100% remote](screenshot_call.png)
@@ -69,13 +70,14 @@ I like the concept of being able to move front-end code to the back end and vice
 The API for generating the text part of the board game has a max_characters restriction. This means, in this case, that you can only generate 1,024 characters with one API call.
 For a complete rule set, this amount is too short. One solution for it was to chain multiple requests together and merge the results to one. Here you have to know that the AI text generator needs some input to build on top of.
 
-Initially, you have to provide a name for the game you want to play - for example, "Personal Space Invaders." This will be used for the first batch of generated text.
+Initially, you have to provide a name for the game you want to play  -  for example, "Personal Space Invaders." This will be used for the first batch of generated text.
 Here comes the catch: To pick up the context for the next call, we take the response from RunwayML and use it as an input for the next call. Doing so allows the model to incorporate the already-produced text into the following calls, creating a continuous piece of content.
 
+```javascript
 // some pseudo code for handling the context
 
-```javascript
 let counter = 0;
+
 if (counter === 0) {
   input = gameName;
   counter += 1;
@@ -85,6 +87,7 @@ if (counter === 0) {
 } else {
   counter = 0;
 }
+
 getRules(input);
 ```
 
