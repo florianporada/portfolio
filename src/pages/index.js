@@ -10,6 +10,7 @@ import Work from '../components/sections/work';
 import About from '../components/sections/about';
 import Skill from '../components/sections/skill';
 import SEO from '../components/seo';
+import TransitionWrapper from '../components/transitionwrapper';
 
 const Section = styled.section`
   margin: 50px 0;
@@ -21,7 +22,7 @@ const Section = styled.section`
 
 const IndexPage = ({ data }) => {
   return (
-    <>
+    <TransitionWrapper>
       <SEO
         title="Home"
         noscript={[
@@ -47,7 +48,7 @@ const IndexPage = ({ data }) => {
         <SectionTitle>{data.skill.frontmatter.title}</SectionTitle>
         <Skill data={data.skill} />
       </Section>
-    </>
+    </TransitionWrapper>
   );
 };
 

@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import { GatsbyImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
-import TransitionLink from 'gatsby-plugin-transition-link';
 
 import PageWrapper from '../components/pagewrapper';
 import Tag from '../components/tag';
 import { colors, breakpoints } from '../constants';
+import TransitionWrapper from '../components/transitionwrapper';
+import TransitionLink from '../components/TransitionLink';
 
 const interestingExitAnimation = (exit, node) => {
   // do some animation here
@@ -98,6 +99,10 @@ const Excerpt = styled.div`
   right: 0;
   text-align: start;
   z-index: 1;
+
+  p:last-of-type {
+    margin-bottom: 0;
+  }
 `;
 
 export default function WorkTemplate({
@@ -108,32 +113,42 @@ export default function WorkTemplate({
   const [excerpt, content] = html.split('<!-- end -->');
 
   return (
-    <PageWrapper style={{ marginTop: '300px', marginBottom: '50px' }}>
-      <PageHeader>
-        <h1>{frontmatter.title}</h1>
-        <TagWrapper>
-          {frontmatter?.tags?.map((tag) => (
-            <Tag key={tag}>{tag}</Tag>
-          ))}
-        </TagWrapper>
-        <h2>{frontmatter.date}</h2>
-        <div style={{ display: 'flex', position: 'relative' }}>
-          <StyledImg
-            image={frontmatter.featuredimage.childImageSharp.gatsbyImageData}
-            alt={`Titleimage for ${frontmatter.title}`}
-          />
-          <Excerpt dangerouslySetInnerHTML={{ __html: excerpt }} />
-        </div>
-      </PageHeader>
-      {content && (
-        <ContentWrapper>
-          <Content dangerouslySetInnerHTML={{ __html: content }}></Content>
-        </ContentWrapper>
-      )}
-      <TransitionLink to="/" exit={{ length: 0.5 }} entry={{ delay: 0.5 }}>
-        Go to page 2
-      </TransitionLink>
-    </PageWrapper>
+    <TransitionWrapper>
+      <PageWrapper style={{ marginTop: '300px', marginBottom: '50px' }}>
+        <PageHeader>
+          <h1>{frontmatter.title}</h1>
+          <TagWrapper>
+            {frontmatter?.tags?.map((tag) => (
+              <Tag key={tag}>{tag}</Tag>
+            ))}
+          </TagWrapper>
+          <h2>{frontmatter.date}</h2>
+          <div style={{ display: 'flex', position: 'relative' }}>
+            <StyledImg
+              image={frontmatter.featuredimage.childImageSharp.gatsbyImageData}
+              alt={`Titleimage for ${frontmatter.title}`}
+            />
+            <Excerpt dangerouslySetInnerHTML={{ __html: excerpt }} />
+          </div>
+        </PageHeader>
+        {content && (
+          <ContentWrapper>
+            <Content dangerouslySetInnerHTML={{ __html: content }}></Content>
+          </ContentWrapper>
+        )}
+        <TransitionLink
+          to="/"
+          exit={{
+            length: 0.5,
+            trigger: ({ node, e, exit, entry }) =>
+              console.log(node, e, exit, entry),
+          }}
+          entry={{ delay: 0.5 }}
+        >
+          Go to page 2
+        </TransitionLink>
+      </PageWrapper>
+    </TransitionWrapper>
   );
 }
 

@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 import React, { useState, useRef, useLayoutEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { GatsbyImage } from 'gatsby-plugin-image';
-import { navigate } from 'gatsby';
 
 // import DDDImage from '../3d/image';
 import Tag from '../tag';
+import TransitionLink from '../TransitionLink';
 import { breakpoints, colors } from '../../constants';
 
 const Wrapper = styled.div`
@@ -37,7 +37,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const Element = styled.div`
+const Element = styled(TransitionLink)`
   position: relative;
   width: ${(props) => 100 / props.count}vw;
   height: 800px;
@@ -285,17 +285,16 @@ const Work = ({ items }) => {
 
         return (
           <Element
-            count={items.length}
             key={item.id}
-            visible={visibleId === item.id}
+            to={`${item.frontmatter.slug}`}
+            count={items.length}
+            // visible={visibleId === item.id}
             onClick={(e) => {
-              e.preventDefault();
+              // e.preventDefault();
               // TODO: do something with form values
-              navigate(`${item.frontmatter.slug}`);
-
+              // navigate(`${item.frontmatter.slug}`);
               // setVisibleId((activeId) => {
               //   const isActive = activeId !== item.id ? item.id : undefined;
-
               //   return isActive;
               // });
             }}
@@ -308,13 +307,13 @@ const Work = ({ items }) => {
             <Content>
               <div dangerouslySetInnerHTML={{ __html: item.html }} />
               <Meta>
-                <Link
+                {/* <Link
                   href={item.frontmatter.link}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   Link
-                </Link>
+                </Link> */}
                 {item.frontmatter.tags &&
                   item.frontmatter.tags.map((tag) => (
                     <Tag key={tag}>{tag}</Tag>
