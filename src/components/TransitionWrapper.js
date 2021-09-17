@@ -23,5 +23,8 @@ export default function TransitionWrapper({ children }) {
 }
 
 TransitionWrapper.propTypes = {
-  children: PropTypes.object,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
 };

@@ -5,8 +5,8 @@ import { useSpring, animated, useSprings } from 'react-spring';
 
 import { getHardskills } from '../../lib/helper';
 import { colors } from '../../constants';
-import ListItem from '../listitem';
-import PageWrapper from '../pagewrapper';
+import ListItem from '../ListItem';
+import PageWrapper from '../PageWrapper';
 
 const Content = styled(animated.div)`
   font-size: 1.75rem;

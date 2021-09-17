@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components';
 import { useScrollData } from 'scroll-data-hook';
 
 import { colors } from '../constants';
-import Nav from './nav';
+import Nav from './Nav';
 
 const HeaderWrapper = styled.header`
   background: transparent;

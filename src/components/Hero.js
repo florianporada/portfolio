@@ -2,17 +2,15 @@ import PropTypes from 'prop-types';
 import React, { Suspense, useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Canvas, useFrame } from '@react-three/fiber';
-
 import * as THREE from 'three';
 
 import { colors } from '../constants';
-
-import DDDBox from '../components/3d/box';
-import DDDObject from '../components/3d/object';
-import DDDBird from '../components/3d/bird';
-import DDDHead from '../components/3d/head';
-import DDDLightSource from '../components/3d/lightsource';
-import DDDLoading from '../components/3d/loading';
+// import DDDBox from './3d/Box';
+// import DDDObject from './3d/Object';
+// import DDDBird from './3d/Bird';
+import DDDHead from './3d/Head';
+import DDDLightSource from './3d/Lightsource';
+import DDDLoading from './3d/Loading';
 
 const Wrapper = styled.div`
   background-color: ${colors.BACKGROUND};

@@ -4,13 +4,13 @@ import { graphql } from 'gatsby';
 
 import styled from 'styled-components';
 
-import SectionTitle from '../components/sectiontitle';
-import Hero from '../components/hero';
-import Work from '../components/sections/work';
-import About from '../components/sections/about';
-import Skill from '../components/sections/skill';
-import SEO from '../components/seo';
-import TransitionWrapper from '../components/transitionwrapper';
+import SectionTitle from '../components/SectionTitle';
+import Hero from '../components/Hero';
+import Work from '../components/sections/Work';
+import About from '../components/sections/About';
+import Skill from '../components/sections/Skill';
+import SEO from '../components/Seo';
+import TransitionWrapper from '../components/TransitionWrapper';
 
 const Section = styled.section`
   margin: 50px 0;

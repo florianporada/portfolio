@@ -1,7 +1,7 @@
 import React from 'react';
-import PageWrapper from '../components/pagewrapper';
 
-import SEO from '../components/seo';
+import PageWrapper from '../components/PageWrapper';
+import SEO from '../components/Seo';
 
 const NotFoundPage = () => (
   <PageWrapper>

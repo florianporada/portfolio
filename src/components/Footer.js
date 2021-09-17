@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { colors, breakpoints } from '../constants';
-import SectionTitle from './sectiontitle';
+import SectionTitle from './SectionTitle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as faRegularIcons from '@fortawesome/free-regular-svg-icons';
 import * as faSolidIcons from '@fortawesome/free-solid-svg-icons';

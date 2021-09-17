@@ -8,11 +8,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql } from 'gatsby';
-
-import Header from './header';
-import '../assets/styles/index.scss';
-import Footer from './footer';
 import styled from 'styled-components';
+
+import '../assets/styles/index.scss';
+import Header from './Header';
+import Footer from './Footer';
 import { colors, breakpoints } from '../constants';
 
 const Main = styled.main`

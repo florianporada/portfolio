@@ -4,10 +4,10 @@ import { graphql } from 'gatsby';
 import { GatsbyImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
 
-import PageWrapper from '../components/pagewrapper';
-import Tag from '../components/tag';
 import { colors, breakpoints } from '../constants';
-import TransitionWrapper from '../components/transitionwrapper';
+import PageWrapper from '../components/PageWrapper';
+import Tag from '../components/Tag';
+import TransitionWrapper from '../components/TransitionWrapper';
 import TransitionLink from '../components/TransitionLink';
 
 const interestingExitAnimation = (exit, node) => {

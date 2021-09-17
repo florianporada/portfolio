@@ -59,7 +59,7 @@ const Bar = styled.span`
   height: 3px;
   width: 100%;
   background-color: ${colors.TEXT};
-  display block
+  display: block;
 `;
 
 const NavButton = (props) => {

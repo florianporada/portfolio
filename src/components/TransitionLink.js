@@ -1,11 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import Link from 'gatsby-plugin-transition-link';
 
-// In a component that wraps your page contents
 export default function TransitionLink({ className, children, to }) {
-  // We're using the TransitionState component here to provide the current transition status to our pose
   return (
     <Link
       className={className}

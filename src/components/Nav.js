@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as faRegularIcons from '@fortawesome/free-regular-svg-icons';
 
 import { colors } from '../constants';
-import NavButton from './navbutton';
+import NavButton from './NavButton';
 
 const NavWrapper = styled.div`
   width: 100%;

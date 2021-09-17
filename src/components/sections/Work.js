@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 import { GatsbyImage } from 'gatsby-plugin-image';
 
 // import DDDImage from '../3d/image';
-import Tag from '../tag';
+import Tag from '../Tag';
 import TransitionLink from '../TransitionLink';
 import { breakpoints, colors } from '../../constants';
 

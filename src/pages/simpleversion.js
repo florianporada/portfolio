@@ -6,11 +6,10 @@ import styled from 'styled-components';
 import { colors } from '../constants';
 import { getHardskills } from '../lib/helper';
 
-import Layout from '../components/layout';
-import SectionTitle from '../components/sectiontitle';
-import SEO from '../components/seo';
-import ListItem from '../components/listitem';
-import Tag from '../components/tag';
+import SectionTitle from '../components/SectionTitle';
+import SEO from '../components/Seo';
+import ListItem from '../components/ListItem';
+import Tag from '../components/Tag';
 
 const Section = styled.section`
   margin: 50px 0;
