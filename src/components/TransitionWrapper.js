@@ -9,7 +9,6 @@ export default function TransitionWrapper({ children }) {
   return (
     <TransitionState>
       {({ mount, transitionStatus, ...props }) => {
-        console.log(transitionStatus, props);
         return (
           <Spring
             opacity={['entering', 'entered'].includes(transitionStatus) ? 1 : 0}

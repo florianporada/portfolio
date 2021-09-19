@@ -9,8 +9,6 @@ export default function TransitionLink({ className, children, to }) {
       to={to}
       exit={{
         length: 0.5,
-        trigger: ({ node, e, exit, entry }) =>
-          console.log(node, e, exit, entry),
       }}
       entry={{ delay: 0.5 }}
     >
@@ -26,5 +24,5 @@ TransitionLink.propTypes = {
     PropTypes.string,
   ]).isRequired,
   to: PropTypes.string.isRequired,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
 };

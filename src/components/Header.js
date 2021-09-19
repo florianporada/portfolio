@@ -1,4 +1,4 @@
-import { Link, graphql, useStaticQuery } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled, { css } from 'styled-components';
@@ -6,6 +6,7 @@ import { useScrollData } from 'scroll-data-hook';
 
 import { colors } from '../constants';
 import Nav from './Nav';
+import TransitionLink from './TransitionLink';
 
 const HeaderWrapper = styled.header`
   background: transparent;
@@ -132,7 +133,7 @@ const Header = ({ siteTitle, simple }) => {
   const data = useStaticQuery(graphql`
     query {
       pages: allDirectory(
-        filter: { absolutePath: { regex: "/src/content/(\\w*)$/" }}
+        filter: { absolutePath: { regex: "/content/(\\w*)$/" }}
       ) {
         nodes {
           id
@@ -162,11 +163,11 @@ const Header = ({ siteTitle, simple }) => {
   return (
     <HeaderWrapper minimize={minimize}>
       <Title minimize={minimize}>
-        <Link to="/">
+        <TransitionLink to="/">
           {siteTitle.split(' ').map((part, idx) => (
             <span key={`${part}${idx}`}>{part}</span>
           ))}
-        </Link>
+        </TransitionLink>
       </Title>
       <Nav items={data.pages.nodes} minimize={minimize} />
     </HeaderWrapper>

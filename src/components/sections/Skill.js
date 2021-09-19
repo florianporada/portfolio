@@ -60,11 +60,11 @@ const Skill = ({ data }) => {
   const buttonRef = useRef();
   const [listVisible, setListVisible] = useState(false);
   const hardskills = useMemo(() => getHardskills(data), [data]);
-  const [contentProps, setContentProps] = useSpring(() => ({
+  const [contentProps, contentPropsApi] = useSpring(() => ({
     config: { duration: 250 },
     from: { opacity: 1, display: 'block' },
   }));
-  const [itemProps, setItemProps] = useSprings(hardskills.length, () => {
+  const [itemProps, itemPropsApi] = useSprings(hardskills.length, () => {
     const duration = Math.floor(Math.random() * 1500) + 250;
 
     return {
@@ -77,7 +77,7 @@ const Skill = ({ data }) => {
       },
     };
   });
-  const [listProps, setListProps] = useSpring(() => {
+  const [listProps, listApi] = useSpring(() => {
     return {
       config: { duration: 250 },
       from: { opacity: 0, display: 'none' },
@@ -85,7 +85,7 @@ const Skill = ({ data }) => {
   });
 
   useEffect(() => {
-    setItemProps(() =>
+    listApi.start(() =>
       listVisible
         ? {
             opacity: 1,
@@ -93,7 +93,7 @@ const Skill = ({ data }) => {
           }
         : { opacity: 0, marginRight: 0 }
     );
-    setContentProps(() =>
+    contentPropsApi.start(() =>
       listVisible
         ? {
             to: [{ opacity: 0, marginLeft: 10 }, { display: 'none' }],
@@ -101,14 +101,14 @@ const Skill = ({ data }) => {
         : { to: [{ opacity: 1, marginLeft: 0 }, { display: 'block' }] }
     );
 
-    setListProps(() =>
+    listApi.start(() =>
       listVisible
         ? {
             to: [{ opacity: 1 }, { display: 'flex' }],
           }
         : { to: [{ opacity: 0 }, { display: 'none' }] }
     );
-  }, [listVisible, setItemProps, setContentProps, setListProps]);
+  }, [listVisible, itemPropsApi, contentPropsApi, listApi]);
 
   return (
     <PageWrapper>
@@ -133,7 +133,7 @@ const Skill = ({ data }) => {
         {hardskills.map((item, idx) => (
           <animated.li style={itemProps[idx]} key={item || 'things'}>
             <ListItem
-              href={`http://www.google.com/search?q=what+is+${item
+              href={`https://www.google.com/search?q=what+is+${item
                 .split(' ')
                 .join('+')}`}
               target="_blank"
