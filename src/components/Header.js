@@ -20,23 +20,22 @@ const HeaderWrapper = styled.header`
   z-index: 10;
   display: flex;
   flex-direction: column;
-  height: 104px;
   transition: width 0.5s ease-out 0.25s;
 
-  &::after {
+  /* &::after {
     content: '';
     display: block;
     height: 3px;
     width: ${(props) => {
-      return props.minimize ? '72px' : '100%';
-    }};
+    return props.minimize ? '72px' : '100%';
+  }};
     bottom: 0;
     left: 0;
     background: ${colors.TEXT};
     position: absolute;
     z-index: 2;
     transition: width 0.5s ease-out 0.25s;
-  }
+  } */
 
   a {
     color: ${colors.TEXT};
@@ -89,6 +88,7 @@ const Title = styled.h1`
   span {
     position: absolute;
     transition: all 0.5s ease;
+    color: ${colors.TEXT};
 
     &:first-of-type {
       left: 0;
@@ -127,6 +127,19 @@ const Title = styled.h1`
     `}
 `;
 
+const NavWrapper = styled.ul`
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  text-transform: uppercase;
+  margin-bottom: 0;
+`;
+
+const NavItem = styled.li`
+  list-style: none;
+  margin-bottom: 0;
+`;
+
 const Header = ({ siteTitle, simple }) => {
   const { position } = useScrollData();
   const minimize = position.y > 30;
@@ -162,14 +175,23 @@ const Header = ({ siteTitle, simple }) => {
 
   return (
     <HeaderWrapper minimize={minimize}>
-      <Title minimize={minimize}>
+      {/* <Title minimize={minimize}>
         <TransitionLink to="/">
           {siteTitle.split(' ').map((part, idx) => (
             <span key={`${part}${idx}`}>{part}</span>
           ))}
         </TransitionLink>
-      </Title>
-      <Nav items={data.pages.nodes} minimize={minimize} />
+      </Title> */}
+      {/* <Nav items={data.pages.nodes} minimize={minimize} /> */}
+      <NavWrapper>
+        {data.pages.nodes.map((item) => (
+          <NavItem key={item.id}>
+            <TransitionLink to={item.name === 'home' ? '/' : `/${item.name}`}>
+              {item.name}
+            </TransitionLink>
+          </NavItem>
+        ))}
+      </NavWrapper>
     </HeaderWrapper>
   );
 };
