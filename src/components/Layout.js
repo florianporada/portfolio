@@ -11,9 +11,11 @@ import { useStaticQuery, graphql } from 'gatsby';
 import styled from 'styled-components';
 
 import '../assets/styles/index.scss';
+import { colors, breakpoints } from '../constants';
+
+import SEO from '../components/Seo';
 import Header from './Header';
 import Footer from './Footer';
-import { colors, breakpoints } from '../constants';
 
 const Main = styled.main`
   background-color: ${colors.BACKGROUND};
@@ -45,6 +47,8 @@ const Layout = ({ children }) => {
       }
     }
   `);
+
+  console.log(data);
 
   return (
     <>
