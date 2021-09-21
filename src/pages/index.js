@@ -1,54 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
-
 import styled from 'styled-components';
 
-import SectionTitle from '../components/SectionTitle';
 import Hero from '../components/Hero';
-import Work from '../components/sections/Work';
-import About from '../components/sections/About';
-import Skill from '../components/sections/Skill';
 import SEO from '../components/Seo';
-import TransitionWrapper from '../components/TransitionWrapper';
-
-const Section = styled.section`
-  margin: 50px 0;
-
-  &:last-of-type {
-    margin-bottom: 0;
-  }
-`;
+import PageWrapper from '../components/PageWrapper';
 
 const IndexPage = ({ data }) => {
   return (
-    <TransitionWrapper>
-      <SEO
-        title="Home"
-        noscript={[
-          {
-            innerHTML:
-              '<meta http-equiv="refresh" content="1;url=simpleversion" />',
-          },
-        ]}
-      />
+    <PageWrapper full>
       <Hero
         title={data.about.frontmatter.title}
         text={data.about.frontmatter.description}
         hideContent
       />
-      <Section id="about">
-        <About data={data.about} />
-      </Section>
-      <Section id="work">
-        <SectionTitle>Selected Work</SectionTitle>
-        <Work items={data.work.nodes} />
-      </Section>
-      <Section id="skill">
-        <SectionTitle>{data.skill.frontmatter.title}</SectionTitle>
-        <Skill data={data.skill} />
-      </Section>
-    </TransitionWrapper>
+    </PageWrapper>
   );
 };
 
@@ -70,20 +37,6 @@ export const query = graphql`
         title
         date
         featuredimage {
-          childImageSharp {
-            gatsbyImageData(layout: FULL_WIDTH, formats: [AUTO, WEBP])
-          }
-        }
-      }
-    }
-    skill: markdownRemark(fileAbsolutePath: { regex: "/content/skill/" }) {
-      id
-      html
-      htmlAst
-      frontmatter {
-        title
-        hardskills
-        images {
           childImageSharp {
             gatsbyImageData(layout: FULL_WIDTH, formats: [AUTO, WEBP])
           }

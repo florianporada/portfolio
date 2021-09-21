@@ -22,10 +22,10 @@ const PageWrapper = styled(animated.div)`
     `}
 `;
 
-const Wrapper = ({ children, full, className }) => {
+const Wrapper = ({ children, full, className, style }) => {
   return (
     <TransitionState>
-      {({ mount, transitionStatus, ...props }) => {
+      {({ mount, transitionStatus }) => {
         return (
           <>
             <SEO
@@ -46,7 +46,7 @@ const Wrapper = ({ children, full, className }) => {
                 <PageWrapper
                   full={full ? 1 : 0}
                   className={className}
-                  style={styles}
+                  style={{ ...style, ...styles }}
                 >
                   {children}
                 </PageWrapper>

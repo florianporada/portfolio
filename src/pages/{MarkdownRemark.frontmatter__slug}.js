@@ -113,42 +113,40 @@ export default function WorkTemplate({
   const [excerpt, content] = html.split('<!-- end -->');
 
   return (
-    <TransitionWrapper>
-      <PageWrapper style={{ marginTop: '300px', marginBottom: '50px' }}>
-        <PageHeader>
-          <h1>{frontmatter.title}</h1>
-          <TagWrapper>
-            {frontmatter?.tags?.map((tag) => (
-              <Tag key={tag}>{tag}</Tag>
-            ))}
-          </TagWrapper>
-          <h2>{frontmatter.date}</h2>
-          <div style={{ display: 'flex', position: 'relative' }}>
-            <StyledImg
-              image={frontmatter.featuredimage.childImageSharp.gatsbyImageData}
-              alt={`Titleimage for ${frontmatter.title}`}
-            />
-            <Excerpt dangerouslySetInnerHTML={{ __html: excerpt }} />
-          </div>
-        </PageHeader>
-        {content && (
-          <ContentWrapper>
-            <Content dangerouslySetInnerHTML={{ __html: content }}></Content>
-          </ContentWrapper>
-        )}
-        <TransitionLink
-          to="/"
-          exit={{
-            length: 0.5,
-            trigger: ({ node, e, exit, entry }) =>
-              console.log(node, e, exit, entry),
-          }}
-          entry={{ delay: 0.5 }}
-        >
-          Go to page 2
-        </TransitionLink>
-      </PageWrapper>
-    </TransitionWrapper>
+    <PageWrapper style={{ marginTop: '300px', marginBottom: '50px' }}>
+      <PageHeader>
+        <h1>{frontmatter.title}</h1>
+        <TagWrapper>
+          {frontmatter?.tags?.map((tag) => (
+            <Tag key={tag}>{tag}</Tag>
+          ))}
+        </TagWrapper>
+        <h2>{frontmatter.date}</h2>
+        <div style={{ display: 'flex', position: 'relative' }}>
+          <StyledImg
+            image={frontmatter.featuredimage.childImageSharp.gatsbyImageData}
+            alt={`Titleimage for ${frontmatter.title}`}
+          />
+          <Excerpt dangerouslySetInnerHTML={{ __html: excerpt }} />
+        </div>
+      </PageHeader>
+      {content && (
+        <ContentWrapper>
+          <Content dangerouslySetInnerHTML={{ __html: content }}></Content>
+        </ContentWrapper>
+      )}
+      <TransitionLink
+        to="/"
+        exit={{
+          length: 0.5,
+          trigger: ({ node, e, exit, entry }) =>
+            console.log(node, e, exit, entry),
+        }}
+        entry={{ delay: 0.5 }}
+      >
+        BACK
+      </TransitionLink>
+    </PageWrapper>
   );
 }
 
