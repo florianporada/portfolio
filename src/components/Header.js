@@ -201,7 +201,7 @@ const Header = ({ simple }) => {
         <ul>
           {allMarkdownRemark.nodes.map((item) => (
             <li key={item.id}>
-              <a href={getNavLink(item.frontmatter.title)}>
+              <a href={`#${item.frontmatter.title.toLowerCase()}`}>
                 {item.frontmatter.title}
               </a>
             </li>
