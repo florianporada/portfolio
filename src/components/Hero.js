@@ -118,7 +118,7 @@ const Hero = ({ title, text, hideContent }) => {
             castShadow
             loadingManager={loadingManager}
             delta={delta}
-            position={[0, 0, -70]}
+            position={[0, 7, -65]}
             rotation={[
               THREE.Math.degToRad(0),
               THREE.Math.degToRad(-180),

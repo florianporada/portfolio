@@ -10,6 +10,7 @@ import SectionTitle from '../components/SectionTitle';
 import SEO from '../components/Seo';
 import ListItem from '../components/ListItem';
 import Tag from '../components/Tag';
+import Link from '../components/Link';
 
 const Section = styled.section`
   margin: 50px 0;
@@ -118,13 +119,9 @@ const SimpleVersionPage = ({ data }) => {
                       : item.html,
                 }}
               ></div>
-              <a
-                href={item.frontmatter.link}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <Link to={item.frontmatter.link} target="_blank">
                 Link
-              </a>
+              </Link>
               {item.frontmatter.tags.map((tag) => (
                 <Tag key={tag}>{tag}</Tag>
               ))}

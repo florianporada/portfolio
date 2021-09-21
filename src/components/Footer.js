@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as faRegularIcons from '@fortawesome/free-regular-svg-icons';
 import * as faSolidIcons from '@fortawesome/free-solid-svg-icons';
 import * as faBrandIcons from '@fortawesome/free-brands-svg-icons';
+import Link from './Link';
 
 const faComplete = {
   ...faBrandIcons,
@@ -105,13 +106,9 @@ const Footer = ({ simple }) => {
             return (
               <Li key={detail.name}>
                 <h3>
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={detail.link}
-                  >
+                  <Link target="_blank" to={detail.link}>
                     {detail.name}
-                  </a>
+                  </Link>
                 </h3>
                 {!simple && (
                   <>
@@ -129,13 +126,9 @@ const Footer = ({ simple }) => {
       </Content>
       <Copyright>
         <span>{`© ${new Date().getFullYear()} `}</span>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://twitter.com/flooopooo"
-        >
+        <Link target="_blank" to="https://twitter.com/flooopooo">
           florianporada
-        </a>
+        </Link>
       </Copyright>
     </FooterWrapper>
   );

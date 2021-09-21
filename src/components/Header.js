@@ -1,12 +1,11 @@
 import { graphql, useStaticQuery } from 'gatsby';
 import PropTypes from 'prop-types';
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { useScrollData } from 'scroll-data-hook';
 
 import { colors, sizes } from '../constants';
 import { getNavLink } from '../lib/helper';
-import Nav from './Nav';
 import Link from './Link';
 
 const HeaderWrapper = styled.header`
@@ -218,14 +217,6 @@ const Header = ({ simple }) => {
       minimize={minimize}
       highlight={window.location.pathname === '/work'}
     >
-      {/* <Title minimize={minimize}>
-        <Link to="/">
-          {siteTitle.split(' ').map((part, idx) => (
-            <span key={`${part}${idx}`}>{part}</span>
-          ))}
-        </Link>
-      </Title> */}
-      {/* <Nav items={data.pages.nodes} minimize={minimize} /> */}
       <h1>
         <Link to="/">{site.siteMetadata.title}</Link>
       </h1>

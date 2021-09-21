@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import scrollTo from 'gatsby-plugin-smoothscroll';
 
 import { colors, breakpoints } from '../constants';
+import Link from './Link';
 
 const TitleWrapper = styled.h2`
   font-size: 6rem;
@@ -76,15 +77,7 @@ function Title({ children, id, ...props }) {
 
   return (
     <TitleWrapper id={anchor} {...props}>
-      <a
-        href={`#${anchor}`}
-        onClick={(e) => {
-          e.preventDefault();
-          scrollTo(`#${anchor}`);
-        }}
-      >
-        {children}
-      </a>
+      <Link to={`#${anchor}`}>{children}</Link>
     </TitleWrapper>
   );
 }
