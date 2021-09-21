@@ -4,7 +4,7 @@ import { graphql } from 'gatsby';
 import { GatsbyImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
 
-import { colors } from '../constants';
+import { colors, sizes } from '../constants';
 import PageWrapper from '../components/PageWrapper';
 import Tag from '../components/Tag';
 import TransitionLink from '../components/TransitionLink';
@@ -58,6 +58,21 @@ const Excerpt = styled.div`
   }
 `;
 
+const WorkLink = styled(TransitionLink)`
+  background-color: ${colors.TEXT};
+  color: ${colors.BACKGROUND};
+  padding: 10px;
+  margin: 15px 0 0 0;
+  font-size: ${sizes.FONT_SM};
+  font-family: 'Suprapower';
+  transition: all 0.25s ease;
+  float: right;
+
+  &::after {
+    content: none;
+  }
+`;
+
 export default function WorkTemplate({
   data, // this prop will be injected by the GraphQL query below.
 }) {
@@ -80,7 +95,14 @@ export default function WorkTemplate({
             image={frontmatter.featuredimage.childImageSharp.gatsbyImageData}
             alt={`Titleimage for ${frontmatter.title}`}
           />
-          <Excerpt dangerouslySetInnerHTML={{ __html: excerpt }} />
+          <Excerpt>
+            <div dangerouslySetInnerHTML={{ __html: excerpt }} />
+            {frontmatter.link && (
+              <WorkLink to={frontmatter.link} target="_blank">
+                {`Visit ${frontmatter.title}`}
+              </WorkLink>
+            )}
+          </Excerpt>
         </div>
       </PageHeader>
       {content && <PageContent dangerouslySetInnerHTML={{ __html: content }} />}
@@ -112,6 +134,7 @@ export const pageQuery = graphql`
         date(formatString: "YYYY")
         slug
         title
+        link
         tags
         description
         featuredimage {
