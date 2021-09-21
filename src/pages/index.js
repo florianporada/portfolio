@@ -11,7 +11,7 @@ const IndexPage = ({ data }) => {
       <Hero
         title={data.about.frontmatter.title}
         text={data.about.frontmatter.description}
-        // hideContent
+        hideContent
       />
     </PageWrapper>
   );

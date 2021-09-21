@@ -9,6 +9,7 @@ import PageWrapper from '../components/PageWrapper';
 import Tag from '../components/Tag';
 import Link from '../components/Link';
 import PageContent from '../components/PageContent';
+import PageImage from '../components/PageImage';
 
 const PageHeader = styled.div`
   text-align: center;
@@ -21,18 +22,6 @@ const PageHeader = styled.div`
 
 const TagWrapper = styled.div`
   margin-bottom: 10px;
-`;
-
-const StyledImg = styled(GatsbyImage)`
-  flex-shrink: 0;
-  margin-bottom: 40px;
-  max-width: 800px;
-  transition: all 0.25s ease;
-  width: 85%;
-
-  &:hover {
-    transform: scale(1.01);
-  }
 `;
 
 const Excerpt = styled.div`
@@ -84,7 +73,7 @@ export default function WorkTemplate({ data }) {
         </TagWrapper>
         <h2>{frontmatter.date}</h2>
         <div style={{ display: 'flex', position: 'relative' }}>
-          <StyledImg
+          <PageImage
             image={frontmatter.featuredimage.childImageSharp.gatsbyImageData}
             alt={`Titleimage for ${frontmatter.title}`}
           />

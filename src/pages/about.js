@@ -1,13 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
-import { GatsbyImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
 
-import { colors, breakpoints } from '../constants';
+import { breakpoints } from '../constants';
 import PageWrapper from '../components/PageWrapper';
 import useContent from '../hooks/useContent';
 import PageContent from '../components/PageContent';
+import PageImage from '../components/PageImage';
+
+const StyledImg = styled(PageImage)`
+  width: 50%;
+  position: absolute;
+  top: 50px;
+  left: -150px;
+  z-index: -1;
+
+  @media (max-width: ${breakpoints.MD}px) {
+    width: 45%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+`;
 
 const PageHeader = styled.div`
   text-align: center;
@@ -29,6 +43,10 @@ export default function About({
     <PageWrapper title="About">
       <PageHeader>
         <h1>{frontmatter.title}</h1>
+        <StyledImg
+          image={frontmatter.featuredimage.childImageSharp.gatsbyImageData}
+          alt={`Titleimage for ${frontmatter.title}`}
+        />
       </PageHeader>
       {content && (
         <PageContent
