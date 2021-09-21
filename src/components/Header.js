@@ -143,28 +143,39 @@ const NavItem = styled.li`
 const Header = ({ siteTitle, simple }) => {
   const { position } = useScrollData();
   const minimize = position.y > 30;
-  const data = useStaticQuery(graphql`
-    query {
-      pages: allDirectory(
-        filter: { absolutePath: { regex: "/content/(\\w*)$/" }}
+  const { allMarkdownRemark } = useStaticQuery(graphql`
+    {
+      allMarkdownRemark(
+        filter: { frontmatter: { order: { ne: null } } }
+        sort: { fields: frontmatter___order }
       ) {
         nodes {
           id
-          name
+          frontmatter {
+            title
+            order
+          }
         }
       }
     }
   `);
 
+  console.log(allMarkdownRemark);
   if (simple) {
     return (
       <SimpleHeaderWrapper>
         <Title>{siteTitle}</Title>
         <ul>
-          {data.pages.nodes.map((item) => (
+          {allMarkdownRemark.nodes.map((item) => (
             <li key={item.id}>
-              <a href={item.name === 'home' ? '/' : `#${item.name}`}>
-                {item.name}
+              <a
+                href={
+                  item.frontmatter.title === 'home'
+                    ? '/'
+                    : `#${item.frontmatter.toLowerCase()}`
+                }
+              >
+                {item.title}
               </a>
             </li>
           ))}
@@ -184,10 +195,16 @@ const Header = ({ siteTitle, simple }) => {
       </Title> */}
       {/* <Nav items={data.pages.nodes} minimize={minimize} /> */}
       <NavWrapper>
-        {data.pages.nodes.map((item) => (
+        {allMarkdownRemark.nodes.map((item) => (
           <NavItem key={item.id}>
-            <TransitionLink to={item.name === 'home' ? '/' : `/${item.name}`}>
-              {item.name}
+            <TransitionLink
+              to={
+                item.frontmatter.title === 'Home'
+                  ? '/'
+                  : `/${item.frontmatter.title.toLowerCase()}`
+              }
+            >
+              {item.frontmatter.title}
             </TransitionLink>
           </NavItem>
         ))}

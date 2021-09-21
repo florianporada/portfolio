@@ -29,7 +29,6 @@ export default function About({
     <PageWrapper title="About">
       <PageHeader>
         <h1>{frontmatter.title}</h1>
-        <h2>{frontmatter.date}</h2>
       </PageHeader>
       {content && (
         <PageContent

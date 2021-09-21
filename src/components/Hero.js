@@ -100,10 +100,7 @@ const Hero = ({ title, text, hideContent }) => {
   return (
     <Wrapper>
       {(title || text) && !hideContent && (
-        <Content>
-          {title && <h1>{title}</h1>}
-          {text && <p>{text}</p>}
-        </Content>
+        <Content>{text && <p>{text}</p>}</Content>
       )}
       <Canvas
         onPointerUp={handleEndInput}

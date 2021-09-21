@@ -1,5 +1,6 @@
 ---
 title: 'contact'
+order: 4
 anchor: footer
 social:
   - name: 'github'
