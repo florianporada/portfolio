@@ -6,8 +6,6 @@ import styled from 'styled-components';
 
 import { colors, breakpoints } from '../constants';
 import PageWrapper from '../components/PageWrapper';
-import TransitionWrapper from '../components/TransitionWrapper';
-import TransitionLink from '../components/TransitionLink';
 import useContent from '../hooks/useContent';
 
 const PageHeader = styled.div`
@@ -86,17 +84,6 @@ export default function About({
           ></Content>
         </ContentWrapper>
       )}
-      <TransitionLink
-        to="/"
-        exit={{
-          length: 0.5,
-          trigger: ({ node, e, exit, entry }) =>
-            console.log(node, e, exit, entry),
-        }}
-        entry={{ delay: 0.5 }}
-      >
-        BACK
-      </TransitionLink>
     </PageWrapper>
   );
 }
