@@ -10,26 +10,26 @@ const PageWrapper = styled(animated.div)`
   ${(props) =>
     !props.full &&
     css`
-      position: relative;
-      display: flex;
       align-items: center;
-      justify-content: center;
+      display: flex;
       flex-direction: column;
-      padding: 0 15px 15px 15px;
+      justify-content: center;
       line-height: 1.1;
+      margin: 150px auto 50px auto;
       max-width: 992px;
-      margin: 0 auto;
+      padding: 0 15px 15px 15px;
+      position: relative;
     `}
 `;
 
-const Wrapper = ({ children, full, className, style }) => {
+const Wrapper = ({ children, full, className, style, title }) => {
   return (
     <TransitionState>
       {({ mount, transitionStatus }) => {
         return (
           <>
             <SEO
-              title={'s'}
+              title={title}
               noscript={[
                 {
                   innerHTML:
@@ -68,6 +68,7 @@ Wrapper.propTypes = {
   full: PropTypes.bool,
   className: PropTypes.string,
   style: PropTypes.object,
+  title: PropTypes.string,
 };
 
 export default Wrapper;

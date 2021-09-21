@@ -157,7 +157,7 @@ export default function Work({
   );
 
   return (
-    <Wrapper full>
+    <Wrapper title="Work" full>
       {nodes.length > 0 &&
         nodes.map(({ id, frontmatter }) => {
           return (

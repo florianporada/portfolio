@@ -10,7 +10,6 @@ import SectionTitle from '../components/SectionTitle';
 import SEO from '../components/Seo';
 import ListItem from '../components/ListItem';
 import Tag from '../components/Tag';
-import useContent from '../hooks/useContent';
 
 const Section = styled.section`
   margin: 50px 0;

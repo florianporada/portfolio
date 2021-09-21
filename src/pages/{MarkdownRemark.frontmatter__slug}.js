@@ -4,11 +4,11 @@ import { graphql } from 'gatsby';
 import { GatsbyImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
 
-import { colors, breakpoints } from '../constants';
+import { colors } from '../constants';
 import PageWrapper from '../components/PageWrapper';
 import Tag from '../components/Tag';
-import TransitionWrapper from '../components/TransitionWrapper';
 import TransitionLink from '../components/TransitionLink';
+import PageContent from '../components/PageContent';
 
 const interestingExitAnimation = (exit, node) => {
   // do some animation here
@@ -40,53 +40,6 @@ const StyledImg = styled(GatsbyImage)`
   }
 `;
 
-const ContentWrapper = styled.div``;
-
-const Content = styled.div`
-  margin-top: 50px;
-
-  pre,
-  h3,
-  h4,
-  h5,
-  h6,
-  p {
-    margin-left: 150px;
-  }
-
-  span.full-size {
-    p > img,
-    span.gatsby-resp-image-wrapper {
-      width: calc(100% + 150px);
-      margin-left: -150px !important;
-      max-width: unset !important;
-    }
-  }
-
-  @media (max-width: ${breakpoints.MD}px) {
-    pre,
-    h3,
-    h4,
-    h5,
-    h6,
-    p {
-      margin-left: 0;
-    }
-
-    span.full-size {
-      p > img,
-      span.gatsby-resp-image-wrapper {
-        width: 100%;
-        margin-left: auto !important;
-        max-width: unset;
-      }
-    }
-  }
-
-  .gatsby-resp-image-wrapper {
-  }
-`;
-
 const Excerpt = styled.div`
   background-color: ${colors.BACKGROUND};
   border-color: ${colors.TEXT};
@@ -113,7 +66,7 @@ export default function WorkTemplate({
   const [excerpt, content] = html.split('<!-- end -->');
 
   return (
-    <PageWrapper style={{ marginTop: '300px', marginBottom: '50px' }}>
+    <PageWrapper title={frontmatter.title}>
       <PageHeader>
         <h1>{frontmatter.title}</h1>
         <TagWrapper>
@@ -130,11 +83,7 @@ export default function WorkTemplate({
           <Excerpt dangerouslySetInnerHTML={{ __html: excerpt }} />
         </div>
       </PageHeader>
-      {content && (
-        <ContentWrapper>
-          <Content dangerouslySetInnerHTML={{ __html: content }}></Content>
-        </ContentWrapper>
-      )}
+      {content && <PageContent dangerouslySetInnerHTML={{ __html: content }} />}
       <TransitionLink
         to="/"
         exit={{

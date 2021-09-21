@@ -9,11 +9,11 @@ import PageWrapper from '../components/PageWrapper';
 
 const IndexPage = ({ data }) => {
   return (
-    <PageWrapper full>
+    <PageWrapper full title="Portfolio">
       <Hero
         title={data.about.frontmatter.title}
         text={data.about.frontmatter.description}
-        hideContent
+        // hideContent
       />
     </PageWrapper>
   );

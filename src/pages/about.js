@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { colors, breakpoints } from '../constants';
 import PageWrapper from '../components/PageWrapper';
 import useContent from '../hooks/useContent';
+import PageContent from '../components/PageContent';
 
 const PageHeader = styled.div`
   text-align: center;
@@ -14,53 +15,6 @@ const PageHeader = styled.div`
 
   h1 {
     margin-bottom: 10px;
-  }
-`;
-
-const ContentWrapper = styled.div``;
-
-const Content = styled.div`
-  margin-top: 50px;
-
-  pre,
-  h3,
-  h4,
-  h5,
-  h6,
-  p {
-    margin-left: 150px;
-  }
-
-  span.full-size {
-    p > img,
-    span.gatsby-resp-image-wrapper {
-      width: calc(100% + 150px);
-      margin-left: -150px !important;
-      max-width: unset !important;
-    }
-  }
-
-  @media (max-width: ${breakpoints.MD}px) {
-    pre,
-    h3,
-    h4,
-    h5,
-    h6,
-    p {
-      margin-left: 0;
-    }
-
-    span.full-size {
-      p > img,
-      span.gatsby-resp-image-wrapper {
-        width: 100%;
-        margin-left: auto !important;
-        max-width: unset;
-      }
-    }
-  }
-
-  .gatsby-resp-image-wrapper {
   }
 `;
 
@@ -72,17 +26,15 @@ export default function About({
   const [excerpt, content] = useContent(html);
 
   return (
-    <PageWrapper style={{ marginTop: '300px', marginBottom: '50px' }}>
+    <PageWrapper title="About">
       <PageHeader>
         <h1>{frontmatter.title}</h1>
         <h2>{frontmatter.date}</h2>
       </PageHeader>
       {content && (
-        <ContentWrapper>
-          <Content
-            dangerouslySetInnerHTML={{ __html: `${excerpt}${content}` }}
-          ></Content>
-        </ContentWrapper>
+        <PageContent
+          dangerouslySetInnerHTML={{ __html: `${excerpt}${content}` }}
+        />
       )}
     </PageWrapper>
   );
