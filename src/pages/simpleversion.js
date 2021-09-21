@@ -10,6 +10,7 @@ import SectionTitle from '../components/SectionTitle';
 import SEO from '../components/Seo';
 import ListItem from '../components/ListItem';
 import Tag from '../components/Tag';
+import useContent from '../hooks/useContent';
 
 const Section = styled.section`
   margin: 50px 0;
@@ -82,7 +83,7 @@ const WorkItem = styled.div`
 `;
 
 const SimpleVersionPage = ({ data }) => {
-  const hardskills = useMemo(() => getHardskills(data.skill), [data]);
+  const hardskills = useMemo(() => getHardskills(data.about), [data]);
 
   return (
     <>
@@ -110,7 +111,14 @@ const SimpleVersionPage = ({ data }) => {
             <WorkItem key={item.id}>
               <span>{item.frontmatter.date.split('-')[0]}</span>
               <h3>{item.frontmatter.title}</h3>
-              <div dangerouslySetInnerHTML={{ __html: item.html }}></div>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html:
+                    item.html.split('<!-- end -->').length > 1
+                      ? item.html.split('<!-- end -->')[0]
+                      : item.html,
+                }}
+              ></div>
               <a
                 href={item.frontmatter.link}
                 target="_blank"
@@ -126,11 +134,7 @@ const SimpleVersionPage = ({ data }) => {
         </Content>
       </Section>
       <Section id="skill">
-        <SectionTitle>{data.skill.frontmatter.title}</SectionTitle>
-        <Content>
-          <div dangerouslySetInnerHTML={{ __html: data.skill.html }}></div>
-        </Content>
-        <SectionTitle>Tools I use</SectionTitle>
+        <SectionTitle>Working with</SectionTitle>
         <Content>
           <List>
             {hardskills.map((item) => (
@@ -166,10 +170,12 @@ export const query = graphql`
     about: markdownRemark(fileAbsolutePath: { regex: "/content/about/" }) {
       id
       html
+      htmlAst
       frontmatter {
         description
         title
         date
+        hardskills
       }
     }
     skill: markdownRemark(fileAbsolutePath: { regex: "/content/skill/" }) {
