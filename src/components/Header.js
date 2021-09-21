@@ -4,13 +4,25 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { useScrollData } from 'scroll-data-hook';
 
-import { colors } from '../constants';
+import { colors, sizes } from '../constants';
+import { getNavLink } from '../lib/helper';
 import Nav from './Nav';
 import TransitionLink from './TransitionLink';
 
 const HeaderWrapper = styled.header`
-  background: transparent;
+  background: ${(props) =>
+    props.highlight ? `${colors.BACKGROUND}99` : 'transparent'};
+  position: fixed;
+  top: 0;
   left: 0;
+  width: 100%;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  padding: 30px;
+  align-items: center;
+
+  /* left: 0;
   padding: 30px;
   position: fixed;
   top: 0;
@@ -20,9 +32,7 @@ const HeaderWrapper = styled.header`
   z-index: 10;
   display: flex;
   flex-direction: column;
-  transition: width 0.5s ease-out 0.25s;
-
-  /* &::after {
+  transition: width 0.5s ease-out 0.25s; */ /* &::after {
     content: '';
     display: block;
     height: 3px;
@@ -37,8 +47,17 @@ const HeaderWrapper = styled.header`
     transition: width 0.5s ease-out 0.25s;
   } */
 
+  h1,
   a {
+    margin: 0;
+    font-size: ${sizes.FONT_MD};
+  }
+
+  h1 > a {
     color: ${colors.TEXT};
+  }
+
+  a {
     text-decoration: none;
 
     &::after {
@@ -66,66 +85,66 @@ const SimpleHeaderWrapper = styled.header`
   }
 `;
 
-const Title = styled.h1`
-  margin: 0;
-  display: block;
-  transform: translateX(50%);
-  font-size: 2.25rem;
-  margin-left: 0;
-  transition: font-size 0.1s ease, transform 0.5s ease 0.25s,
-    margin-left 0.25s ease 0.25s;
+// const Title = styled.h1`
+//   margin: 0;
+//   display: block;
+//   transform: translateX(50%);
+//   font-size: 2.25rem;
+//   margin-left: 0;
+//   transition: font-size 0.1s ease, transform 0.5s ease 0.25s,
+//     margin-left 0.25s ease 0.25s;
 
-  a {
-    display: inline-block;
-    position: relative;
-    width: 305px;
-    height: 40px;
-    transform: translateX(-50%);
-    transition: transform 0.5s ease 0.25s, width 0.5s ease,
-      height 0.5s ease 0.5s;
-  }
+//   a {
+//     display: inline-block;
+//     position: relative;
+//     width: 305px;
+//     height: 40px;
+//     transform: translateX(-50%);
+//     transition: transform 0.5s ease 0.25s, width 0.5s ease,
+//       height 0.5s ease 0.5s;
+//   }
 
-  span {
-    position: absolute;
-    transition: all 0.5s ease;
-    color: ${colors.TEXT};
+//   span {
+//     position: absolute;
+//     transition: all 0.5s ease;
+//     color: ${colors.TEXT};
 
-    &:first-of-type {
-      left: 0;
-    }
+//     &:first-of-type {
+//       left: 0;
+//     }
 
-    &:last-of-type {
-      left: 160px;
-      top: 0;
-    }
-  }
+//     &:last-of-type {
+//       left: 160px;
+//       top: 0;
+//     }
+//   }
 
-  ${(props) =>
-    props.minimize &&
-    css`
-      transform: translateX(0);
-      font-size: 1rem;
-      transition-delay: 0;
-      margin-left: -30px;
+//   ${(props) =>
+//     props.minimize &&
+//     css`
+//       transform: translateX(0);
+//       font-size: 1rem;
+//       transition-delay: 0;
+//       margin-left: -30px;
 
-      a {
-        transform: translateX(0);
-        width: 75px;
-        height: 40px;
-      }
+//       a {
+//         transform: translateX(0);
+//         width: 75px;
+//         height: 40px;
+//       }
 
-      span {
-        &:first-of-type {
-          top: 0;
-        }
+//       span {
+//         &:first-of-type {
+//           top: 0;
+//         }
 
-        &:last-of-type {
-          top: 22px;
-          left: 0;
-        }
-      }
-    `}
-`;
+//         &:last-of-type {
+//           top: 22px;
+//           left: 0;
+//         }
+//       }
+//     `}
+// `;
 
 const NavWrapper = styled.ul`
   display: flex;
@@ -138,25 +157,28 @@ const NavWrapper = styled.ul`
 const NavItem = styled.li`
   list-style: none;
   margin-bottom: 0;
+
+  a {
+    color: ${colors.TEXT} !important;
+    padding: 5px;
+  }
+
+  a.active {
+    background-color: ${colors.TEXT};
+    color: ${colors.BACKGROUND} !important;
+  }
 `;
 
-function getNavLink(link) {
-  if (link.toLowerCase() === 'home') {
-    return '/';
-  }
-
-  if (link.toLowerCase() === 'contact') {
-    return '#contact';
-  }
-
-  return `/${link.toLowerCase()}`;
-}
-
-const Header = ({ siteTitle, simple }) => {
+const Header = ({ simple }) => {
   const { position } = useScrollData();
   const minimize = position.y > 30;
-  const { allMarkdownRemark } = useStaticQuery(graphql`
+  const { site, allMarkdownRemark } = useStaticQuery(graphql`
     {
+      site {
+        siteMetadata {
+          title
+        }
+      }
       allMarkdownRemark(
         filter: { frontmatter: { order: { ne: null } } }
         sort: { fields: frontmatter___order }
@@ -175,7 +197,7 @@ const Header = ({ siteTitle, simple }) => {
   if (simple) {
     return (
       <SimpleHeaderWrapper>
-        <Title>{siteTitle}</Title>
+        <h1>{site.siteMetadata.title}</h1>
         <ul>
           {allMarkdownRemark.nodes.map((item) => (
             <li key={item.id}>
@@ -190,7 +212,10 @@ const Header = ({ siteTitle, simple }) => {
   }
 
   return (
-    <HeaderWrapper minimize={minimize}>
+    <HeaderWrapper
+      minimize={minimize}
+      highlight={window.location.pathname.includes('work')}
+    >
       {/* <Title minimize={minimize}>
         <TransitionLink to="/">
           {siteTitle.split(' ').map((part, idx) => (
@@ -199,6 +224,9 @@ const Header = ({ siteTitle, simple }) => {
         </TransitionLink>
       </Title> */}
       {/* <Nav items={data.pages.nodes} minimize={minimize} /> */}
+      <h1>
+        <TransitionLink to="/">{site.siteMetadata.title}</TransitionLink>
+      </h1>
       <NavWrapper>
         {allMarkdownRemark.nodes.map((item) => (
           <NavItem key={item.id}>

@@ -108,7 +108,7 @@ const Hero = ({ title, text, hideContent }) => {
         onTouchEnd={handleEndInput}
         onTouchStart={handleStartInput}
         onTouchMove={handleMove}
-        style={{ background: colors.BACKGROUND, height: '95vh' }}
+        style={{ background: colors.BACKGROUND, height: '100vh' }}
       >
         <ambientLight />
         <DDDLightSource name="pointlight" />

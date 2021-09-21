@@ -7,13 +7,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useStaticQuery, graphql } from 'gatsby';
 import styled from 'styled-components';
 
 import '../assets/styles/index.scss';
 import { colors, breakpoints } from '../constants';
 
-import SEO from '../components/Seo';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -29,6 +27,10 @@ const Main = styled.main`
     width: 100%;
   }
 
+  .tl-edges {
+    min-height: 100%;
+  }
+
   @media (max-width: ${breakpoints.MD}px) {
     &::after {
       height: 460px;
@@ -38,22 +40,10 @@ const Main = styled.main`
 
 const Layout = ({ children }) => {
   const isSimpleversion = window.location.pathname === '/simpleversion';
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `);
 
   return (
     <>
-      <Header
-        siteTitle={data.site.siteMetadata.title}
-        simple={isSimpleversion}
-      />
+      <Header simple={isSimpleversion} />
       <span id="home" style={{ opacity: 0, height: 0, width: 0 }} />
       <Main>{children}</Main>
       <span id="contact" style={{ opacity: 0, height: 0, width: 0 }} />

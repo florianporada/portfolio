@@ -20,6 +20,7 @@ export default function TransitionLink({ className, children, to }) {
   }
   return (
     <Link
+      activeClassName="active"
       className={className}
       to={to}
       exit={{

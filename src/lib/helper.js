@@ -1,4 +1,4 @@
-const getHardskills = (data) => {
+function getHardskills(data) {
   const children = data.htmlAst.children.reduce((result, current) => {
     if (current.children) {
       return [...result, ...current.children];
@@ -21,6 +21,18 @@ const getHardskills = (data) => {
     },
     []
   );
-};
+}
 
-export { getHardskills };
+function getNavLink(link) {
+  if (link.toLowerCase() === 'home') {
+    return '/';
+  }
+
+  if (link.toLowerCase() === 'contact') {
+    return '#contact';
+  }
+
+  return `/${link.toLowerCase()}`;
+}
+
+export { getHardskills, getNavLink };
