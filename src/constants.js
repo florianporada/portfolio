@@ -5,9 +5,9 @@ export const colors = {
 };
 
 export const sizes = {
-  FONT_LG: `24px`,
-  FONT_MD: `18px`,
-  FONT_SM: `14px`,
+  FONT_LG: `1.4rem`,
+  FONT_MD: `1rem`,
+  FONT_SM: `0.8rem;`,
 };
 
 export const breakpoints = {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
 
-import { colors } from '../constants';
+import { colors, sizes } from '../constants';
 import { getHardskills } from '../lib/helper';
 
 import SectionTitle from '../components/SectionTitle';
@@ -77,7 +77,7 @@ const WorkItem = styled.div`
 
   span:first-of-type {
     font-family: 'Polarity';
-    font-size: 0.8rem;
+    font-size: ${sizes.FONT_SM};
   }
 `;
 

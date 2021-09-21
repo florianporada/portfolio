@@ -1,15 +1,14 @@
 import styled from 'styled-components';
 
-import { colors } from '../constants';
+import { colors, sizes } from '../constants';
 
 const Tag = styled.span`
   display: inline-block;
   background-color: ${colors.TEXT};
   color: ${colors.BACKGROUND};
-  padding: 5px;
+  padding: 10px;
   margin: 2.5px;
-  font-size: 0.8rem;
-  line-height: 1.75rem;
+  font-size: ${sizes.FONT_SM};
   font-family: 'Suprapower';
   transition: all 0.25s ease;
 
