@@ -3,33 +3,40 @@ import PropTypes from 'prop-types';
 import Link from 'gatsby-plugin-transition-link';
 import scrollTo from 'gatsby-plugin-smoothscroll';
 
-export default function TransitionLink({ className, children, to }) {
-  if (to.startsWith('#')) {
+export default function TransitionLink({ className, children, to, target }) {
+  const internal = /^\/(?!\/)/.test(to);
+
+  if (!to.startsWith('#') && internal) {
     return (
-      <a
+      <Link
+        activeClassName="active"
         className={className}
-        href={to}
-        onClick={(e) => {
-          e.preventDefault();
-          scrollTo(to);
+        to={to}
+        exit={{
+          length: 0.5,
         }}
+        entry={{ delay: 0.5 }}
       >
         {children}
-      </a>
+      </Link>
     );
   }
+
   return (
-    <Link
-      activeClassName="active"
+    <a
+      target={target}
+      rel="noopener noreferrer"
       className={className}
-      to={to}
-      exit={{
-        length: 0.5,
+      href={to}
+      onClick={(e) => {
+        if (to.startsWith('#')) {
+          e.preventDefault();
+          scrollTo(to);
+        }
       }}
-      entry={{ delay: 0.5 }}
     >
       {children}
-    </Link>
+    </a>
   );
 }
 
@@ -41,4 +48,5 @@ TransitionLink.propTypes = {
   ]).isRequired,
   to: PropTypes.string.isRequired,
   className: PropTypes.string,
+  target: PropTypes.string,
 };

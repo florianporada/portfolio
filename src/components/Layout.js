@@ -18,6 +18,7 @@ import Footer from './Footer';
 const Main = styled.main`
   background-color: ${colors.BACKGROUND};
   min-height: 100%;
+  line-height: 1.1;
 
   &::after {
     z-index: -1;

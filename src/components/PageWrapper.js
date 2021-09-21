@@ -10,14 +10,12 @@ const PageWrapper = styled(animated.div)`
   ${(props) =>
     !props.full &&
     css`
-      align-items: center;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      line-height: 1.1;
-      margin: 150px auto 50px auto;
+      margin: 0 auto;
       max-width: 992px;
-      padding: 0 15px 15px 15px;
+      min-height: 100vh;
+      padding: 150px 15px 15px 15px;
       position: relative;
     `}
 `;
