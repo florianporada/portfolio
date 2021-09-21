@@ -6,7 +6,6 @@ import styled, { css } from 'styled-components';
 
 import { colors, breakpoints } from '../constants';
 import PageWrapper from '../components/PageWrapper';
-import TransitionWrapper from '../components/TransitionWrapper';
 import TransitionLink from '../components/TransitionLink';
 
 const Wrapper = styled(PageWrapper)`

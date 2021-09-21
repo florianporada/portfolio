@@ -140,6 +140,18 @@ const NavItem = styled.li`
   margin-bottom: 0;
 `;
 
+function getNavLink(link) {
+  if (link.toLowerCase() === 'home') {
+    return '/';
+  }
+
+  if (link.toLowerCase() === 'contact') {
+    return '#contact';
+  }
+
+  return `/${link.toLowerCase()}`;
+}
+
 const Header = ({ siteTitle, simple }) => {
   const { position } = useScrollData();
   const minimize = position.y > 30;
@@ -160,7 +172,6 @@ const Header = ({ siteTitle, simple }) => {
     }
   `);
 
-  console.log(allMarkdownRemark);
   if (simple) {
     return (
       <SimpleHeaderWrapper>
@@ -168,14 +179,8 @@ const Header = ({ siteTitle, simple }) => {
         <ul>
           {allMarkdownRemark.nodes.map((item) => (
             <li key={item.id}>
-              <a
-                href={
-                  item.frontmatter.title === 'home'
-                    ? '/'
-                    : `#${item.frontmatter.toLowerCase()}`
-                }
-              >
-                {item.title}
+              <a href={getNavLink(item.frontmatter.title)}>
+                {item.frontmatter.title}
               </a>
             </li>
           ))}
@@ -197,13 +202,7 @@ const Header = ({ siteTitle, simple }) => {
       <NavWrapper>
         {allMarkdownRemark.nodes.map((item) => (
           <NavItem key={item.id}>
-            <TransitionLink
-              to={
-                item.frontmatter.title === 'Home'
-                  ? '/'
-                  : `/${item.frontmatter.title.toLowerCase()}`
-              }
-            >
+            <TransitionLink to={getNavLink(item.frontmatter.title)}>
               {item.frontmatter.title}
             </TransitionLink>
           </NavItem>

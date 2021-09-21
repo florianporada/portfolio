@@ -1,8 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'gatsby-plugin-transition-link';
+import scrollTo from 'gatsby-plugin-smoothscroll';
 
 export default function TransitionLink({ className, children, to }) {
+  if (to.startsWith('#')) {
+    return (
+      <a
+        className={className}
+        href={to}
+        onClick={(e) => {
+          e.preventDefault();
+          scrollTo(to);
+        }}
+      >
+        {children}
+      </a>
+    );
+  }
   return (
     <Link
       className={className}
