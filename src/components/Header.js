@@ -214,7 +214,7 @@ const Header = ({ simple }) => {
   return (
     <HeaderWrapper
       minimize={minimize}
-      highlight={window.location.pathname.includes('work')}
+      highlight={window.location.pathname === '/work'}
     >
       {/* <Title minimize={minimize}>
         <TransitionLink to="/">
