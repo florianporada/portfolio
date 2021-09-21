@@ -6,7 +6,7 @@ import styled, { css } from 'styled-components';
 
 import { colors, breakpoints } from '../constants';
 import PageWrapper from '../components/PageWrapper';
-import TransitionLink from '../components/TransitionLink';
+import Link from '../components/Link';
 
 const Wrapper = styled(PageWrapper)`
   overflow-x: auto;
@@ -36,7 +36,7 @@ const Wrapper = styled(PageWrapper)`
   }
 `;
 
-const Element = styled(TransitionLink)`
+const Element = styled(Link)`
   position: relative;
   width: ${(props) => 100 / props.count}vw;
   height: 100vh;

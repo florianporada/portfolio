@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Link from 'gatsby-plugin-transition-link';
+import TransitionLink from 'gatsby-plugin-transition-link';
 import scrollTo from 'gatsby-plugin-smoothscroll';
 
-export default function TransitionLink({ className, children, to, target }) {
+export default function Link({ className, children, to, target }) {
   const internal = /^\/(?!\/)/.test(to);
 
   if (!to.startsWith('#') && internal) {
     return (
-      <Link
+      <TransitionLink
         activeClassName="active"
         className={className}
         to={to}
@@ -18,7 +18,7 @@ export default function TransitionLink({ className, children, to, target }) {
         entry={{ delay: 0.5 }}
       >
         {children}
-      </Link>
+      </TransitionLink>
     );
   }
 
@@ -40,7 +40,7 @@ export default function TransitionLink({ className, children, to, target }) {
   );
 }
 
-TransitionLink.propTypes = {
+Link.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,

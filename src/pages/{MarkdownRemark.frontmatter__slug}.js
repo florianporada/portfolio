@@ -7,13 +7,8 @@ import styled from 'styled-components';
 import { colors, sizes } from '../constants';
 import PageWrapper from '../components/PageWrapper';
 import Tag from '../components/Tag';
-import TransitionLink from '../components/TransitionLink';
+import Link from '../components/Link';
 import PageContent from '../components/PageContent';
-
-const interestingExitAnimation = (exit, node) => {
-  // do some animation here
-  console.log(exit, node);
-};
 
 const PageHeader = styled.div`
   text-align: center;
@@ -58,7 +53,7 @@ const Excerpt = styled.div`
   }
 `;
 
-const WorkLink = styled(TransitionLink)`
+const WorkLink = styled(Link)`
   background-color: ${colors.TEXT};
   color: ${colors.BACKGROUND};
   padding: 10px;
@@ -73,10 +68,8 @@ const WorkLink = styled(TransitionLink)`
   }
 `;
 
-export default function WorkTemplate({
-  data, // this prop will be injected by the GraphQL query below.
-}) {
-  const { markdownRemark } = data; // data.markdownRemark holds your post data
+export default function WorkTemplate({ data }) {
+  const { markdownRemark } = data;
   const { frontmatter, html } = markdownRemark;
   const [excerpt, content] = html.split('<!-- end -->');
 
@@ -106,17 +99,6 @@ export default function WorkTemplate({
         </div>
       </PageHeader>
       {content && <PageContent dangerouslySetInnerHTML={{ __html: content }} />}
-      <TransitionLink
-        to="/"
-        exit={{
-          length: 0.5,
-          trigger: ({ node, e, exit, entry }) =>
-            console.log(node, e, exit, entry),
-        }}
-        entry={{ delay: 0.5 }}
-      >
-        BACK
-      </TransitionLink>
     </PageWrapper>
   );
 }

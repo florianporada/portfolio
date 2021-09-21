@@ -7,7 +7,7 @@ import { useScrollData } from 'scroll-data-hook';
 import { colors, sizes } from '../constants';
 import { getNavLink } from '../lib/helper';
 import Nav from './Nav';
-import TransitionLink from './TransitionLink';
+import Link from './Link';
 
 const HeaderWrapper = styled.header`
   background: ${(props) =>
@@ -197,7 +197,9 @@ const Header = ({ simple }) => {
   if (simple) {
     return (
       <SimpleHeaderWrapper>
-        <h1>{site.siteMetadata.title}</h1>
+        <h1>
+          <Link to="/">{site.siteMetadata.title}</Link>
+        </h1>
         <ul>
           {allMarkdownRemark.nodes.map((item) => (
             <li key={item.id}>
@@ -217,22 +219,22 @@ const Header = ({ simple }) => {
       highlight={window.location.pathname === '/work'}
     >
       {/* <Title minimize={minimize}>
-        <TransitionLink to="/">
+        <Link to="/">
           {siteTitle.split(' ').map((part, idx) => (
             <span key={`${part}${idx}`}>{part}</span>
           ))}
-        </TransitionLink>
+        </Link>
       </Title> */}
       {/* <Nav items={data.pages.nodes} minimize={minimize} /> */}
       <h1>
-        <TransitionLink to="/">{site.siteMetadata.title}</TransitionLink>
+        <Link to="/">{site.siteMetadata.title}</Link>
       </h1>
       <NavWrapper>
         {allMarkdownRemark.nodes.map((item) => (
           <NavItem key={item.id}>
-            <TransitionLink to={getNavLink(item.frontmatter.title)}>
+            <Link to={getNavLink(item.frontmatter.title)}>
               {item.frontmatter.title}
-            </TransitionLink>
+            </Link>
           </NavItem>
         ))}
       </NavWrapper>
