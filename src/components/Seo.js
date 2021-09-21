@@ -8,26 +8,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
-import { useStaticQuery, graphql } from 'gatsby';
+
+import useSiteMetadata from '../hooks/useSiteMetadata';
 
 function SEO({ description, lang, meta, title, noscript }) {
-  const { site } = useStaticQuery(
-    graphql`
-      query {
-        site {
-          siteMetadata {
-            title
-            description
-            author
-            image
-            twitterUsername
-          }
-        }
-      }
-    `
-  );
-
-  const metaDescription = description || site.siteMetadata.description;
+  const siteMetadata = useSiteMetadata();
+  const metaDescription = description || siteMetadata.description;
 
   return (
     <Helmet
@@ -35,7 +21,7 @@ function SEO({ description, lang, meta, title, noscript }) {
         lang,
       }}
       title={title}
-      titleTemplate={`%s | ${site.siteMetadata.title}`}
+      titleTemplate={`%s | ${siteMetadata.title}`}
       noscript={noscript}
       meta={[
         {
@@ -56,7 +42,7 @@ function SEO({ description, lang, meta, title, noscript }) {
         },
         {
           property: `og:image`,
-          content: site.siteMetadata.image,
+          content: siteMetadata.image,
         },
         {
           name: `twitter:card`,
@@ -64,7 +50,7 @@ function SEO({ description, lang, meta, title, noscript }) {
         },
         {
           name: `twitter:creator`,
-          content: site.siteMetadata.twitterUsername,
+          content: siteMetadata.twitterUsername,
         },
         {
           name: `twitter:title`,
