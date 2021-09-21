@@ -67,6 +67,7 @@ Wrapper.propTypes = {
   ]).isRequired,
   full: PropTypes.bool,
   className: PropTypes.string,
+  style: PropTypes.object,
 };
 
 export default Wrapper;
