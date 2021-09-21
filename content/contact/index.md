@@ -1,5 +1,5 @@
 ---
-title: 'contact'
+title: 'Contact'
 order: 4
 anchor: footer
 social:

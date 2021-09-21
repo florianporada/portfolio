@@ -3,7 +3,7 @@ date: '2017-05-04'
 order: 3
 title: 'About'
 description: 'I build and explore new technologies.'
-featuredimage: ./portrait_transparent.png
+featuredimage: ./3d_head.png
 hardskills:
   - ReactJS
   - React-Native
