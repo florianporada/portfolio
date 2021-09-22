@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { graphql } from 'gatsby';
+import { graphql, navigate } from 'gatsby';
 import styled from 'styled-components';
 
 import { colors, sizes } from '../constants';
@@ -9,6 +9,7 @@ import Tag from '../components/Tag';
 import Link from '../components/Link';
 import PageContent from '../components/PageContent';
 import PageImage from '../components/PageImage';
+import { isBrowser } from '../lib/helper';
 
 const PageHeader = styled.div`
   text-align: center;
@@ -56,7 +57,7 @@ const WorkLink = styled(Link)`
   }
 `;
 
-export default function WorkTemplate({ data }) {
+export default function WorkTemplate({ data, path, ...props }) {
   const { markdownRemark } = data;
   const { frontmatter, html } = markdownRemark;
   const [excerpt, content] = html.split('<!-- end -->');
@@ -93,11 +94,12 @@ export default function WorkTemplate({ data }) {
 
 WorkTemplate.propTypes = {
   data: PropTypes.object,
+  path: PropTypes.string,
 };
 
 export const pageQuery = graphql`
   query ($id: String!) {
-    markdownRemark(id: { eq: $id }) {
+    markdownRemark(id: { eq: $id }, frontmatter: { slug: { ne: null } }) {
       html
       excerpt(format: MARKDOWN)
       frontmatter {
