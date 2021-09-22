@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import scrollTo from 'gatsby-plugin-smoothscroll';
 
 import { colors, breakpoints } from '../constants';
 import Link from './Link';

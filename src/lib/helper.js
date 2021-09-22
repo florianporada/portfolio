@@ -35,4 +35,6 @@ function getNavLink(link) {
   return `/${link.toLowerCase()}`;
 }
 
-export { getHardskills, getNavLink };
+const isBrowser = () => typeof window !== 'undefined';
+
+export { getHardskills, getNavLink, isBrowser };
