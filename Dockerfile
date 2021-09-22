@@ -22,7 +22,16 @@ RUN yarn
 ARG GATSBY_MAPBOX_API_TOKEN_ARG=unknown
 ENV GATSBY_MAPBOX_API_TOKEN $GATSBY_MAPBOX_API_TOKEN_ARG
 
+# Disable telemtry data transmition
 ENV GATSBY_TELEMETRY_DISABLED 1
+
+# google tag manager id
+ARG GTAG_ID=''
+ENV GATSBY_GTAG_ID $GTAG_ID
+
+# google analytics id
+ARG GA_ID=''
+ENV GATSBY_GA_ID $GA_ID
 
 # Build app
 RUN gatsby build
@@ -37,18 +46,6 @@ ENV APP_VERSION $APP_VERSION
 # production is the default, but you can override it with --build-arg NODE_ENV=development during docker build
 ARG NODE_ENV=production
 ENV NODE_ENV $NODE_ENV
-
-# google tag manager id
-ARG GTAG_ID=''
-ENV GATSBY_GTAG_ID $GTAG_ID
-
-# google analytics id
-ARG GA_ID=''
-ENV GATSBY_GA_ID $GA_ID
-
-# Disable telemetry
-ENV GATSBY_TELEMETRY_DISABLED 1
-
 
 # unknown is the default, but you can override it with --build-arg RELEASE_DATE=$(date +"%Y/%m/%d") during docker build
 ARG RELEASE_DATE=unknown
