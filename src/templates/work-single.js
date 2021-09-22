@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { graphql, navigate } from 'gatsby';
+import { graphql } from 'gatsby';
 import styled from 'styled-components';
 
 import { colors, sizes } from '../constants';
@@ -9,7 +9,6 @@ import Tag from '../components/Tag';
 import Link from '../components/Link';
 import PageContent from '../components/PageContent';
 import PageImage from '../components/PageImage';
-import { isBrowser } from '../lib/helper';
 
 const PageHeader = styled.div`
   text-align: center;
