@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
 
-import { colors } from '../constants';
+import { colors, sizes } from '../constants';
 import { getHardskills } from '../lib/helper';
 
-import Layout from '../components/layout';
-import SectionTitle from '../components/sectiontitle';
-import SEO from '../components/seo';
-import ListItem from '../components/listitem';
-import Tag from '../components/tag';
+import SectionTitle from '../components/SectionTitle';
+import SEO from '../components/Seo';
+import ListItem from '../components/ListItem';
+import Tag from '../components/Tag';
+import Link from '../components/Link';
 
 const Section = styled.section`
   margin: 50px 0;
@@ -78,21 +78,23 @@ const WorkItem = styled.div`
 
   span:first-of-type {
     font-family: 'Polarity';
-    font-size: 0.8rem;
+    font-size: ${sizes.FONT_SM};
   }
 `;
 
 const SimpleVersionPage = ({ data }) => {
-  const hardskills = useMemo(() => getHardskills(data.skill), [data]);
+  const hardskills = useMemo(() => getHardskills(data.about), [data]);
 
   return (
-    <Layout simple>
+    <>
       <SEO title="Simple Version" />
       <Note>
         Hey!
+        <span> </span>
         <span role="img" aria-label="waving hand">
           👋
         </span>
+        <span> </span>
         It seems that your browser does not support JavaScript. That is why you
         are seeing a simple version of the portfolio.
       </Note>
@@ -109,14 +111,17 @@ const SimpleVersionPage = ({ data }) => {
             <WorkItem key={item.id}>
               <span>{item.frontmatter.date.split('-')[0]}</span>
               <h3>{item.frontmatter.title}</h3>
-              <div dangerouslySetInnerHTML={{ __html: item.html }}></div>
-              <a
-                href={item.frontmatter.link}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <div
+                dangerouslySetInnerHTML={{
+                  __html:
+                    item.html.split('<!-- end -->').length > 1
+                      ? item.html.split('<!-- end -->')[0]
+                      : item.html,
+                }}
+              ></div>
+              <Link to={item.frontmatter.link} target="_blank">
                 Link
-              </a>
+              </Link>
               {item.frontmatter.tags.map((tag) => (
                 <Tag key={tag}>{tag}</Tag>
               ))}
@@ -125,11 +130,7 @@ const SimpleVersionPage = ({ data }) => {
         </Content>
       </Section>
       <Section id="skill">
-        <SectionTitle>{data.skill.frontmatter.title}</SectionTitle>
-        <Content>
-          <div dangerouslySetInnerHTML={{ __html: data.skill.html }}></div>
-        </Content>
-        <SectionTitle>Tools I use</SectionTitle>
+        <SectionTitle>Working with</SectionTitle>
         <Content>
           <List>
             {hardskills.map((item) => (
@@ -148,7 +149,7 @@ const SimpleVersionPage = ({ data }) => {
           </List>
         </Content>
       </Section>
-    </Layout>
+    </>
   );
 };
 
@@ -165,10 +166,12 @@ export const query = graphql`
     about: markdownRemark(fileAbsolutePath: { regex: "/content/about/" }) {
       id
       html
+      htmlAst
       frontmatter {
         description
         title
         date
+        hardskills
       }
     }
     skill: markdownRemark(fileAbsolutePath: { regex: "/content/skill/" }) {

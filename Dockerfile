@@ -1,5 +1,5 @@
 # Building phase
-FROM node:12-buster as builder
+FROM node:14-buster as builder
 
 LABEL description="portfolio page"
 LABEL project="portfolio"
@@ -37,6 +37,18 @@ ENV APP_VERSION $APP_VERSION
 # production is the default, but you can override it with --build-arg NODE_ENV=development during docker build
 ARG NODE_ENV=production
 ENV NODE_ENV $NODE_ENV
+
+# google tag manager id
+ARG GTAG_ID=''
+ENV GTAG_ID $GTAG_ID
+
+# google analytics id
+ARG GA_ID=''
+ENV GA_ID $GA_ID
+
+# Disable telemetry
+ENV GATSBY_TELEMETRY_DISABLED 1
+
 
 # unknown is the default, but you can override it with --build-arg RELEASE_DATE=$(date +"%Y/%m/%d") during docker build
 ARG RELEASE_DATE=unknown

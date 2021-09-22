@@ -48,11 +48,13 @@ jobs:
         env:
           APP_VERSION: ${{ env.RELEASE_VERSION }}
           RELEASE_DATE: $(date +\"%Y/%m/%d\")
+          GTAG_ID: ${{ secrets.GTAG_ID }}
+          GA_ID: ${{ secrets.GA_ID }}
         with:
           name: florianporada/florianporada.com
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          buildargs: APP_VERSION,RELEASE_DATE
+          buildargs: APP_VERSION,RELEASE_DATE,GTAG_ID,GA_ID
           tags: 'latest,${{ env.RELEASE_VERSION }}'
   update_droplet:
     needs: [build_container]
