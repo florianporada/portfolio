@@ -14,6 +14,7 @@ import { colors, breakpoints } from '../constants';
 
 import Header from './Header';
 import Footer from './Footer';
+import { isBrowser } from '../lib/helper';
 
 const Main = styled.main`
   background-color: ${colors.BACKGROUND};
@@ -40,7 +41,8 @@ const Main = styled.main`
 `;
 
 const Layout = ({ children }) => {
-  const isSimpleversion = window.location.pathname === '/simpleversion';
+  const isSimpleversion =
+    isBrowser() && window.location.pathname === '/simpleversion';
 
   return (
     <>

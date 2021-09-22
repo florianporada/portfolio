@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useScrollData } from 'scroll-data-hook';
 
 import { colors, sizes } from '../constants';
-import { getNavLink } from '../lib/helper';
+import { getNavLink, isBrowser } from '../lib/helper';
 import Link from './Link';
 
 const HeaderWrapper = styled.header`
@@ -202,9 +202,9 @@ const Header = ({ simple }) => {
         <ul>
           {allMarkdownRemark.nodes.map((item) => (
             <li key={item.id}>
-              <a href={`#${item.frontmatter.title.toLowerCase()}`}>
+              <Link to={`#${item.frontmatter.title.toLowerCase()}`}>
                 {item.frontmatter.title}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -215,7 +215,7 @@ const Header = ({ simple }) => {
   return (
     <HeaderWrapper
       minimize={minimize}
-      highlight={window.location.pathname === '/work'}
+      highlight={isBrowser() && window.location.pathname === '/work'}
     >
       <h1>
         <Link to="/">{site.siteMetadata.title}</Link>
