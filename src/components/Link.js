@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import TransitionLink from 'gatsby-plugin-transition-link';
 import scrollTo from 'gatsby-plugin-smoothscroll';
 
-export default function Link({ className, children, to, target }) {
+export default function Link({ className, children, to, target, rel }) {
   const internal = /^\/(?!\/)/.test(to);
 
   if (!to.startsWith('#') && internal) {
@@ -12,6 +12,7 @@ export default function Link({ className, children, to, target }) {
         activeClassName="active"
         className={className}
         to={to}
+        rel={rel}
         exit={{
           length: 0.5,
         }}
@@ -49,4 +50,5 @@ Link.propTypes = {
   to: PropTypes.string.isRequired,
   className: PropTypes.string,
   target: PropTypes.string,
+  rel: PropTypes.string,
 };

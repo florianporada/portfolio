@@ -47,6 +47,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             fileAbsolutePath: { regex: "/content/work/" }
             frontmatter: { featured: { eq: true } }
           }
+          sort: { order: DESC, fields: [frontmatter___date] }
         ) {
           nodes {
             id

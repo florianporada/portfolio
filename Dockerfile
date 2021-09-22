@@ -40,11 +40,11 @@ ENV NODE_ENV $NODE_ENV
 
 # google tag manager id
 ARG GTAG_ID=''
-ENV GTAG_ID $GTAG_ID
+ENV GATSBY_GTAG_ID $GTAG_ID
 
 # google analytics id
 ARG GA_ID=''
-ENV GA_ID $GA_ID
+ENV GATSBY_GA_ID $GA_ID
 
 # Disable telemetry
 ENV GATSBY_TELEMETRY_DISABLED 1
