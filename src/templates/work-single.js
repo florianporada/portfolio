@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
 
-import { colors, sizes } from '../constants';
+import { colors, sizes, breakpoints } from '../constants';
 import PageWrapper from '../components/PageWrapper';
 import Tag from '../components/Tag';
 import Link from '../components/Link';
@@ -39,6 +39,13 @@ const Excerpt = styled.div`
   p:last-of-type {
     margin-bottom: 0;
   }
+
+  @media (max-width: ${breakpoints.MD}px) {
+    max-width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const WorkLink = styled(Link)`
@@ -53,6 +60,9 @@ const WorkLink = styled(Link)`
 
   &::after {
     content: none;
+  }
+
+  @media (max-width: ${breakpoints.MD}px) {
   }
 `;
 
@@ -71,7 +81,7 @@ export default function WorkTemplate({ data, path, ...props }) {
           ))}
         </TagWrapper>
         <h2>{frontmatter.date}</h2>
-        <div style={{ display: 'flex', position: 'relative' }}>
+        <div style={{ position: 'relative' }}>
           <PageImage
             image={frontmatter.featuredimage.childImageSharp.gatsbyImageData}
             alt={`Titleimage for ${frontmatter.title}`}

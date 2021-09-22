@@ -15,6 +15,8 @@ const PageImage = styled(GatsbyImage)`
   }
 
   @media (max-width: ${breakpoints.MD}px) {
+    width: 100%;
+    margin-bottom: 20px;
   }
 `;
 

@@ -22,6 +22,7 @@ const Wrapper = styled(PageWrapper)`
 
   @media (max-width: ${breakpoints.MD}px) {
     flex-direction: column;
+    margin-top: 94px;
 
     ${(props) =>
       props.open &&
@@ -29,7 +30,7 @@ const Wrapper = styled(PageWrapper)`
         ${Element} {
           width: 100% !important;
         }
-      `}
+      `};
   }
 
   @media (max-width: ${breakpoints.SM}) {
