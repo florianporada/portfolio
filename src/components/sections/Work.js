@@ -3,9 +3,7 @@ import React, { useState, useRef, useLayoutEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { GatsbyImage } from 'gatsby-plugin-image';
 
-// import DDDImage from '../3d/image';
-import Tag from '../Tag';
-import TransitionLink from '../TransitionLink';
+import Link from '../Link';
 import { breakpoints, colors } from '../../constants';
 
 const Wrapper = styled.div`
@@ -37,7 +35,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const Element = styled(TransitionLink)`
+const Element = styled(Link)`
   position: relative;
   width: ${(props) => 100 / props.count}vw;
   height: 800px;
@@ -130,23 +128,6 @@ const Title = styled.h2`
     top: 5px;
     left: 15px;
     transform: none;
-  }
-`;
-
-const Meta = styled.div`
-  display: block;
-  width: 100%;
-`;
-
-const Link = styled.a`
-  color: ${colors.TEXT};
-  font-size: 1.5rem;
-  font-family: 'Suprapower';
-  display: block;
-  margin-bottom: 10px;
-
-  &:visited {
-    color: ${colors.TEXT};
   }
 `;
 
@@ -288,16 +269,6 @@ const Work = ({ items }) => {
             key={item.id}
             to={`${item.frontmatter.slug}`}
             count={items.length}
-            // visible={visibleId === item.id}
-            onClick={(e) => {
-              // e.preventDefault();
-              // TODO: do something with form values
-              // navigate(`${item.frontmatter.slug}`);
-              // setVisibleId((activeId) => {
-              //   const isActive = activeId !== item.id ? item.id : undefined;
-              //   return isActive;
-              // });
-            }}
           >
             <StyledImg
               image={image.gatsbyImageData}
@@ -306,61 +277,10 @@ const Work = ({ items }) => {
             <Title>{item.frontmatter.title}</Title>
             <Content>
               <div dangerouslySetInnerHTML={{ __html: item.html }} />
-              <Meta>
-                {/* <Link
-                  href={item.frontmatter.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Link
-                </Link> */}
-                {item.frontmatter.tags &&
-                  item.frontmatter.tags.map((tag) => (
-                    <Tag key={tag}>{tag}</Tag>
-                  ))}
-              </Meta>
             </Content>
-            {/* <DDDImage image={item.frontmatter.featuredimage} /> */}
           </Element>
         );
       })}
-      {/* {items.map((item, i) => {
-        return (
-          <ContentWrapper key={item.id}>
-            <Excerpt
-              position={positions[i]}
-              ref={(contentRef) => {
-                contentRefs[i].current = contentRef;
-              }}
-              onClick={() => {
-                animate(item.id, i);
-              }}
-            >
-              <h2>{item.frontmatter.title}</h2>
-
-              <Img
-                style={{ width: 600, height: 600 }}
-                fixed={item.frontmatter.featuredimage.childImageSharp.fixed}
-              />
-              <DDDImage
-                image={item.frontmatter.featuredimage}
-              />
-            </Excerpt>
-            <Details visible={visibleId === item.id}>
-              <span
-                onClick={() => {
-                  setVisibleId(undefined);
-                }}
-              >
-                close
-              </span>
-              <span>{item.frontmatter.date}</span>
-              <p>{item.frontmatter.description}</p>
-              <div dangerouslySetInnerHTML={{ __html: item.html }} />
-            </Details>
-          </ContentWrapper>
-        );
-      })} */}
     </Wrapper>
   );
 };
