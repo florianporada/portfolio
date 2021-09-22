@@ -63,7 +63,7 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
-    "docker:build": "docker build . -t florianporada/florianporada.com --build-arg APP_VERSION=$(node -p \"require('./package.json').version\") --build-arg RELEASE_DATE=$(date +\"%Y/%m/%d\")",
+    "docker:build": "docker build . --no-cache -t florianporada/florianporada.com --build-arg APP_VERSION=$(node -p \"require('./package.json').version\") --build-arg RELEASE_DATE=$(date +\"%Y/%m/%d\")",
     "docker:run": "docker run -p 80:80 florianporada/florianporada.com:latest",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",

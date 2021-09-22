@@ -1,5 +1,5 @@
 # Building phase
-FROM node:12-buster as builder
+FROM node:14-buster as builder
 
 LABEL description="portfolio page"
 LABEL project="portfolio"
@@ -22,8 +22,6 @@ RUN yarn
 ARG GATSBY_MAPBOX_API_TOKEN_ARG=unknown
 ENV GATSBY_MAPBOX_API_TOKEN $GATSBY_MAPBOX_API_TOKEN_ARG
 
-ENV GATSBY_TELEMETRY_DISABLED 1
-
 # Build app
 RUN gatsby build
 
@@ -45,6 +43,9 @@ ENV GTAG_ID $GTAG_ID
 # google analytics id
 ARG GA_ID=''
 ENV GA_ID $GA_ID
+
+# Disable telemetry
+ENV GATSBY_TELEMETRY_DISABLED 1
 
 # unknown is the default, but you can override it with --build-arg RELEASE_DATE=$(date +"%Y/%m/%d") during docker build
 ARG RELEASE_DATE=unknown
