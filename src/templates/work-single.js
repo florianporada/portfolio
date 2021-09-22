@@ -19,8 +19,31 @@ const PageHeader = styled.div`
   }
 `;
 
+const PageNav = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+
+  a {
+    color: ${colors.TEXT} !important;
+
+    &:only-child {
+      color: red;
+    }
+  }
+`;
+
 const TagWrapper = styled.div`
   margin-bottom: 10px;
+`;
+
+const Intro = styled.div`
+  display: flex;
+  position: relative;
+
+  @media (max-width: ${breakpoints.MD}px) {
+    display: block;
+  }
 `;
 
 const Excerpt = styled.div`
@@ -70,6 +93,7 @@ export default function WorkTemplate({ data, path, ...props }) {
   const { markdownRemark } = data;
   const { frontmatter, html } = markdownRemark;
   const [excerpt, content] = html.split('<!-- end -->');
+  const { previous, next } = data;
 
   return (
     <PageWrapper title={frontmatter.title}>
@@ -81,7 +105,7 @@ export default function WorkTemplate({ data, path, ...props }) {
           ))}
         </TagWrapper>
         <h2>{frontmatter.date}</h2>
-        <div style={{ position: 'relative' }}>
+        <Intro>
           <PageImage
             image={frontmatter.featuredimage.childImageSharp.gatsbyImageData}
             alt={`Titleimage for ${frontmatter.title}`}
@@ -94,9 +118,21 @@ export default function WorkTemplate({ data, path, ...props }) {
               </WorkLink>
             )}
           </Excerpt>
-        </div>
+        </Intro>
       </PageHeader>
       {content && <PageContent dangerouslySetInnerHTML={{ __html: content }} />}
+      <PageNav>
+        {previous && (
+          <Link to={previous.frontmatter.slug} rel="prev">
+            ← {previous.frontmatter.title}
+          </Link>
+        )}
+        {next && (
+          <Link to={next.frontmatter.slug} rel="next">
+            {next.frontmatter.title} →
+          </Link>
+        )}
+      </PageNav>
     </PageWrapper>
   );
 }
@@ -107,7 +143,7 @@ WorkTemplate.propTypes = {
 };
 
 export const pageQuery = graphql`
-  query ($id: String!) {
+  query ($id: String!, $previousPostId: String, $nextPostId: String) {
     markdownRemark(id: { eq: $id }, frontmatter: { slug: { ne: null } }) {
       html
       excerpt(format: MARKDOWN)
@@ -130,6 +166,18 @@ export const pageQuery = graphql`
             )
           }
         }
+      }
+    }
+    previous: markdownRemark(id: { eq: $previousPostId }) {
+      frontmatter {
+        slug
+        title
+      }
+    }
+    next: markdownRemark(id: { eq: $nextPostId }) {
+      frontmatter {
+        slug
+        title
       }
     }
   }

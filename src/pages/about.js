@@ -19,6 +19,7 @@ const StyledImg = styled(PageImage)`
   @media (max-width: ${breakpoints.MD}px) {
     width: 45%;
     left: 50%;
+    top: 70px;
     transform: translateX(-50%);
   }
 `;
