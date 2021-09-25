@@ -89,16 +89,16 @@ a {
   }
 
   &:visited {
-    color: darken($background, 10);
+    color: darken($background, 50);
 
     &::after {
-      background: darken($color1, 10);
+      background: darken($color1, 50);
     }
   }
 
   &::after {
     content: '';
-    height: 0.175rem;
+    height: 0.0125em;
     width: 0;
     background: $color1;
     display: block;

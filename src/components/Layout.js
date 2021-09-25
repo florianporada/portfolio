@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import '../assets/styles/index.scss';
-import { colors, breakpoints } from '../constants';
+import { colors } from '../constants';
 
 import Header from './Header';
 import Footer from './Footer';
@@ -23,7 +23,7 @@ const Main = styled.main`
 
   &::after {
     z-index: -1;
-    height: 500px;
+    height: 350px;
     content: '';
     position: absolute;
     width: 100%;
@@ -31,12 +31,6 @@ const Main = styled.main`
 
   .tl-edges {
     min-height: 100%;
-  }
-
-  @media (max-width: ${breakpoints.MD}px) {
-    &::after {
-      height: 460px;
-    }
   }
 `;
 

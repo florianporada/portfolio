@@ -6,7 +6,7 @@ import scrollTo from 'gatsby-plugin-smoothscroll';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as faRegularIcons from '@fortawesome/free-regular-svg-icons';
 
-import { colors } from '../constants';
+import { colors, fonts } from '../constants';
 import NavButton from './NavButton';
 
 const NavWrapper = styled.div`
@@ -52,7 +52,7 @@ const NavItem = styled.li`
   list-style: none;
   padding: 15px;
   text-transform: uppercase;
-  font-family: Suprapower;
+  font-family: ${fonts.HIGHLIGHT};
   font-size: 2rem;
 
   &:first-of-type {

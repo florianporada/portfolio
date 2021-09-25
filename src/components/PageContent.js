@@ -1,17 +1,21 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { breakpoints } from '../constants';
 
 const PageContent = styled.div`
   margin-top: 50px;
 
-  pre,
-  h3,
-  h4,
-  h5,
-  h6,
-  p {
-    margin-left: 150px;
-  }
+  ${(props) =>
+    !props.noIndent &&
+    css`
+      pre,
+      h3,
+      h4,
+      h5,
+      h6,
+      p {
+        margin-left: 150px;
+      }
+    `}
 
   span.full-size {
     p > img,

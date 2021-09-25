@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 import { GatsbyImage } from 'gatsby-plugin-image';
 
 import Link from '../Link';
-import { breakpoints, colors } from '../../constants';
+import { breakpoints, colors, sizes } from '../../constants';
 
 const Wrapper = styled.div`
   padding: 15px 0;
@@ -41,7 +41,7 @@ const Element = styled(Link)`
   height: 800px;
   border-color: ${colors.TEXT};
   border-style: solid;
-  border-width: 3px;
+  border-width: ${sizes.BORDER};
   overflow: hidden;
   transition: border-color 0.25s ease, width 0.25s ease, height 0.25s ease;
 
