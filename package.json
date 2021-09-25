@@ -28,6 +28,7 @@
     "gatsby-plugin-transition-link": "^1.20.5",
     "gatsby-plugin-web-font-loader": "^1.0.4",
     "gatsby-remark-copy-linked-files": "^4.10.0",
+    "gatsby-remark-gifs-to-videos": "^1.0.0-beta.4",
     "gatsby-remark-images": "^5.10.0",
     "gatsby-source-filesystem": "^3.13.0",
     "gatsby-transformer-json": "^3.13.0",
@@ -51,6 +52,7 @@
     "@babel/plugin-proposal-decorators": "^7.15.4",
     "babel-preset-gatsby": "^1.13.0",
     "eslint-config-react-app": "^6.0.0",
+    "got": "^11.8.2",
     "prettier": "2.4.0"
   },
   "keywords": [
