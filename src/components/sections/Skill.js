@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useSpring, animated, useSprings } from 'react-spring';
 
 import { getHardskills } from '../../lib/helper';
-import { colors } from '../../constants';
+import { colors, fonts } from '../../constants';
 import ListItem from '../ListItem';
 import PageWrapper from '../PageWrapper';
 
@@ -38,7 +38,7 @@ const Button = styled.a`
   color: ${colors.BACKGROUND};
   font-size: 2.75em;
   padding: 30px;
-  font-family: 'Suprapower';
+  font-family: ${fonts.HIGHLIGHT};
   align-self: flex-start;
   transition: background-color 0.25s ease, color 0.25s ease;
 

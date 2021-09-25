@@ -15,8 +15,10 @@ const StyledImg = styled(PageImage)`
   top: 50px;
   left: -150px;
   z-index: -1;
+  opacity: 0.5;
 
   @media (max-width: ${breakpoints.MD}px) {
+    opacity: 0.9;
     width: 45%;
     left: 50%;
     top: 70px;
@@ -51,6 +53,7 @@ export default function About({
       </PageHeader>
       {content && (
         <PageContent
+          noIndent
           dangerouslySetInnerHTML={{ __html: `${excerpt}${content}` }}
         />
       )}

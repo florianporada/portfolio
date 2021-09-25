@@ -18,10 +18,10 @@ const faComplete = {
 };
 
 const FooterWrapper = styled.footer`
-  min-height: 400px;
+  min-height: 350px;
   background-color: ${colors.TEXT};
   color: ${colors.BACKGROUND};
-  font-size: 30px;
+  font-size: 1.25em;
   padding: 50px 15px 15px 15px;
   position: fixed;
   bottom: 0;
@@ -71,12 +71,7 @@ const Li = styled.li`
 const Copyright = styled.div`
   display: block;
   align-self: flex-end;
-  font-family: 'Suprapower';
   text-decoration: none;
-
-  @media (max-width: ${breakpoints.MD}px) {
-    font-size: 1.5rem;
-  }
 `;
 
 const Footer = ({ simple }) => {
@@ -99,7 +94,6 @@ const Footer = ({ simple }) => {
 
   return (
     <FooterWrapper>
-      <SectionTitle invert>Contact</SectionTitle>
       <Content>
         <Ul>
           {data.contact.frontmatter.social.map((detail) => {

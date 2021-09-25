@@ -8,6 +8,13 @@ export const sizes = {
   FONT_LG: `1.4rem`,
   FONT_MD: `1rem`,
   FONT_SM: `0.8rem;`,
+  BORDER: '1px',
+};
+
+export const fonts = {
+  TEXT: 'Polarity',
+  HIGHLIGHT: 'Suprapower',
+  HIDDEN: 'Wireframer',
 };
 
 export const breakpoints = {

@@ -6,7 +6,7 @@ import { colors, breakpoints } from '../constants';
 import Link from './Link';
 
 const TitleWrapper = styled.h2`
-  font-size: 6rem;
+  font-size: 4rem;
   margin-left: 85px;
   margin-right: 15px;
   transition: margin 0.25s ease;
@@ -42,7 +42,7 @@ const TitleWrapper = styled.h2`
   }
 
   @media (max-width: ${breakpoints.MD}px) {
-    font-size: 4rem;
+    font-size: 3rem;
     margin-left: 15px;
 
     &:hover {
@@ -55,7 +55,7 @@ const TitleWrapper = styled.h2`
   }
 
   @media (max-width: ${breakpoints.SM}px) {
-    font-size: 3rem;
+    font-size: 2rem;
 
     &::after {
       margin-left: 0;

@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useScrollData } from 'scroll-data-hook';
 
-import { colors, sizes } from '../constants';
+import { breakpoints, colors, sizes } from '../constants';
 import { getNavLink, isBrowser } from '../lib/helper';
 import Link from './Link';
 
@@ -62,6 +62,12 @@ const HeaderWrapper = styled.header`
     &::after {
       display: none;
     }
+  }
+
+  @media (max-width: ${breakpoints.MD}px) {
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
   }
 `;
 
@@ -151,6 +157,7 @@ const NavWrapper = styled.ul`
   justify-content: flex-end;
   text-transform: uppercase;
   margin-bottom: 0;
+  margin-left: 0;
 `;
 
 const NavItem = styled.li`

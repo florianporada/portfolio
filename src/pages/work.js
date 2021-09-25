@@ -4,7 +4,7 @@ import { graphql } from 'gatsby';
 import { GatsbyImage } from 'gatsby-plugin-image';
 import styled, { css } from 'styled-components';
 
-import { colors, breakpoints } from '../constants';
+import { colors, breakpoints, sizes } from '../constants';
 import PageWrapper from '../components/PageWrapper';
 import Link from '../components/Link';
 
@@ -22,7 +22,7 @@ const Wrapper = styled(PageWrapper)`
 
   @media (max-width: ${breakpoints.MD}px) {
     flex-direction: column;
-    margin-top: 94px;
+    margin-top: 115px;
 
     ${(props) =>
       props.open &&
@@ -43,7 +43,7 @@ const Element = styled(Link)`
   height: 100vh;
   border-color: ${colors.TEXT};
   border-style: solid;
-  border-width: 3px;
+  border-width: ${sizes.BORDER};
   overflow: hidden;
   transition: border-color 0.25s ease, width 0.25s ease, height 0.25s ease;
 
@@ -94,10 +94,12 @@ const Element = styled(Link)`
 const StyledImg = styled(GatsbyImage)`
   height: 100%;
   filter: grayscale(1);
+  opacity: 0.2;
   transition: all 0.25s ease;
 
   &:hover {
     transform: scale(1.01);
+    opacity: 1;
     filter: grayscale(0);
   }
 
@@ -121,12 +123,14 @@ const Content = styled.div`
 
 const Title = styled.h2`
   position: absolute;
-  top: -5px;
+  top: 90px;
   transform-origin: left;
   transform: rotate(90deg);
   left: 25px;
   width: max-content;
   transition: color 0.25s ease;
+  font-size: 1.25em;
+  color: ${colors.TEXT};
 
   @media (max-width: ${breakpoints.MD}px) {
     top: 5px;

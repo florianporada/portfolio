@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
 
-import { colors, sizes, breakpoints } from '../constants';
+import { colors, sizes, breakpoints, fonts } from '../constants';
 import PageWrapper from '../components/PageWrapper';
 import Tag from '../components/Tag';
 import Link from '../components/Link';
@@ -50,7 +50,7 @@ const Excerpt = styled.div`
   background-color: ${colors.BACKGROUND};
   border-color: ${colors.TEXT};
   border-style: solid;
-  border-width: 3px;
+  border-width: ${sizes.BORDER};
   bottom: 0;
   max-width: 70%;
   padding: 20px;
@@ -77,12 +77,20 @@ const WorkLink = styled(Link)`
   padding: 10px;
   margin: 15px 0 0 0;
   font-size: ${sizes.FONT_SM};
-  font-family: 'Suprapower';
+  font-family: ${fonts.HIGHLIGHT};
   transition: all 0.25s ease;
   float: right;
 
   &::after {
     content: none;
+  }
+
+  &:visited {
+    color: ${colors.BACKGROUND};
+  }
+
+  &:hover {
+    color: ${colors.PRIMARY};
   }
 
   @media (max-width: ${breakpoints.MD}px) {
