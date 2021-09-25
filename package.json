@@ -2,7 +2,7 @@
   "name": "portfolio",
   "private": true,
   "description": "my portfolio",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "florianporada",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",
@@ -28,6 +28,7 @@
     "gatsby-plugin-transition-link": "^1.20.5",
     "gatsby-plugin-web-font-loader": "^1.0.4",
     "gatsby-remark-copy-linked-files": "^4.10.0",
+    "gatsby-remark-gifs-to-videos": "^1.0.0-beta.4",
     "gatsby-remark-images": "^5.10.0",
     "gatsby-source-filesystem": "^3.13.0",
     "gatsby-transformer-json": "^3.13.0",
@@ -51,6 +52,7 @@
     "@babel/plugin-proposal-decorators": "^7.15.4",
     "babel-preset-gatsby": "^1.13.0",
     "eslint-config-react-app": "^6.0.0",
+    "got": "^11.8.2",
     "prettier": "2.4.0"
   },
   "keywords": [
@@ -63,7 +65,7 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
-    "docker:build": "docker build . --no-cache -t florianporada/florianporada.com --build-arg APP_VERSION=$(node -p \"require('./package.json').version\") --build-arg RELEASE_DATE=$(date +\"%Y/%m/%d\")",
+    "docker:build": "docker build . --no-cache -t florianporada/florianporada.com --build-arg APP_VERSION=$(node -p \"require('./package.json').version\") --build-arg RELEASE_DATE=$(date +\"%Y/%m/%d\") --build-arg GA_ID=lololol",
     "docker:run": "docker run -p 80:80 florianporada/florianporada.com:latest",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",

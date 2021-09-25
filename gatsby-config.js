@@ -49,11 +49,17 @@ module.exports = {
       resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
+          {
+            resolve: `gatsby-remark-gifs-to-videos`,
+            options: {
+              maxWidth: 992,
+            },
+          },
           `gatsby-remark-copy-linked-files`,
           {
             resolve: `gatsby-remark-images`,
             options: {
-              maxWidth: 800,
+              maxWidth: 992,
               withWebp: true,
               withAvif: true,
             },

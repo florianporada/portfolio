@@ -208,7 +208,7 @@ export const pageQuery = graphql`
                 layout: CONSTRAINED
                 placeholder: BLURRED
                 formats: [AUTO, WEBP, AVIF]
-                width: 800
+                width: 992
                 transformOptions: { grayscale: false }
                 aspectRatio: 1
               )
