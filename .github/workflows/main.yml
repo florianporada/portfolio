@@ -12,6 +12,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GH_ACCESS_TOKEN }}
+          submodules: recursive
       - name: Get release version
         id: get_version
         run: echo "RELEASE_VERSION=$(echo ${GITHUB_SHA::8})" >> $GITHUB_ENV

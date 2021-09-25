@@ -119,9 +119,11 @@ const SimpleVersionPage = ({ data }) => {
                       : item.html,
                 }}
               ></div>
-              <Link to={item.frontmatter.link} target="_blank">
-                Link
-              </Link>
+              {item.frontmatter.link && (
+                <Link to={item.frontmatter.link} target="_blank">
+                  Link
+                </Link>
+              )}
               {item.frontmatter.tags.map((tag) => (
                 <Tag key={tag}>{tag}</Tag>
               ))}
