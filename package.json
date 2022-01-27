@@ -44,7 +44,7 @@
     "react-spring": "^9.2.4",
     "scroll-data-hook": "^1.0.1",
     "styled-components": "^5.3.1",
-    "three": "^0.132.2",
+    "three": "^0.137.0",
     "use-cannon": "^0.5.3"
   },
   "devDependencies": {
